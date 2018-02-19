@@ -156,3 +156,15 @@ input, select, textarea{
 	margin-top: 10px;
 }
 
+
+#onglet{
+	
+	width:	50%;
+	margin-right: 50px;
+}
+
+.recapitulation{
+	margin-top: 50px;
+	margin-left: 50%;
+	width: 50%;
+}
