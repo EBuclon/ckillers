@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Céréale Killers</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<script type="text/javascript" src="js/ajouterCrEvNw.js"></script>
+</head>
+<body>
+	<header th:replace="~{fragments::header}"></header>
+	<div class="container">
+		<div class="row">
+			<h2>Ajouter un créneau</h2>
+		</div>
+		<form id="ajouterCreneau" method="post" role="form">
+			<div class="row">
+				<label for="lieuC" class="col-sm-1">Lieu :</label>
+				<input type="text" name="Lieu" id="lieuC"/>
+			</div>
+			<div class="row">
+				<label for="dateC" class="col-sm-1">Date :</label>
+				<input type="date" name="dateC" id="dateC" /><!--class="col-md-1"-->
+			</div>
+			<div class="row">
+				<label for="heureC" class="col-sm-1">Horraire:</label>
+				<input type="text" name="heure" id="heureC" class="col-md-1" />
+				<input type="submit" name="submit" value="ajouter" class="col-xs-2"/>
+			</div>
+		</form>
+		<p id="messageC"></p>
+	</div>
+</body>
+</html>

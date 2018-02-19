@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Céréale Killers</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+</head>
+<body>
+	<header th:replace="~{fragments::header}"></header>
+	<div class="container">
+		<div class="row">
+			<h3 class="col-md-4">[[${creneau.lieu}]]</h3>
+			<h3 class="col-md-4">[[${creneau.date}]]</h3>
+			<h3 class="col-md-4">[[${creneau.heure}]]</h3>
+		</div>
+	<form method="post" role="form">
+		<div class="row">
+			<div class="col-5"><label for="nomJeu" class="col-md-5">nom du jeu :</label>
+			<input type="text" id="nomJeu" name="gameName" class="col-md-4"/></div>
+			<div class="col-5"><label for="type" class="col-md-4">type de soirée :</label>
+			<select id="type"><option>suite de partie</option></select></div>
+		</div>
+		<div class="row">
+			<div class="col-5"><label for="titre" class="col-md-5">Titre du scénario :</label>
+			<input type="text" id="titre" name="title" class="col-md-4"></div>
+			<div class="col-3"><label for="min" class="col-md-6">nombre min :</label>
+			<input type="number" id="min" name="nbmin" class="col-sm-3"/></div>
+			<div class="col-3"><label for="max" class="col-md-6">nombre max :</label>
+			<input type="number" id="max" name="nbmax" class="col-sm-3"/></div>
+		</div>
+		<div class="row">
+			<div class="col-5"><label for="des" class="col-md-5">dés utilisés :</label>
+			<input type="text" id="des" name="dice" class="col-md-4"/></div>
+			<div class="col-5"><label for="niv" class="col-md-4">niveau attendu :</label>
+			<select id="niv" name="lvl"><option>débutant</option>
+				<option>confirmé</option>
+				<option>expert</option></select></div>
+		</div>
+		<div class="row">
+			<div class="col-5"><label for="genre" class="col-md-5">Genre :</label>
+			<input type="text" id="genre" name="genre" class="col-md-4"></div>
+			<div class="col-5"><label for="type2" class="col-md-4">Type :</label>
+			<input type="text" id="type2" name="typ" class="col-md-4"></div>
+		</div>
+		<div class="row">
+			<div class="col-5"><label for="Ton" class="col-md-5">Ton :</label>
+			<input type="text" id="ton" name="genre" class="col-md-4"></div>
+			<div class="col-5"><label for="inspiration" class="col-md-4">Inspiration :</label>
+			<input type="text" id="inspiration" name="insp" class="col-md-4"></div>
+		</div>
+		<div class="row">
+			<div class="col-10">
+				<textarea name="description" placeholder="description"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			 <div class="offset-4 col-5"><label for="banner">Bannière</label>
+			 <input type="file" id="banner" name="banner"/></div>
+		</div>
+		<div class="row">
+			<div class="offset-3 col-6"><p>Votre partie sera examinée par un modérateur avant d'être ajouté</p></div>
+		</div>
+		<div class="row">
+			<div class="offset-5 col-5">
+				<input type="submit" value="soumettre"></input>
+			</div>
+		</div>
+		<div class="row">
+			<p>partie visible par les modérateur</p>
+		</div>
+		<div class="row">
+			<input type="submit" name="yes" value="accepter"/>
+			<input type="submit" name="no" value="refuser"/>
+		</div>
+	</form>
+	</div>
+</body>
+</html>

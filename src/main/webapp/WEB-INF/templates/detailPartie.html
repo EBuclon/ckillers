@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Détail</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+</head>
+<body>
+	<header th:replace="~{fragments::header}"></header>
+	<div class="container">
+		<h2>Détail de la partie</h2>
+		<div class="container" id="detail-partie">
+			<div class="row">
+				<img src="./image/chtulu.jpg"></img>
+			</div>
+			<div class="row">
+				<h5 class="col-sm-4">22/12/2017</h5>
+				<h5 class="col-sm-4">de 19h à 23h</h5>
+				<h5 class="col-sm-4">Lieu: Bar Tandem</h5>
+			</div>
+			<div class="row">
+				<p class="col-md-4">nom du jeu</p>
+				<p class="col-md-4">type de soirée</p>
+			</div>
+			<div class="row">
+				<p class="col-md-4">Titre du scénario</p>
+				<p class="col-md-4">nbre min nbre max</p>
+			</div>
+			<div class="row">
+				<p class="col-md-4">Dés utilisés</p>
+				<p class="col-md-4">niveau attendu</p>
+			</div>
+			<div class="row">
+				<p class="col-md-4">Genre</p>
+				<p class="col-md-4">Ton</p>
+			</div>
+			<div class="row">
+				<p class="col-md-4">Type</p>
+				<p class="col-md-4">Inspiration</p>
+			</div>
+			<div class="row">
+				<p class="col-md-8">description</p>
+			</div>
+		</div>
+	</div>
+	<div class="container" id="ajout-joueur">
+			<form action="">
+				<button>j'y participe</button>
+			</form>
+		<div class="row">
+			<p>Ils y participent également :</p>
+		</div>
+	</div>
+</body>
+</html>

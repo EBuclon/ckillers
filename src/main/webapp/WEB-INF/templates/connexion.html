@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Céréale Killers</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+</head>
+<body>
+<header th:replace="~{fragments::header}"></header>
+<div class="container">
+	<div class="row">
+		<h2>Se connecter</h2>
+	</div>
+	<form action="/creerCompte">
+		<div class="row"><label for="id" class="col-sm-2">Identifiant : </label>
+			<input type="text" name="email" id="id" placeholder="e-mail" class="col-sm-2" /></div>
+		<div class="row"><label for="mdp" class="col-sm-2">mot de passe : </label>
+			<input type="text" name="psw" id="mdp" class="col-sm-2" />
+			<a href="lien" class="col-sm-3">mot de passe oublié</a></div>
+		<div class="row"><button type="submit" class="valider">Valider</button></div>
+	</form>
+</div>
+<div class="container">
+	<div class="row">
+		<h2>Pas encore de compte</h2>
+	</div>
+	<div class="row"><form action="/creerCompte"><button type="submit" class="valider">Créer compte</button></form></div>
+</div>
+</body>
+</html>

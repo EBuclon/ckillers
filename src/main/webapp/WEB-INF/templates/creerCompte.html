@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Céréale Killers</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+</head>
+<body>
+	<header th:replace="~{fragments::header}"></header>
+	<div class="container" id="creerCompte">
+		<div class="row">
+			<h2>Créer un nouveau compte</h2>
+		</div>
+			<form>
+				<div class="row">
+					<div class="col-5"><label for="nom" class="col-sm-3">Nom :</label>
+					<input type="text" id="nom" name="nom"/></div>
+					<div class="col-5"><label for="adresse" class="col-sm-4">Adresse :</label>
+					<input type="text" id="adresse" name="adresse"/></div>
+				</div>
+				<div class="row">
+					<div class="col-5"><label for="prenom" class="col-sm-3">Prenom :</label>
+					<input type="text" id="prenom" name="prenom"/></div>
+					<div class="col-5"><label for="cp" class="col-sm-4">Code Postal :</label>
+					<input type="text" id="cp" name="cp"/></div>
+				</div>
+				<div class="row">
+					<div class="col-5"><label for="mail" class="col-sm-3">Mail :</label>
+					<input type="text" id="mail" name="mail"/></div>
+					<div class="col-5"><label for="ville" class="col-sm-4">Ville :</label>
+					<input type="text" id="ville" name="ville"/></div>
+				</div>
+				<div class="row">
+					<div class="col-5 offset-sm-3"><label for="mdp">Mot de Passe :</label>
+					<input type="text" id="mdp" name="mdp"/></div>
+				</div>
+				<div class="row">
+					<div class="col-5 offset-sm-3"><label for="mdpbis">Mot de Passe :</label>
+					<input type="text" id="mdpbis" name="mdpbis"/></div>
+				</div>
+				<div class="row">
+					<div class="col-5 offset-sm-3">
+					<button type="submit" class="valider"/>Valider</div>
+				</div>
+			</form>
+	</div>
+</body>
+</html>

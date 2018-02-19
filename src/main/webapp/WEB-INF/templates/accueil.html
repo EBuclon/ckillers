@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Accueil</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+</head>
+<body>
+<header th:replace="~{fragments::header}"></header>
+<div class="container bloc-info">
+	<div class="row">
+		<h2 class="col-xs-8">Parties</h2>
+		<div class="container col-sm-5">
+			<form action="link" id=f-accueil>
+				<!--<div class="row">
+              <!--<div class="col-xs-4">
+                    <input type="checkbox" id="News" name="news"/>
+                    <label for="News">News</label>
+                  </div>
+                  <div class="col-xs-4">
+                    <input type="checkbox" id="Event" name="Evenement"/>
+                    <label for="Event">Evènement</label>
+                  </div>
+                  <div class="col-xs-4">
+                    <input type="checkbox" id="partie" name="partie"/>
+                    <label for="partie">Partie</label>
+                  </div>
+                </div>-->
+				<div class="col-xs-4">
+					<input type="text" placeholder="Rechercher" name="search"/>
+					<button type="submit">GO</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</div>
+</body>
+</html>
