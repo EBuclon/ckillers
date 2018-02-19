@@ -34,7 +34,6 @@ CREATE TABLE Partie(
         niveauAttendu Varchar (25) ,
         presentation  Varchar (25) ,
         image         Varchar (25) ,
-        valider		  boolean,
         idCreneau     Int ,
         idInscrit     Int ,
         idInscrit_1   Int ,

@@ -17,6 +17,10 @@ public class Creneau {
         this.idIncrit = idIncrit;
     }
 
+    public Creneau(Integer idCreneau){
+        this.idCreneau=idCreneau;
+    }
+
     public Integer getIdCreneau() {
         return idCreneau;
     }

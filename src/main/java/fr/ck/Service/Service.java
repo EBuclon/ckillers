@@ -48,6 +48,13 @@ public class Service {
         partieDao.ajouterPartie(partie);
     }
 
+    public List<Partie> listPartieValide() {
+        return partieDao.listPartieValide();
+    }
+
+    public List<Partie> listPartieEnAttente() {
+        return partieDao.listPartieEnAttente();
+    }
 
 
 

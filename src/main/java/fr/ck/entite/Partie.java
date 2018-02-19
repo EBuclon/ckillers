@@ -16,14 +16,14 @@ public class Partie {
     private String niveauAttendu;
     private String presentation;
     private Creneau creneau;
-    private Integer idInscrit;
-    private Integer idInscritV;
+    private Inscrit inscrit;
+    private Inscrit inscritV;
 
-    public Partie(Integer id, String nomScenario, String nomJeu, Integer nbMin,
+    public Partie(Integer idPartie, String nomScenario, String nomJeu, Integer nbMin,
                   Integer nbMax, String desUtil, String typeSoiree, String genre,
                   String type, String ton, String inspiration, String niveauAttendu,
-                  String presentation, Creneau creneau, Integer idInscrit, Integer idInscritV) {
-        this.idPartie=id;
+                  String presentation, Creneau creneau, Inscrit inscrit) {
+        this.idPartie=idPartie;
         this.nomScenario = nomScenario;
         this.nomJeu = nomJeu;
         this.nbMin = nbMin;
@@ -37,8 +37,15 @@ public class Partie {
         this.niveauAttendu = niveauAttendu;
         this.presentation = presentation;
         this.creneau = creneau;
-        this.idInscrit = idInscrit;
-        this.idInscritV = idInscritV;
+        this.inscrit = inscrit;
+    }
+
+    public Partie(Integer idPartie, String nomScenario, String nomJeu, Creneau creneau, Inscrit inscrit) {
+        this.idPartie=idPartie;
+        this.nomScenario = nomScenario;
+        this.nomJeu = nomJeu;
+        this.creneau = creneau;
+        this.inscrit = inscrit;
     }
 
     public Integer getIdPartie() {
@@ -153,19 +160,19 @@ public class Partie {
         this.creneau = creneau;
     }
 
-    public Integer getIdInscrit() {
-        return idInscrit;
+    public Inscrit getInscrit() {
+        return inscrit;
     }
 
-    public void setIdInscrit(Integer idInscrit) {
-        this.idInscrit = idInscrit;
+    public void setInscrit(Inscrit inscrit) {
+        this.inscrit = inscrit;
     }
 
-    public Integer getIdInscritV() {
-        return idInscritV;
+    public Inscrit getInscritV() {
+        return inscritV;
     }
 
-    public void setIdInscritV(Integer idInscritV) {
-        this.idInscritV = idInscritV;
+    public void setInscritV(Inscrit inscritV) {
+        this.inscritV = inscritV;
     }
 }

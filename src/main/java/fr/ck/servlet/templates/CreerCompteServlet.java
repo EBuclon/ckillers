@@ -37,7 +37,7 @@ public class CreerCompteServlet extends GenericServlet {
         java.util.Date date = new java.util.Date();
         System.out.println(formater.format(date));formater.format(date)*/
 
-        Inscrit inscrit = new Inscrit(1,nom,prenom,mail,"null",adresse,"inscrit",null,null,0,motDePasse);
+        Inscrit inscrit = new Inscrit(1,nom,prenom,mail,"null",adresse,"inscrit","null","null",0,motDePasse);
         Service.getInstance().addInscrit(inscrit);
 
         resp.sendRedirect("/accueil");

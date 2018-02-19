@@ -2,6 +2,7 @@ package fr.ck.servlet.templates;
 
 import fr.ck.Service.Service;
 import fr.ck.entite.Creneau;
+import fr.ck.entite.Inscrit;
 import fr.ck.entite.Partie;
 import fr.ck.servlet.GenericServlet;
 import org.thymeleaf.TemplateEngine;
@@ -37,8 +38,8 @@ public class AjouterPartieServlet extends GenericServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nomScenario = req.getParameter("nomScenario");
         String nomJeu = req.getParameter("nomJeu");
-        Integer nbMin = Integer.parseInt(req.getParameter("nbMin"));
-        Integer nbMax = Integer.parseInt(req.getParameter("nbMax"));
+        Integer nbMin = Integer.valueOf(req.getParameter("nbMin"));
+        Integer nbMax = Integer.valueOf(req.getParameter("nbMax"));
         String deUtil = req.getParameter("deUtil");
         String typeSoiree = req.getParameter("typeSoiree");
         String genre = req.getParameter("genre");
@@ -49,18 +50,19 @@ public class AjouterPartieServlet extends GenericServlet {
         String presentation = req.getParameter("presentation");
 
         Integer idCreneau = Integer.parseInt(req.getParameter("idCreneau"));
-        Creneau creneau = new Creneau(idCreneau,"","","",0); //Service.getInstance().getCreneau(idCreneau);
+        Creneau creneau = new Creneau(idCreneau); //Service.getInstance().getCreneau(idCreneau);
+        Inscrit inscrit = new Inscrit(1);
 
         //Part image = req.getPart("image");
 
         Partie partie = new Partie(0, nomScenario, nomJeu, nbMin, nbMax, deUtil, typeSoiree, genre,
-                type, ton, inspiration, niveauAttendu, presentation, creneau, 1,1);
+                type, ton, inspiration, niveauAttendu, presentation, creneau, inscrit);
 
         try {
             Service.getInstance().ajouterPartie(partie);
-            resp.sendRedirect("detailPartie?id="+"idPartie");
+            resp.sendRedirect("accueil");
         }catch (IllegalArgumentException e){
-            resp.sendRedirect("ajouter");
+            resp.sendRedirect("accueil");
         }
 
     }

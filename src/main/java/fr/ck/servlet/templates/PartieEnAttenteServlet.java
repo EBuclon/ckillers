@@ -1,5 +1,6 @@
 package fr.ck.servlet.templates;
 
+import fr.ck.Service.Service;
 import fr.ck.servlet.GenericServlet;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -18,6 +19,8 @@ public class PartieEnAttenteServlet extends GenericServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
+        context.setVariable("parties", Service.getInstance().listPartieEnAttente());
+
         templateEngine.process("partieAttente", context, resp.getWriter());
     }
 }

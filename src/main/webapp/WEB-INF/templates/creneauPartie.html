@@ -24,14 +24,15 @@
 				<th>Lieu</th>
 				<th></th>
 			</tr>
-			<tr>
-				<td>Nom</td>
-				<td>Titre</td>
-				<td>Nom</td>
-				<td>Date</td>
-				<td>Horraire</td>
-				<td>Lieu</td>
-				<td><a href="/detailPartie">voir</a></td>
+
+			<tr th:each="partie:${parties}">
+				<td>[[${partie.nomScenario}]]</td>
+				<td>[[${partie.nomJeu}]]</td>
+				<td>[[${partie.inscrit.nom}]] [[${partie.inscrit.prenom}]]</td>
+				<td>[[${partie.creneau.date}]]</td>
+				<td>[[${partie.creneau.heure}]]</td>
+				<td>[[${partie.creneau.lieu}]]</td>
+				<td><a th:href="'/detailPartie?idPartie='+${partie.idPartie}">Voir</a></td>
 			</tr>
 		</table>
 	</div>

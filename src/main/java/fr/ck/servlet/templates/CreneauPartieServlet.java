@@ -20,7 +20,7 @@ public class CreneauPartieServlet extends GenericServlet {
 
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
         context.setVariable("creneaux", Service.getInstance().listCreneauxLibres());
-        //context.setVariable("parties", Service.getInstance().listParties());
+        context.setVariable("parties", Service.getInstance().listPartieValide());
 
         templateEngine.process("creneauPartie", context, resp.getWriter());
     }
