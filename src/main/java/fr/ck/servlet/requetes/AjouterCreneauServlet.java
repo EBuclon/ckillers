@@ -3,6 +3,7 @@ package fr.ck.servlet.requetes;
 import com.google.gson.Gson;
 import fr.ck.Service.Service;
 import fr.ck.entite.Creneau;
+import fr.ck.entite.Inscrit;
 import fr.ck.servlet.GenericServlet;
 
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +20,7 @@ public class AjouterCreneauServlet extends GenericServlet {
         String date = req.getParameter("date");
         String heure = req.getParameter("heure");
 
-        Creneau creneau = new Creneau(0, date, heure, lieu,1);
+        Creneau creneau = new Creneau(0, date, heure, lieu,new Inscrit());
         Service.getInstance().ajouterCreneau(creneau);
         /*Gson parserJson = new Gson();
         String creneauJson = parserJson.toJson(creneau);

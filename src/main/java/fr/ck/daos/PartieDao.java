@@ -28,7 +28,7 @@ public class PartieDao {
                                         resultSet.getString("dateCreneau"),
                                         resultSet.getString("heure"),
                                         resultSet.getString("lieu"),
-                                        resultSet.getInt("idProposeCreneau")
+                                        new Inscrit(resultSet.getInt("idProposeCreneau"))
                                 ),
                                 new Inscrit(resultSet.getInt("idInscrit"),
                                         resultSet.getString("nom"),
@@ -59,7 +59,7 @@ public class PartieDao {
                                         resultSet.getString("dateCreneau"),
                                         resultSet.getString("heure"),
                                         resultSet.getString("lieu"),
-                                        resultSet.getInt("idProposeCreneau")
+                                        new Inscrit(resultSet.getInt("idProposeCreneau"))
                                         ),
                                 new Inscrit(resultSet.getInt("idInscrit"),
                                         resultSet.getString("nom"),
@@ -137,7 +137,7 @@ public class PartieDao {
                                     resultSet.getString("dateCreneau"),
                                     resultSet.getString("heure"),
                                     resultSet.getString("lieu"),
-                                    resultSet.getInt("idInscritCreneau")
+                                    new Inscrit(resultSet.getInt("idInscritCreneau"))
                             ),
                             new Inscrit(resultSet.getInt("idInscrit"),
                                     resultSet.getString("nom"),

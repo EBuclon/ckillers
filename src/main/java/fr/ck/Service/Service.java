@@ -65,6 +65,10 @@ public class Service {
 
 
 
+    public String getConnexion(String mail){
+        return inscritDao.getConnexion(mail);
+    }
+
     public void ajouterInscrit(Inscrit inscrit){
         inscritDao.ajouterInscrit(inscrit);
     }

@@ -52,6 +52,23 @@ public class InscritDao {
         return null;
     }
 
+    public String getConnexion(String mail){
+        try(Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
+            PreparedStatement statement = connection.prepareStatement("SELECT motDePasse FROM inscrit WHERE mail=?")
+        ) {
+            statement.setString(1,mail);
+            try(ResultSet resultSet = statement.executeQuery()){
+                if(resultSet.next()){
+                    return resultSet.getString("motDePasse");
+                }
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     public void ajouterInscrit(Inscrit inscrit){
         try(Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement("INSERT INTO inscrit(nom,prenom,mail,adresse,dateInscription,motDePasse) VALUES (?,?,?,?,?,?)")){ //,Statement.RETURN_GENERATED_KEYS
