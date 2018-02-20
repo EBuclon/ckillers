@@ -1,176 +1,142 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>menu site</title>
-    <link rel="stylesheet" type="text/css" href="C:/Users/eloid/Documents/GitHub/ck/src/main/webapp/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="C:/Users/eloid/Documents/GitHub/ck/src/main/webapp/css/style.css"/>
-    <script type="text/javascript">
+	<meta charset="UTF-8"/>
+	<title>menu site</title>
+	<link rel="stylesheet" type="text/css" href="C:/Users/eloid/Documents/GitHub/ck/src/main/webapp/css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="C:/Users/eloid/Documents/GitHub/ck/src/main/webapp/css/style.css"/>
+	<script type="text/javascript">
         //<!--
-        function change_onglet(name)
-        {
-            document.getElementById('onglet_'+anc_onglet).className = 'onglet_0 onglet';
-            document.getElementById('onglet_'+name).className = 'onglet_1 onglet';
-            document.getElementById('contenu_onglet_'+anc_onglet).style.display = 'none';
-            document.getElementById('contenu_onglet_'+name).style.display = 'block';
-            anc_onglet = name;
-        }
+                function change_onglet(name)
+                {
+                        document.getElementById('onglet_'+anc_onglet).className = 'onglet_0 onglet';
+                        document.getElementById('onglet_'+name).className = 'onglet_1 onglet';
+                        document.getElementById('contenu_onglet_'+anc_onglet).style.display = 'none';
+                        document.getElementById('contenu_onglet_'+name).style.display = 'block';
+                        anc_onglet = name;
+                }
         //-->
-    </script>
-    <style type="text/css">
-        .onglet
-        {
-            display:inline-block;
-            margin-left:20px;
-            padding:3px;
-            border:1px solid black;
-            cursor:pointer;
-            border-top-right-radius: 5px;
-            border-top-left-radius: 5px;
-            width: 20%;
-            text-align: center;
-        }
-        .onglet_0
-        {
-            background:#bbbbbb;
-            border-bottom:1px solid black;
-        }
-        .onglet_1
-        {
-            background:#dddddd;
-            border-bottom:0px solid black;
-            padding-bottom:4px;
-        }
-        .contenu_onglet
-        {
-            background-color:#dddddd;
-            border:1px solid black;
-            margin-top:-1px;
-            display:none;
-            padding: 2%;
-            border-radius: 5px;
-        }
-    </style>
+        </script>
 </head>
 <body>
 <header th:fragment="header">
-    <nav class="row" id="menu-haut">
-        <a href="/accueil" class="col-sm-3 bouton-menu">Accueil</a>
-        <a href="lien" class="col-sm-3 bouton-menu">Qui sommes-nous ?</a>
-        <a href="lien" class="col-sm-3 bouton-menu">Nos Partenaire</a>
-        <div class="col-sm-3 bouton-menu">Menu
-            <ul class="niveau2">
-                <a href="/connexion"><li>Se connecter</li></a>
-                <a href="lien"><li>Profil</li></a>
-                <a href="/creneauPartie"><li>Créneaux et parties disponibles</li></a>
-                <a href="lien"><li>Historique</li></a>
-                <a href="/ajouterCrEvNews"><li>Ajouter évènement/News(modo)</li></a>
-                <a href="/partieAttente"><li>Parties en attente(modo)</li></a>
-                <a href="lien"><li>Liste inscrits(admin)</li></a>
-                <a href="lien"><li>Deconnexion</li></a>
-            </ul>
-        </div>
-    </nav>
-    <div class="row">
-        <figure class="image-fond"><img class="image-fond" src="C:/Users/eloid/Documents/GitHub/ck/src/main/webapp/image/banner.jpg"></figure>
-    </div>
+	<nav class="row" id="menu-haut">
+		<a href="/accueil" class="col-sm-3 bouton-menu">Accueil</a>
+		<a href="lien" class="col-sm-3 bouton-menu">Qui sommes-nous ?</a>
+		<a href="lien" class="col-sm-3 bouton-menu">Nos Partenaire</a>
+		<div class="col-sm-3 bouton-menu">Menu
+			<ul class="niveau2">
+				<a href="/connexion"><li>Se connecter</li></a>
+				<a href="lien"><li>Profil</li></a>
+				<a href="/creneauPartie"><li>Créneaux et parties disponibles</li></a>
+				<a href="lien"><li>Historique</li></a>
+				<a href="/ajouterCrEvNews"><li>Ajouter évènement/News(modo)</li></a>
+				<a href="/partieAttente"><li>Parties en attente(modo)</li></a>
+				<a href="lien"><li>Liste inscrits(admin)</li></a>
+				<a href="lien"><li>Deconnexion</li></a>
+			</ul>
+		</div>
+	</nav>
+	<div class="row">
+		<figure class="image-fond"><img class="image-fond" src="C:/Users/eloid/Documents/GitHub/ck/src/main/webapp/image/banner.jpg"></figure>
+	</div>
 </header>
-<div class="row">
-    <div class="container" id="onglet">
-        <div class="systeme_onglets">
-            <div class="onglets">
-                <span class="onglet_0 onglet" id="onglet_profil" onclick="javascript:change_onglet('profil');">Profil</span>
-                <span class="onglet_0 onglet" id="onglet_Coordonnees" onclick="javascript:change_onglet('Coordonnees');">Coordonnees</span>
-                <span class="onglet_0 onglet" id="onglet_autre" onclick="javascript:change_onglet('autre');">Autre</span>
-            </div>
-            <div class="contenu_onglets">
-                <div class="contenu_onglet" id="contenu_onglet_profil">
-                    <h3>Profil</h3>
-                    <div class="row">
-                        <div class="col-md-3">
-                            Nom
-                        </div>
-                        <div class="col-md-3">
-                            Prénom
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            Statut
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h6>Cotisation :</h6>
-                        </div>
-                        <div class="col-md-3">
-                            à jour
-                        </div>
-                    </div>
-                </div>
-                <div class="contenu_onglet" id="contenu_onglet_Coordonnees">
-                    <h3>Coordonnées</h3>
-                    <div class="row">
-                        <div class="col-md-6">
-                            Exemple@mail.com
-                        </div>
-
-                        <div class="col-md-6">
-                            01 23 45 67 89
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            7 rue de l'exemple en bois
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            94345
-                        </div>
-                        <div class="col-md-6">
-                            Saint Michu-les-chaussettes
-                        </div>
-                    </div>
-                </div>
-                <div class="contenu_onglet" id="contenu_onglet_autre">
-                    <h3>autre</h3>
-                    Je sais pas quoi mettre dans cette partie
-                </div>
-            </div>
-        </div>
-        <script type="text/javascript">
-            //<!--
-            var anc_onglet = 'profil';
-            change_onglet(anc_onglet);
-            //-->
-        </script>
-    </div>
-</div>
-<div class="row">
-    <div class="container recapitulation">
-        <div class="row">
-            <h3>Inscriptions sur les parties à Venir</h3>
-        </div>
-        <div class="row">
-            <div class="col-sm-2">Date</div>
-            <div class="col-sm-2">Lieu</div>
-            <div class="col-sm-2">Détail</div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="container recapitulation">
-        <div class="row">
-            <h3>Historique des parties</h3>
-        </div>
-        <div class="row">
-            <div class="col-sm-2">Date</div>
-            <div class="col-sm-2">Lieu</div>
-            <div class="col-sm-2">Détail</div>
-        </div>
-    </div>
-</div>
+	<div class="row">
+	<div class="container" id="onglet">
+		<div class="systeme_onglets">
+	        <div class="onglets">
+	            <span class="onglet_0 onglet" id="onglet_profil" onclick="javascript:change_onglet('profil');">Profil</span>
+	            <span class="onglet_0 onglet" id="onglet_Coordonnees" onclick="javascript:change_onglet('Coordonnees');">Coordonnees</span>
+	            <span class="onglet_0 onglet" id="onglet_autre" onclick="javascript:change_onglet('autre');">Autre</span>
+	        </div>
+	        <div class="contenu_onglets">
+	            <div class="contenu_onglet" id="contenu_onglet_profil">
+	                <h3>Profil</h3>
+	             	<div class="row">
+	             		<div class="col-md-3">
+	             			Nom
+	             		</div>
+	             		<div class="col-md-3">
+	             			Prénom
+	             		</div>
+	             	</div>
+	             	<div class="row">
+	             		<div class="col-md-6">
+	             			Statut
+	             		</div>
+	             	</div>  
+	             	<div class="row">
+	             		<div class="col-md-3">
+	             			<h6>Cotisation :</h6>
+	             		</div>
+	             		<div class="col-md-3">
+	             			à jour
+	             		</div>
+	             	</div>   
+	            </div>
+	            <div class="contenu_onglet" id="contenu_onglet_Coordonnees">
+	                <h3>Coordonnées</h3>
+	               	<div class="row">
+	             		<div class="col-md-6">
+	             			Exemple@mail.com
+	             		</div>
+	     
+	             		<div class="col-md-6">
+	             			01 23 45 67 89
+	             		</div>
+	             	</div>
+	             	<div class="row">
+	             		<div class="col-md-6">
+	             			7 rue de l'exemple en bois
+	             		</div>
+	             	</div>
+	             	<div class="row">
+	             		<div class="col-md-6">
+	             			94345
+	             		</div>
+	             		<div class="col-md-6">
+	             			Saint Michu-les-chaussettes
+	             		</div>
+	             	</div>       
+	            </div>
+	            <div class="contenu_onglet" id="contenu_onglet_autre">
+	                <h3>autre</h3>
+	               Je sais pas quoi mettre dans cette partie
+	            </div>
+	        </div>
+	    </div>
+	    <script type="text/javascript">
+	        //<!--
+	                var anc_onglet = 'profil';
+	                change_onglet(anc_onglet);
+	        //-->
+	        </script>
+		</div>
+	</div>
+	<div class="row">
+		<div class="container recapitulation">
+			<div class="row">
+				<h3>Inscriptions sur les parties à Venir</h3>
+			</div>
+			<div class="row">
+				<div class="col-sm-2">Date</div>
+				<div class="col-sm-2">Lieu</div>
+				<div class="col-sm-2">Détail</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="container recapitulation">
+			<div class="row">
+				<h3>Historique des parties</h3>
+			</div>
+			<div class="row">
+				<div class="col-sm-2">Date</div>
+				<div class="col-sm-2">Lieu</div>
+				<div class="col-sm-2">Détail</div>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>
