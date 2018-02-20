@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Céréale Killers</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+</head>
+<body>
+	<header th:replace="~{fragments::header}"></header>
+	<div class="container">
+		<div class="row">
+			<h3 class="col-md-4">[[${partie.creneau.lieu}]]</h3>
+			<h3 class="col-md-4">[[${partie.creneau.date}]]</h3>
+			<h3 class="col-md-4">[[${partie.creneau.heure}]]</h3>
+		</div>
+		<div class="row">
+			<p class="col-2"> Créneau mis à disposition par : [[${partie.creneau.idCreneau}]]</p>
+		</div>
+	<form method="post" role="form">
+		<div class="row">
+			<div class="col-5"><label for="nomJeu" class="col-md-5">nom du jeu :</label>
+			<input type="text" id="nomJeu" name="nomJeu" class="col-md-4" th:value="${partie.nomJeu}"/></div>
+			<div class="col-5"><label for="typeSoiree" class="col-md-4">type de soirée :</label>
+			<select id="typeSoiree" name="typeSoiree">
+				<option>suite de partie</option>
+			</select></div>
+		</div>
+		<div class="row">
+			<div class="col-5"><label for="titre" class="col-md-5">Titre du scénario :</label>
+			<input type="text" id="titre" name="titre" class="col-md-4" th:value="${partie.nomScenario}"></div>
+			<div class="col-3"><label for="min" class="col-md-6">nombre min :</label>
+			<input type="number" id="min" name="nbMin" class="col-sm-3" th:value="${partie.nbMin}"/></div>
+			<div class="col-3"><label for="max" class="col-md-6">nombre max :</label>
+			<input type="number" id="max" name="nbMax" class="col-sm-3" th:value="${partie.nbMax}"/></div>
+		</div>
+		<div class="row">
+			<div class="col-5"><label for="desUtil" class="col-md-5">Dés utilisés :</label>
+			<input type="text" id="desUtil" name="desUtil" class="col-md-4" th:value="${partie.desUtil}"/></div>
+			<div class="col-5"><label for="niveauAttendu" class="col-md-4">niveau attendu :</label>
+				<input type="text" id="niveauAttendu" name="niveauAttendu" th:value="${partie.niveauAttendu}"/></div>
+		</div>
+		<div class="row">
+			<div class="col-5"><label for="genre" class="col-md-5">Genre :</label>
+			<input type="text" id="genre" name="genre" class="col-md-4" th:value="${partie.genre}"></div>
+			<div class="col-5"><label for="type" class="col-md-4">Type :</label>
+			<input type="text" id="type" name="type" class="col-md-4" th:value="${partie.type}"></div>
+		</div>
+		<div class="row">
+			<div class="col-5"><label for="ton" class="col-md-5">Ton :</label>
+			<input type="text" id="ton" name="ton" class="col-md-4" th:value="${partie.ton}"></div>
+			<div class="col-5"><label for="inspiration" class="col-md-4">Inspiration :</label>
+			<input type="text" id="inspiration" name="inspiration" class="col-md-4" th:value="${partie.inspiration}"></div>
+		</div>
+		<div class="row">
+			<div class="col-10">
+				<textarea name="description" placeholder="description" th:value="${partie.presentation}"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			 <div class="offset-4 col-5"><label for="banneriere">Bannière</label>
+			 <input type="file" id="banneriere" name="banneriere"/></div>
+		</div>
+		<div class="row">
+			<p>Partie proposée par : [[${partie.inscrit.nom}]] [[${partie.inscrit.prenom}]]</p>
+		</div>
+		<div class="row">
+			<input type="submit" name="yes" value="accepter"/>
+			<input type="submit" name="no" value="refuser"/>
+		</div>
+	</form>
+	</div>
+</body>
+</html>
