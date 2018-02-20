@@ -40,6 +40,10 @@ public class Inscrit {
         this.prenom = prenom;
     }
 
+    public Inscrit(){
+
+    };
+
     public Inscrit(Integer idInscrit){
         this.idInscrit=idInscrit;
     }

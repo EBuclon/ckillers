@@ -1,6 +1,7 @@
 package fr.ck.daos;
 
 import fr.ck.entite.Creneau;
+import fr.ck.entite.Inscrit;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class CreneauDao {
 
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM creneau WHERE idPartie is null AND idEvenement is null ORDER BY dateCreneau,heure;\n")) {
+             ResultSet resultSet = statement.executeQuery("SELECT idCreneau,dateCreneau,heure,lieu FROM creneau WHERE idPartie is null AND idEvenement is null ORDER BY dateCreneau,heure;\n")) {
             while (resultSet.next()) {
                 creneaux.add(
                         new Creneau(
@@ -20,7 +21,7 @@ public class CreneauDao {
                                 resultSet.getString("dateCreneau"),
                                 resultSet.getString("heure"),
                                 resultSet.getString("lieu"),
-                                resultSet.getInt("idInscrit")
+                                new Inscrit()
                         ));
             }
         } catch (SQLException e) {
@@ -40,7 +41,10 @@ public class CreneauDao {
                             resultSet.getString("dateCreneau"),
                             resultSet.getString("heure"),
                             resultSet.getString("lieu"),
-                            resultSet.getInt("idInscrit")
+                            new Inscrit(resultSet.getInt("idInscrit"),
+                                    resultSet.getString("nom"),
+                                    resultSet.getString("prenom")
+                                    )
                     );
                 }
             }

@@ -40,6 +40,7 @@ public class PartieDao {
         }
         return parties;
     }
+
     public List<Partie> listPartieEnAttente() {
         List<Partie> parties = new ArrayList<Partie>();
 
@@ -87,7 +88,7 @@ public class PartieDao {
             statement.setString(11, partie.getNiveauAttendu());
             statement.setString(12, partie.getPresentation());
             statement.setInt(13, partie.getCreneau().getIdCreneau());
-            statement.setInt(14, 1);//partie.getNomInscrit());
+            statement.setInt(14, 1);//partie.getInscrit().getIdInscrit);
             /*if (image != null) {
                 statement.setString(4, image);
             } else {
@@ -109,5 +110,45 @@ public class PartieDao {
         }
     }
 
+    public Partie getPartie(Integer idPartie){
+        try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT P.idPartie, nomScenario, nomJeu, nombreMin, nombreMax, desUtil, typeSoiree, genre, typeJ, ton, inspiration, niveauAttendu, presentation, \n" +
+                     "C.idCreneau, dateCreneau, heure, lieu, C.idInscrit as idInscritCreneau, I.idInscrit, nom, prenom " +
+                     "FROM Partie P INNER JOIN Creneau C INNER JOIN Inscrit I " +
+                     "WHERE P.idCreneau=C.idCreneau AND P.idInscrit=I.idInscrit AND P.idPartie=?")) {
+            statement.setInt(1, idPartie);
+            try (ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()) {
+                    return new Partie(
+                            resultSet.getInt("idPartie"),
+                            resultSet.getString("nomScenario"),
+                            resultSet.getString("nomJeu"),
+                            resultSet.getInt("nombreMin"),
+                            resultSet.getInt("nombreMax"),
+                            resultSet.getString("desUtil"),
+                            resultSet.getString("typeSoiree"),
+                            resultSet.getString("genre"),
+                            resultSet.getString("typeJ"),
+                            resultSet.getString("ton"),
+                            resultSet.getString("inspiration"),
+                            resultSet.getString("niveauAttendu"),
+                            resultSet.getString("presentation"),
+                            new Creneau(resultSet.getInt("idCreneau"),
+                                    resultSet.getString("dateCreneau"),
+                                    resultSet.getString("heure"),
+                                    resultSet.getString("lieu"),
+                                    resultSet.getInt("idInscritCreneau")
+                            ),
+                            new Inscrit(resultSet.getInt("idInscrit"),
+                                    resultSet.getString("nom"),
+                                    resultSet.getString("prenom"))
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erreur lors du chargement du personnage", e);
+        }
 
+        return null;
+    }
 }

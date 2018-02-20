@@ -52,7 +52,7 @@ public class InscritDao {
         return null;
     }
 
-    public void addInscrit(Inscrit inscrit){
+    public void ajouterInscrit(Inscrit inscrit){
         try(Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement("INSERT INTO inscrit(nom,prenom,mail,adresse,dateInscription,motDePasse) VALUES (?,?,?,?,?,?)")){ //,Statement.RETURN_GENERATED_KEYS
             statement.setString(1,inscrit.getNom());

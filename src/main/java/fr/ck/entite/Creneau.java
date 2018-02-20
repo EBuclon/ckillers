@@ -7,14 +7,14 @@ public class Creneau {
     private String date;
     private String heure;
     private String lieu;
-    private Integer idIncrit;
+    private Inscrit incrit;
 
-    public Creneau(Integer idCreneau, String date, String heure, String lieu, Integer idIncrit) {
+    public Creneau(Integer idCreneau, String date, String heure, String lieu, Inscrit incrit) {
         this.idCreneau = idCreneau;
         this.date = date;
         this.heure = heure;
         this.lieu = lieu;
-        this.idIncrit = idIncrit;
+        this.incrit = incrit;
     }
 
     public Creneau(Integer idCreneau){
@@ -53,11 +53,11 @@ public class Creneau {
         this.lieu = lieu;
     }
 
-    public Integer getIdIncrit() {
-        return idIncrit;
+    public Inscrit getIncrit() {
+        return incrit;
     }
 
-    public void setIdIncrit(Integer idIncrit) {
-        this.idIncrit = idIncrit;
+    public void setIncrit(Inscrit incrit) {
+        this.incrit = incrit;
     }
 }

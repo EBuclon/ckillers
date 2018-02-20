@@ -56,14 +56,17 @@ public class Service {
         return partieDao.listPartieEnAttente();
     }
 
+    public Partie getPartie(Integer idPartie){
+        return partieDao.getPartie(idPartie);
+    }
 
 
 
 
 
 
-    public void addInscrit(Inscrit inscrit){
-        inscritDao.addInscrit(inscrit);
+    public void ajouterInscrit(Inscrit inscrit){
+        inscritDao.ajouterInscrit(inscrit);
     }
 
 }
