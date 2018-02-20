@@ -59,7 +59,7 @@ public class InscritDao {
             statement.setString(2,inscrit.getPrenom());
             statement.setString(3,inscrit.getMail());
             statement.setString(4,inscrit.getAdresse());
-            statement.setString(5,"2018-02-01");//inscrit.getDateInscription()
+            statement.setString(5,inscrit.getDateInscription());
             statement.setString(6,inscrit.getMotDePasse());
             statement.executeUpdate();
 

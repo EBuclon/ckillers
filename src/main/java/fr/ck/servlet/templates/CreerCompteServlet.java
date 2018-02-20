@@ -31,13 +31,12 @@ public class CreerCompteServlet extends GenericServlet {
         String adresse = req.getParameter("adresse");
         String motDePasse = req.getParameter("mdp");
 
-        /*String format = "dd/MM/yy";
+        String format = "yyyy-MM-dd";
 
         java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
         java.util.Date date = new java.util.Date();
-        System.out.println(formater.format(date));formater.format(date)*/
 
-        Inscrit inscrit = new Inscrit(1,nom,prenom,mail,"null",adresse,"inscrit","null","null",0,motDePasse);
+        Inscrit inscrit = new Inscrit(1,nom,prenom,mail,"null",adresse,"inscrit","null",formater.format(date),0,motDePasse);
         Service.getInstance().ajouterInscrit(inscrit);
 
         resp.sendRedirect("/accueil");
