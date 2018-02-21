@@ -65,4 +65,15 @@ public class CreneauDao {
             throw new RuntimeException("Erreur lors de l'insertion du jeu à la base", e);
         }
     }
+
+    public void supprimerCreneau(Integer id){
+        try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM Creneau WHERE idCreneau=?")){
+                 statement.setInt(1,id);
+                 statement.executeUpdate();
+        }
+        catch (SQLException e){
+                 throw new RuntimeException("Erreur lors de la suppression du creneau");
+        }
+    }
 }
