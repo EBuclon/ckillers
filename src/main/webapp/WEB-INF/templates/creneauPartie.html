@@ -4,6 +4,15 @@
 	<title>Céréale Killers</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<script type="text/javascript">
+        function confirmSuppression(idCreneau) {
+            console.log(idCreneau)
+            if (confirm("Voulez-vous vraiment supprimer ce creneau ?")) {
+                // Clic sur OK
+                document.location.href="/supprimerCreneau?idCreneau="+idCreneau;
+            }
+        }
+	</script>
 </head>
 <body>
 <header th:replace="~{fragments::header}"></header>
@@ -54,10 +63,10 @@
 				<td>[[${creneau.heure}]]</td>
 				<td>[[${creneau.lieu}]]</td>
 				<td><a th:href="'/ajouterPartie?idCreneau='+${creneau.idCreneau}">utiliser</a></td>
-				<td><a href="lien">supprimer</a></td>
+				<td><a th:id="${creneau.idCreneau}"><script th:inline="javascript">
+					document.getElementById(/*[[${creneau.idCreneau}]]*/).onclick=function () {confirmSuppression(/*[[${creneau.idCreneau}]]*/)}</script>supprimer</a></td>
 			</tr>
 		</table>
-
 	</div>
 </div>
 </body>
