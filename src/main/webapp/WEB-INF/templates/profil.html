@@ -4,9 +4,8 @@
 	<title>menu site</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
-	<script type="text/javascript" src="./js/onglets.js"></script>
-	<!--<script type="text/javascript">
-
+	<!--<script type="text/javascript" src="js/onglets.js"></script>-->
+	<script type="text/javascript">
                 function change_onglet(name)
                 {
                         document.getElementById('onglet_'+anc_onglet).className = 'onglet_0 onglet';
@@ -15,8 +14,7 @@
                         document.getElementById('contenu_onglet_'+name).style.display = 'block';
                         anc_onglet = name;
                 }
-
-        </script>-->
+        </script>
 </head>
 <body>
 <header th:replace="~{fragments::header}"></header>
@@ -89,7 +87,7 @@
 	                var anc_onglet = 'profil';
 	                change_onglet(anc_onglet);
 
-	        </script>
+		</script>
 		</div>
 	</div>
 	<div class="row">

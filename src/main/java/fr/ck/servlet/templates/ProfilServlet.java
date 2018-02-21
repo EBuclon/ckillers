@@ -1,5 +1,6 @@
 package fr.ck.servlet.templates;
 
+import fr.ck.Service.Service;
 import fr.ck.servlet.GenericServlet;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -18,8 +19,14 @@ public class ProfilServlet extends GenericServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
-        //context.setVariable("inscrit", Service.getInstance().getInscrit(idInscrit));
 
-        templateEngine.process("profil", context, resp.getWriter());
+        String utilisateur = (String) req.getSession().getAttribute("utilisateur");
+        if(utilisateur == null || utilisateur.equals("")){
+            resp.sendRedirect("connexion");
+        }else {
+            context.setVariable("inscrit", Service.getInstance().getInscritParMail(utilisateur));
+
+            templateEngine.process("profil", context, resp.getWriter());
+        }
     }
 }

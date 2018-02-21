@@ -29,6 +29,12 @@ public class ValiderPartieServlet extends GenericServlet {
         }
 
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
+        String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
+        if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur)) {
+            context.setVariable("inscrit", new Inscrit("Visiteur"));
+        }else{
+            context.setVariable("inscrit", Service.getInstance().getInscritParMail(identifiantUtilisateur));
+        }
         context.setVariable("partie", partie);
 
         templateEngine.process("validerPartie", context, resp.getWriter());

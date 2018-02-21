@@ -44,6 +44,10 @@ public class Inscrit {
 
     };
 
+    public Inscrit(String statut){
+        this.statut=statut;
+    };
+
     public Inscrit(Integer idInscrit){
         this.idInscrit=idInscrit;
     }

@@ -1,6 +1,7 @@
 package fr.ck.servlet.templates;
 
 import fr.ck.Service.Service;
+import fr.ck.entite.Inscrit;
 import fr.ck.servlet.GenericServlet;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -19,8 +20,14 @@ public class AccueilServlet extends GenericServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
-        //context.setVariable("parties", Service.getInstance().listParties());
 
+        String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
+        if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur)) {
+            context.setVariable("inscrit", new Inscrit("Visiteur"));
+        }else{
+            context.setVariable("inscrit", Service.getInstance().getInscritParMail(identifiantUtilisateur));
+        }
         templateEngine.process("accueil", context, resp.getWriter());
+
     }
 }

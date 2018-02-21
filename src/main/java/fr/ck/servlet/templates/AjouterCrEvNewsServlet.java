@@ -2,6 +2,7 @@ package fr.ck.servlet.templates;
 
 import fr.ck.Service.Service;
 import fr.ck.entite.Creneau;
+import fr.ck.entite.Inscrit;
 import fr.ck.servlet.GenericServlet;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -18,10 +19,15 @@ public class AjouterCrEvNewsServlet extends GenericServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
-
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
+
+        String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
+        if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur)) {
+            context.setVariable("inscrit", new Inscrit("Visiteur"));
+        }else{
+            context.setVariable("inscrit", Service.getInstance().getInscritParMail(identifiantUtilisateur));
+        }
+
         templateEngine.process("ajouterEvent", context, resp.getWriter());
     }
-
-
 }

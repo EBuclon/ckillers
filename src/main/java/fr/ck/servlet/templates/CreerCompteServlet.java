@@ -20,6 +20,12 @@ public class CreerCompteServlet extends GenericServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
+        String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
+        if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur)) {
+            context.setVariable("inscrit", new Inscrit("Visiteur"));
+        }else{
+            resp.sendRedirect("profil");
+        }
         templateEngine.process("creerCompte", context, resp.getWriter());
     }
 
@@ -28,7 +34,7 @@ public class CreerCompteServlet extends GenericServlet {
         String nom = req.getParameter("nom");
         String prenom = req.getParameter("prenom");
         String mail = req.getParameter("mail");
-        String adresse = req.getParameter("adresse");
+        String adresse = req.getParameter("adresse")+" "+req.getParameter("cp")+" "+req.getParameter("ville");
         String motDePasse = req.getParameter("mdp");
 
         String format = "yyyy-MM-dd";

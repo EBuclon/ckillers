@@ -1,6 +1,7 @@
 package fr.ck.servlet.templates;
 
 import fr.ck.Service.Service;
+import fr.ck.entite.Inscrit;
 import fr.ck.servlet.GenericServlet;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -18,9 +19,11 @@ public class ConnexionServlet extends GenericServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        String identifiantUtilisateurConnecte = (String) req.getSession().getAttribute("utilisateurConnecte");
-        if(identifiantUtilisateurConnecte == null || "".equals(identifiantUtilisateurConnecte)) {
+        String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
+        if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur)) {
             TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
+            context.setVariable("inscrit", new Inscrit("Visiteur"));
+
             templateEngine.process("connexion", context, resp.getWriter());
         }else{
             resp.sendRedirect("profil");
@@ -33,9 +36,8 @@ public class ConnexionServlet extends GenericServlet {
         String motDePasse = req.getParameter("mdp");
         try{
             String mdp = Service.getInstance().getConnexion(mail);
-            if(mdp.length()!=0){
-                System.out.println(mdp+motDePasse);
-                req.getSession().setAttribute("utilisateurConnecte", mail);
+            if(mdp.length()!=0 && mdp.equals(motDePasse)){
+                req.getSession().setAttribute("utilisateur", mail);
             }
         }catch (IllegalArgumentException e){
             throw new RuntimeException("Erreur lors de la connexion", e);

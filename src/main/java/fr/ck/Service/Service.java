@@ -58,7 +58,7 @@ public class Service {
         return partieDao.listPartieEnAttente();
     }
 
-    public Partie getPartie(Integer idPartie){
+    public Partie getPartie(Integer idPartie) {
         return partieDao.getPartie(idPartie);
     }
 
@@ -67,12 +67,15 @@ public class Service {
 
 
 
-    public String getConnexion(String mail){
+    public String getConnexion(String mail) {
         return inscritDao.getConnexion(mail);
     }
 
-    public void ajouterInscrit(Inscrit inscrit){
+    public void ajouterInscrit(Inscrit inscrit) {
         inscritDao.ajouterInscrit(inscrit);
     }
 
+    public Inscrit getInscritParMail(String mail) {
+        return inscritDao.getInscritParMail(mail);
+    }
 }

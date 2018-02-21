@@ -30,7 +30,7 @@ public class InscritDao {
         return null;
     }
 
-    public Inscrit getInscritByMail(String mail){
+    public Inscrit getInscritParMail(String mail){
         String query = "SELECT * FROM inscrit WHERE mail=?";
 
         try(Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
