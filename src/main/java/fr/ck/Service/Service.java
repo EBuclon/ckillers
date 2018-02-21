@@ -44,6 +44,8 @@ public class Service {
         return creneauDao.getCreneau(idCreneau);
     }
 
+    public void supprimerCreneau(Integer idCreneau){creneauDao.supprimerCreneau(idCreneau);}
+
     public void ajouterPartie(Partie partie) {
         partieDao.ajouterPartie(partie);
     }
