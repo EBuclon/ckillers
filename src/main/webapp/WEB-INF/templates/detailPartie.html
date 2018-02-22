@@ -4,6 +4,16 @@
 	<title>Détail</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<script type="text/javascript">
+        function confirmSuppression(idPartie,idCreneau) {
+            console.log(idCreneau);
+            console.log(idPartie);
+            if (confirm("Voulez-vous vraiment supprimer cette partie ?")) {
+                // Clic sur OK
+                document.location.href="/supprimerPartie?idPartie="+idPartie+"&idCreneau="+idCreneau;
+            }
+        }
+	</script>
 </head>
 <body>
 	<header th:replace="~{fragments::header}"></header>
@@ -40,6 +50,12 @@
 			</div>
 			<div class="row">
 				<p class="col-md-8">description</p>
+			</div>
+
+			<div th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" class="row">
+				<button th:id="${partie.idPartie}" class="col-md-4"><script th:inline="javascript">
+					document.getElementById(/*[[${partie.idPartie}]]*/).onclick=function () {
+						confirmSuppression(/*[[${partie.idPartie}]],[[${partie.getCreneau().idCreneau}]]*/)}</script>supprimer</button>
 			</div>
 		</div>
 	</div>
