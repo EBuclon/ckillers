@@ -62,7 +62,7 @@ public class Service {
         return partieDao.getPartie(idPartie);
     }
 
-
+    public void supprimerPartie(Integer idPartie,Integer idCreneau){partieDao.supprimerPartie(idPartie,idCreneau);}
 
 
 
