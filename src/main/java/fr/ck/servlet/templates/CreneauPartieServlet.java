@@ -21,10 +21,12 @@ public class CreneauPartieServlet extends GenericServlet {
 
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
         String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
+        String statutUtil = (String) req.getSession().getAttribute("statut");
+
         if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur)) {
             context.setVariable("inscrit", new Inscrit("Visiteur"));
         }else{
-            context.setVariable("inscrit", Service.getInstance().getInscritParMail(identifiantUtilisateur));
+            context.setVariable("inscrit", new Inscrit(identifiantUtilisateur,statutUtil));
         }
         context.setVariable("creneaux", Service.getInstance().listCreneauxLibres());
         context.setVariable("parties", Service.getInstance().listPartieValide());

@@ -50,6 +50,10 @@ public class Service {
         partieDao.ajouterPartie(partie);
     }
 
+    public void validerPartie(Partie partie, Integer idInscrit) {
+        partieDao.validerPartie(partie,idInscrit);
+    }
+
     public List<Partie> listPartieValide() {
         return partieDao.listPartieValide();
     }
@@ -62,12 +66,14 @@ public class Service {
         return partieDao.getPartie(idPartie);
     }
 
-    public void supprimerPartie(Integer idPartie,Integer idCreneau){partieDao.supprimerPartie(idPartie,idCreneau);}
+    public void supprimerPartie(Integer idPartie,Integer idCreneau){
+        partieDao.supprimerPartie(idPartie,idCreneau);
+    }
 
 
 
 
-    public String getConnexion(String mail) {
+    public Inscrit getConnexion(String mail) {
         return inscritDao.getConnexion(mail);
     }
 
@@ -77,5 +83,9 @@ public class Service {
 
     public Inscrit getInscritParMail(String mail) {
         return inscritDao.getInscritParMail(mail);
+    }
+
+    public Inscrit getInscritValideur(Integer idPartie) {
+        return inscritDao.getInscritValideur(idPartie);
     }
 }

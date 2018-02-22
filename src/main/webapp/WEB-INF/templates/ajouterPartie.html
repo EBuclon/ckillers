@@ -15,18 +15,23 @@
 		</div>
 	<form method="post" role="form">
 		<div class="row">
-			<div class="col-5"><label for="nomJeu" class="col-md-5">nom du jeu :</label>
+			<div class="col-5"><label for="nomJeu" class="col-md-5">Nom du jeu :</label>
 			<input type="text" id="nomJeu" name="nomJeu" class="col-md-4"/></div>
 			<div class="col-5"><label for="typeSoiree" class="col-md-4">type de soirée :</label>
-			<select id="typeSoiree" name="typeSoiree"><option>suite de partie</option></select></div>
+			<select id="typeSoiree" name="typeSoiree">
+				<option>One shot</option>
+				<option>Debut de scénario court</option>
+				<option>Suite de scénario court</option>
+				<option>Campagne ouverte</option>
+			</select></div>
 		</div>
 		<div class="row">
-			<div class="col-5"><label for="titre" class="col-md-5">Titre du scénario :</label>
-			<input type="text" id="titre" name="titre" class="col-md-4"></div>
-			<div class="col-3"><label for="min" class="col-md-6">nombre min :</label>
-			<input type="number" id="min" name="nbMin" class="col-sm-3"/></div>
-			<div class="col-3"><label for="max" class="col-md-6">nombre max :</label>
-			<input type="number" id="max" name="nbMax" class="col-sm-3"/></div>
+			<div class="col-5"><label for="nomScenario" class="col-md-5">Titre du scénario :</label>
+			<input type="text" id="nomScenario" name="nomScenario" class="col-md-4"></div>
+			<div class="col-3"><label for="nbMin" class="col-md-6">nombre min :</label>
+			<input type="number" id="nbMin" name="nbMin" class="col-sm-3"/></div>
+			<div class="col-3"><label for="nbMax" class="col-md-6">nombre max :</label>
+			<input type="number" id="nbMax" name="nbMax" class="col-sm-3"/></div>
 		</div>
 		<div class="row">
 			<div class="col-5"><label for="desUtil" class="col-md-5">dés utilisés :</label>
@@ -48,7 +53,7 @@
 		</div>
 		<div class="row">
 			<div class="col-10">
-				<textarea name="description" placeholder="description"></textarea>
+				<textarea name="presentation" placeholder="presentation"></textarea>
 			</div>
 		</div>
 		<div class="row">
@@ -60,7 +65,7 @@
 		</div>
 		<div class="row">
 			<div class="offset-5 col-5">
-				<input type="submit" value="soumettre"></input>
+				<input type="submit" value="soumettre">
 			</div>
 		</div>
 	</form>

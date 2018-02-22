@@ -32,7 +32,7 @@ public class CreneauDao {
 
     public Creneau getCreneau(Integer idCreneau){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM creneau WHERE idCreneau=?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT C.idCreneau,dateCreneau,heure,lieu,I.idInscrit,nom,prenom FROM creneau as C INNER JOIN inscrit as I WHERE I.idInscrit=C.idInscrit AND idCreneau=?")) {
             statement.setInt(1, idCreneau);
             try (ResultSet resultSet = statement.executeQuery()){
                 while (resultSet.next()) {
@@ -56,10 +56,11 @@ public class CreneauDao {
 
     public void ajouterCreneau(Creneau creneau){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO Creneau(dateCreneau, heure, lieu) VALUES ( ?, ?, ?)")) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO Creneau(dateCreneau, heure, lieu, idInscrit) VALUES ( ?, ?, ?, ?)")) {
             statement.setString(1, creneau.getDate());
             statement.setString(2, creneau.getHeure());
             statement.setString(3, creneau.getLieu());
+            statement.setInt(4, creneau.getIncrit().getIdInscrit());
             statement.executeUpdate();
         }catch (SQLException e) {
             throw new RuntimeException("Erreur lors de l'insertion du jeu à la base", e);

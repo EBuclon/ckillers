@@ -4,8 +4,7 @@
 	background-color: #e66f10;
 	height:40px;
 	padding: 0.1%;
-text-align: center;
-
+	text-align: center;
 }
 
 #menu-haut{
@@ -22,6 +21,10 @@ text-align: center;
 }
 
 div ul {display: none;}
+
+#invisible {
+	display: none;
+}
 
 div:hover ul.niveau2, div li:hover, #menu-haut div:hover{
 	display:block;

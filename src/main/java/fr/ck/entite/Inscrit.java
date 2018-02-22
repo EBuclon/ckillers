@@ -48,9 +48,16 @@ public class Inscrit {
         this.statut=statut;
     };
 
+    public Inscrit(String motDePasse, String statut){
+        this.motDePasse=motDePasse;
+        this.statut=statut;
+    };
+
     public Inscrit(Integer idInscrit){
         this.idInscrit=idInscrit;
     }
+
+
 
     public Integer getIdInscrit() {
         return idInscrit;

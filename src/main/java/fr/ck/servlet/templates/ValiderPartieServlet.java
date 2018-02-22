@@ -30,14 +30,16 @@ public class ValiderPartieServlet extends GenericServlet {
 
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
         String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
-        if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur)) {
-            context.setVariable("inscrit", new Inscrit("Visiteur"));
-        }else{
-            context.setVariable("inscrit", Service.getInstance().getInscritParMail(identifiantUtilisateur));
-        }
+        String statutUtil = (String) req.getSession().getAttribute("statut");
         context.setVariable("partie", partie);
+        context.setVariable("inscritC", partie.getCreneau().getIncrit());
 
-        templateEngine.process("validerPartie", context, resp.getWriter());
+        if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur) || "adherent".equals(statutUtil) || "inscrit".equals(statutUtil) ) {
+            resp.sendRedirect("accueil");
+        }else{
+            context.setVariable("inscrit", new Inscrit(identifiantUtilisateur,statutUtil));
+            templateEngine.process("validerPartie", context, resp.getWriter());
+        }
     }
 
     @Override
@@ -46,7 +48,7 @@ public class ValiderPartieServlet extends GenericServlet {
         String nomJeu = req.getParameter("nomJeu");
         Integer nbMin = Integer.valueOf(req.getParameter("nbMin"));
         Integer nbMax = Integer.valueOf(req.getParameter("nbMax"));
-        String deUtil = req.getParameter("deUtil");
+        String deUtil = req.getParameter("desUtil");
         String typeSoiree = req.getParameter("typeSoiree");
         String genre = req.getParameter("genre");
         String type = req.getParameter("type");
@@ -54,19 +56,18 @@ public class ValiderPartieServlet extends GenericServlet {
         String inspiration = req.getParameter("inspiration");
         String niveauAttendu = req.getParameter("niveauAttendu");
         String presentation = req.getParameter("presentation");
+        Integer idPartie = Integer.parseInt(req.getParameter("idPartie"));
 
-        Integer idCreneau = Integer.parseInt(req.getParameter("idCreneau"));
-        Creneau creneau = new Creneau(idCreneau); //Service.getInstance().getCreneau(idCreneau);
-        Inscrit inscrit = new Inscrit(1);
+        Inscrit inscrit = Service.getInstance().getInscritParMail((String) req.getSession().getAttribute("utilisateur"));
 
         //Part image = req.getPart("image");
 
-        Partie partie = new Partie(0, nomScenario, nomJeu, nbMin, nbMax, deUtil, typeSoiree, genre,
-                type, ton, inspiration, niveauAttendu, presentation, creneau, inscrit);
+        Partie partie = new Partie(idPartie, nomScenario, nomJeu, nbMin, nbMax, deUtil, typeSoiree, genre,
+                type, ton, inspiration, niveauAttendu, presentation, new Creneau(0), new Inscrit());
 
         try {
-            //Service.getInstance().validerPartie(partie);
-            resp.sendRedirect("accueil");
+            Service.getInstance().validerPartie(partie,inscrit.getIdInscrit());
+            resp.sendRedirect("detailPartie?idPartie="+idPartie);
         }catch (IllegalArgumentException e){
             resp.sendRedirect("accueil");
         }

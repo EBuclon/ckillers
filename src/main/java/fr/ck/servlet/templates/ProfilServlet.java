@@ -21,6 +21,7 @@ public class ProfilServlet extends GenericServlet {
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
 
         String utilisateur = (String) req.getSession().getAttribute("utilisateur");
+
         if(utilisateur == null || utilisateur.equals("")){
             resp.sendRedirect("connexion");
         }else {

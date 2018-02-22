@@ -21,6 +21,8 @@ public class CreerCompteServlet extends GenericServlet {
 
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
         String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
+        String statutUtil = (String) req.getSession().getAttribute("statut");
+
         if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur)) {
             context.setVariable("inscrit", new Inscrit("Visiteur"));
         }else{
@@ -45,6 +47,6 @@ public class CreerCompteServlet extends GenericServlet {
         Inscrit inscrit = new Inscrit(1,nom,prenom,mail,"null",adresse,"inscrit","null",formater.format(date),0,motDePasse);
         Service.getInstance().ajouterInscrit(inscrit);
 
-        resp.sendRedirect("/accueil");
+        resp.sendRedirect("/connexion");
     }
 }

@@ -22,12 +22,12 @@ public class AjouterCrEvNewsServlet extends GenericServlet {
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
 
         String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
-        if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur)) {
-            context.setVariable("inscrit", new Inscrit("Visiteur"));
+        String statutUtil = (String) req.getSession().getAttribute("statut");
+        if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur) || "adherent".equals(statutUtil) || "inscrit".equals(statutUtil) ) {
+            resp.sendRedirect("accueil");
         }else{
-            context.setVariable("inscrit", Service.getInstance().getInscritParMail(identifiantUtilisateur));
+            context.setVariable("inscrit", new Inscrit(identifiantUtilisateur,statutUtil));
+            templateEngine.process("ajouterEvent", context, resp.getWriter());
         }
-
-        templateEngine.process("ajouterEvent", context, resp.getWriter());
     }
 }

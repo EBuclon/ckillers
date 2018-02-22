@@ -20,7 +20,9 @@ public class AjouterCreneauServlet extends GenericServlet {
         String date = req.getParameter("date");
         String heure = req.getParameter("heure");
 
-        Creneau creneau = new Creneau(0, date, heure, lieu,new Inscrit());
+        String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
+
+        Creneau creneau = new Creneau(0, date, heure, lieu, Service.getInstance().getInscritParMail(identifiantUtilisateur));
         Service.getInstance().ajouterCreneau(creneau);
         /*Gson parserJson = new Gson();
         String creneauJson = parserJson.toJson(creneau);

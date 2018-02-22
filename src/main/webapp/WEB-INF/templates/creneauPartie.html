@@ -63,7 +63,7 @@
 				<td>[[${creneau.heure}]]</td>
 				<td>[[${creneau.lieu}]]</td>
 				<td><a th:href="'/ajouterPartie?idCreneau='+${creneau.idCreneau}">utiliser</a></td>
-				<td><a th:id="${creneau.idCreneau}"><script th:inline="javascript">
+				<td th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'"><a th:id="${creneau.idCreneau}"><script th:inline="javascript">
 					document.getElementById(/*[[${creneau.idCreneau}]]*/).onclick=function () {confirmSuppression(/*[[${creneau.idCreneau}]]*/)}</script>supprimer</a></td>
 			</tr>
 		</table>

@@ -35,9 +35,10 @@ public class ConnexionServlet extends GenericServlet {
         String mail = req.getParameter("mail");
         String motDePasse = req.getParameter("mdp");
         try{
-            String mdp = Service.getInstance().getConnexion(mail);
-            if(mdp.length()!=0 && mdp.equals(motDePasse)){
+            Inscrit inscrit = Service.getInstance().getConnexion(mail);
+            if(inscrit.getMotDePasse().length()!=0 && inscrit.getMotDePasse().equals(motDePasse)){
                 req.getSession().setAttribute("utilisateur", mail);
+                req.getSession().setAttribute("statut", inscrit.getStatut());
             }
         }catch (IllegalArgumentException e){
             throw new RuntimeException("Erreur lors de la connexion", e);

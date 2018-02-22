@@ -28,57 +28,49 @@
 	        </div>
 	        <div class="contenu_onglets">
 	            <div class="contenu_onglet" id="contenu_onglet_profil">
-	                <h3>Profil</h3>
+	                <h3>Bonjour, [[${inscrit.prenom}]]</h3>
 	             	<div class="row">
 	             		<div class="col-md-3">
-	             			Nom
+	             			Nom : [[${inscrit.nom}]]
 	             		</div>
 	             		<div class="col-md-3">
-	             			Prénom
+	             			Prénom : [[${inscrit.prenom}]]
 	             		</div>
 	             	</div>
 	             	<div class="row">
 	             		<div class="col-md-6">
-	             			Statut
+	             			Statut : [[${inscrit.statut}]]
 	             		</div>
 	             	</div>  
-	             	<div class="row">
+	             	<!--<div class="row">
 	             		<div class="col-md-3">
 	             			<h6>Cotisation :</h6>
 	             		</div>
 	             		<div class="col-md-3">
 	             			à jour
 	             		</div>
-	             	</div>   
+	             	</div>   -->
 	            </div>
 	            <div class="contenu_onglet" id="contenu_onglet_Coordonnees">
 	                <h3>Coordonnées</h3>
 	               	<div class="row">
 	             		<div class="col-md-6">
-	             			Exemple@mail.com
+							Mail : [[${inscrit.mail}]]
 	             		</div>
 	     
 	             		<div class="col-md-6">
-	             			01 23 45 67 89
+	             			Telephone : [[${inscrit.telephone}]]
 	             		</div>
 	             	</div>
 	             	<div class="row">
 	             		<div class="col-md-6">
-	             			7 rue de l'exemple en bois
+							[[${inscrit.adresse}]]
 	             		</div>
 	             	</div>
-	             	<div class="row">
-	             		<div class="col-md-6">
-	             			94345
-	             		</div>
-	             		<div class="col-md-6">
-	             			Saint Michu-les-chaussettes
-	             		</div>
-	             	</div>       
 	            </div>
 	            <div class="contenu_onglet" id="contenu_onglet_autre">
-	                <h3>autre</h3>
-	               Je sais pas quoi mettre dans cette partie
+	                <h3>Préférences</h3>
+	                Options et préférences, en cours.
 	            </div>
 	        </div>
 	    </div>

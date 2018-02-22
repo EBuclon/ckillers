@@ -31,11 +31,12 @@ public class AjouterPartieServlet extends GenericServlet {
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
 
         String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
+        String statutUtil = (String) req.getSession().getAttribute("statut");
         if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur)) {
-            context.setVariable("inscrit", new Inscrit("Visiteur"));
-        }else{
-            context.setVariable("inscrit", Service.getInstance().getInscritParMail(identifiantUtilisateur));
+            resp.sendRedirect("connexion");
+            return;
         }
+        context.setVariable("inscrit", new Inscrit(identifiantUtilisateur,statutUtil));
         context.setVariable("creneau", creneau);
 
         templateEngine.process("ajouterPartie", context, resp.getWriter());
@@ -47,7 +48,7 @@ public class AjouterPartieServlet extends GenericServlet {
         String nomJeu = req.getParameter("nomJeu");
         Integer nbMin = Integer.valueOf(req.getParameter("nbMin"));
         Integer nbMax = Integer.valueOf(req.getParameter("nbMax"));
-        String deUtil = req.getParameter("deUtil");
+        String desUtil = req.getParameter("desUtil");
         String typeSoiree = req.getParameter("typeSoiree");
         String genre = req.getParameter("genre");
         String type = req.getParameter("type");
@@ -57,12 +58,12 @@ public class AjouterPartieServlet extends GenericServlet {
         String presentation = req.getParameter("presentation");
 
         Integer idCreneau = Integer.parseInt(req.getParameter("idCreneau"));
-        Creneau creneau = new Creneau(idCreneau); //Service.getInstance().getCreneau(idCreneau);
-        Inscrit inscrit = new Inscrit(1);
+        Creneau creneau = new Creneau(idCreneau);
+        Inscrit inscrit = Service.getInstance().getInscritParMail((String) req.getSession().getAttribute("utilisateur"));
 
         //Part image = req.getPart("image");
 
-        Partie partie = new Partie(0, nomScenario, nomJeu, nbMin, nbMax, deUtil, typeSoiree, genre,
+        Partie partie = new Partie(0, nomScenario, nomJeu, nbMin, nbMax, desUtil, typeSoiree, genre,
                 type, ton, inspiration, niveauAttendu, presentation, creneau, inscrit);
 
         try {

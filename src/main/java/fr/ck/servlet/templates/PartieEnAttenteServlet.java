@@ -21,13 +21,14 @@ public class PartieEnAttenteServlet extends GenericServlet {
 
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
         String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
-        if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur)) {
-            context.setVariable("inscrit", new Inscrit("Visiteur"));
-        }else{
-            context.setVariable("inscrit", Service.getInstance().getInscritParMail(identifiantUtilisateur));
-        }
+        String statutUtil = (String) req.getSession().getAttribute("statut");
         context.setVariable("parties", Service.getInstance().listPartieEnAttente());
 
-        templateEngine.process("partieAttente", context, resp.getWriter());
+        if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur) || "adherent".equals(statutUtil) || "inscrit".equals(statutUtil) ) {
+            resp.sendRedirect("accueil");
+        }else{
+            context.setVariable("inscrit", new Inscrit(identifiantUtilisateur,statutUtil));
+            templateEngine.process("partieAttente", context, resp.getWriter());
+        }
     }
 }
