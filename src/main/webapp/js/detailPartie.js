@@ -23,6 +23,7 @@ function annulerParticiper() {
     requeteAnnulerParticipation.open("POST","annulerParticiper",true);
     requeteAnnulerParticipation.responseType="json";
 
+
     requeteAnnulerParticipation.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     var idPartie = document.getElementById("idPartie").textContent;
     requeteAnnulerParticipation.send("idPartie="+idPartie);
@@ -31,12 +32,8 @@ function annulerParticiper() {
 
 window.onload = function () {
 
-    console.log(document.getElementById("joueur"));
-
     document.getElementById("participer").onclick=function() {
         participer();
-
-        //
         return false;
     };
 

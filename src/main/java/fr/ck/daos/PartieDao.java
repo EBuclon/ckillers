@@ -183,9 +183,13 @@ public class PartieDao {
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement("update creneau set idPartie=null where idCreneau=?;")){
             statement.setInt(1,idCreneau);
             statement.executeUpdate();
-            try (PreparedStatement statement2 = connection.prepareStatement("DELETE from partie where idPartie=?;")){
+            try (PreparedStatement statement2 = connection.prepareStatement("DELETE FROM participer WHERE idPartie=?")){
                 statement2.setInt(1,idPartie);
                 statement2.executeUpdate();
+                try (PreparedStatement statement3 = connection.prepareStatement("DELETE from partie where idPartie=?;")){
+                    statement3.setInt(1,idPartie);
+                    statement3.executeUpdate();
+                }
                 }
         }
         catch (SQLException e){

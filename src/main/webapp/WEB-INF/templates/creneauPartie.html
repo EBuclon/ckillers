@@ -33,8 +33,8 @@
 				<th>Lieu</th>
 				<th></th>
 			</tr>
-			<tr th:each="partie:${parties}" th:id="${partie.idPartie}"><script th:inline="javascript">
-                document.getElementById(/*[[${partie.idPartie}]]*/).onclick=function () {lienPartie(/*[[${partie.idPartie}]]*/)}</script>
+			<tr th:each="partie:${parties}" th:id="'partie'+${partie.idPartie}"><script th:inline="javascript">
+                document.getElementById("partie"+[[${partie.idPartie}]]).onclick=function () {lienPartie([[${partie.idPartie}]])}</script>
 				<td>[[${partie.nomScenario}]]</td>
 				<td>[[${partie.nomJeu}]]</td>
 				<td>[[${partie.inscrit.nom}]] [[${partie.inscrit.prenom}]]</td>
@@ -63,8 +63,8 @@
 				<td>[[${creneau.heure}]]</td>
 				<td>[[${creneau.lieu}]]</td>
 				<td><a th:href="'/ajouterPartie?idCreneau='+${creneau.idCreneau}">utiliser</a></td>
-				<td th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'"><a th:id="${creneau.idCreneau}"><script th:inline="javascript">
-					document.getElementById(/*[[${creneau.idCreneau}]]*/).onclick=function () {confirmSuppression(/*[[${creneau.idCreneau}]]*/)}</script>supprimer</a></td>
+				<td th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'"><a th:id="'creneau'+${creneau.idCreneau}"><script th:inline="javascript">
+					document.getElementById("creneau"+[[${creneau.idCreneau}]]).onclick=function () {confirmSuppression([[${creneau.idCreneau}]])}</script>supprimer</a></td>
 			</tr>
 		</table>
 	</div>

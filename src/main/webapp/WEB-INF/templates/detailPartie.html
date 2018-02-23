@@ -45,10 +45,10 @@
 			<div class="row" id="boutons">
 				<button th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="col-md-4">Supprimer</button>
 				<p th:unless="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="invisible"></p>
-				<button id="participer" th:unless="${joueur}">Participer</button>
-				<p id="participer" th:if="${joueur}"></p>
+				<button id="participer" th:unless="${joueur} OR ${inscrit.statut}=='Visiteur'">Participer</button>
+				<p id="participer" th:if="${joueur} OR ${inscrit.statut}=='Visiteur'"></p>
 				<button id="annulerParticiper" th:if="${joueur}">Ne plus participer</button>
-				<p id="annulerParticiper" th:unless="${joueur}"></p>
+				<p id="annulerParticiper" th:unless="${joueur} AND ${inscrit.statut}!='Visiteur'"></p>
 			</div>
 		</div>
 	</div>
