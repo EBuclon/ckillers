@@ -28,6 +28,8 @@ public class AccueilServlet extends GenericServlet {
         }else{
             context.setVariable("inscrit", new Inscrit(identifiantUtilisateur,statutUtil));
         }
+        context.setVariable("parties", Service.getInstance().listPartieValide());
+
         templateEngine.process("accueil", context, resp.getWriter());
 
     }
