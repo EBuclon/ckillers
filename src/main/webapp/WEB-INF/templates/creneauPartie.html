@@ -4,7 +4,7 @@
 	<title>Céréale Killers</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
-	<script type="text/javascript">
+	<script type="text/javascript" src="./js/lien.js">
         function confirmSuppression(idCreneau) {
             console.log(idCreneau)
             if (confirm("Voulez-vous vraiment supprimer ce creneau ?")) {
@@ -33,14 +33,14 @@
 				<th>Lieu</th>
 				<th></th>
 			</tr>
-			<tr th:each="partie:${parties}">
+			<tr th:each="partie:${parties}" th:id="${partie.idPartie}"><script th:inline="javascript">
+                document.getElementById(/*[[${partie.idPartie}]]*/).onclick=function () {lienPartie(/*[[${partie.idPartie}]]*/)}</script>
 				<td>[[${partie.nomScenario}]]</td>
 				<td>[[${partie.nomJeu}]]</td>
 				<td>[[${partie.inscrit.nom}]] [[${partie.inscrit.prenom}]]</td>
 				<td>[[${partie.creneau.date}]]</td>
 				<td>[[${partie.creneau.heure}]]</td>
 				<td>[[${partie.creneau.lieu}]]</td>
-				<td><a th:href="'/detailPartie?idPartie='+${partie.idPartie}">Voir</a></td>
 			</tr>
 		</table>
 	</div>

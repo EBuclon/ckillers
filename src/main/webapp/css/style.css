@@ -222,6 +222,6 @@ input, select, textarea{
 
 }
 
-#table-accueil tr:hover{
-	font-weight: bold;
+table td:hover{
+	cursor: pointer;
 }

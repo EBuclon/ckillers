@@ -4,14 +4,7 @@
 	<title>Accueil</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
-	<script type="text/javascript">
-	function lienPartie(idPartie) {
-	console.log(idPartie)
-
-	document.location.href="/detailPartie?idPartie="+idPartie;
-
-	}
-	</script>
+	<script type="text/javascript" src="./js/lien.js"></script>
 </head>
 <body>
 <header th:replace="~{fragments::header}"></header>
@@ -51,7 +44,6 @@
 				<td>[[${partie.creneau.date}]]</td>
 				<td>[[${partie.creneau.heure}]]</td>
 				<td>[[${partie.creneau.lieu}]]</td>
-
 			</tr>
 			</table>
 		</div>
