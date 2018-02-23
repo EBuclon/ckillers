@@ -15,7 +15,7 @@ public class PartieDao {
 
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT P.idPartie, nomScenario, nomJeu, C.idCreneau, dateCreneau, heure, lieu, C.idInscrit as idProposeCreneau, I.idInscrit, nom, prenom\n" +
+             ResultSet resultSet = statement.executeQuery("SELECT P.idPartie, nomScenario, nomJeu, C.idCreneau, dateCreneau, heure, lieu, I.idInscrit, nom, prenom\n" +
                      "FROM Partie P INNER JOIN Creneau C INNER JOIN Inscrit I \n" +
                      "WHERE P.idCreneau=C.idCreneau AND idInscrit_1 IS NOT NULL AND P.idInscrit=I.idInscrit")) {
             while (resultSet.next()) {
@@ -28,7 +28,7 @@ public class PartieDao {
                                         resultSet.getString("dateCreneau"),
                                         resultSet.getString("heure"),
                                         resultSet.getString("lieu"),
-                                        new Inscrit(resultSet.getInt("idProposeCreneau"))
+                                        new Inscrit()
                                 ),
                                 new Inscrit(resultSet.getInt("idInscrit"),
                                         resultSet.getString("nom"),
@@ -46,7 +46,7 @@ public class PartieDao {
 
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT P.idPartie, nomScenario, nomJeu, C.idCreneau, dateCreneau, heure, lieu, C.idInscrit as idProposeCreneau, I.idInscrit, nom, prenom\n" +
+             ResultSet resultSet = statement.executeQuery("SELECT P.idPartie, nomScenario, nomJeu, C.idCreneau, dateCreneau, heure, lieu, I.idInscrit, nom, prenom\n" +
                      "FROM Partie P INNER JOIN Creneau C INNER JOIN Inscrit I \n" +
                      "WHERE P.idCreneau=C.idCreneau AND idInscrit_1 IS NULL AND P.idInscrit=I.idInscrit")) {
             while (resultSet.next()) {
@@ -59,7 +59,7 @@ public class PartieDao {
                                         resultSet.getString("dateCreneau"),
                                         resultSet.getString("heure"),
                                         resultSet.getString("lieu"),
-                                        new Inscrit(resultSet.getInt("idProposeCreneau"))
+                                        new Inscrit()
                                         ),
                                 new Inscrit(resultSet.getInt("idInscrit"),
                                         resultSet.getString("nom"),
@@ -138,7 +138,7 @@ public class PartieDao {
 
     public Partie getPartie(Integer idPartie){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT P.idPartie, nomScenario, nomJeu, nombreMin, nombreMax, desUtil, typeSoiree, genre, typeJ, ton, inspiration, niveauAttendu, presentation, " +
+             PreparedStatement statement = connection.prepareStatement("SELECT nomScenario, nomJeu, nombreMin, nombreMax, desUtil, typeSoiree, genre, typeJ, ton, inspiration, niveauAttendu, presentation, " +
                      "C.idCreneau, dateCreneau, heure, lieu, I.idInscrit, I.nom, I.prenom, C.idInscrit as idInscritC, Ic.nom as nomC, Ic.prenom as prenomC " +
                      "FROM Partie P INNER JOIN Creneau C INNER JOIN Inscrit I INNER JOIN Inscrit Ic " +
                      "WHERE P.idCreneau=C.idCreneau AND P.idInscrit=I.idInscrit AND Ic.idInscrit=C.idInscrit AND P.idPartie=?")) {
@@ -146,7 +146,7 @@ public class PartieDao {
             try (ResultSet resultSet = statement.executeQuery()){
                 while (resultSet.next()) {
                     return new Partie(
-                            resultSet.getInt("idPartie"),
+                            idPartie,
                             resultSet.getString("nomScenario"),
                             resultSet.getString("nomJeu"),
                             resultSet.getInt("nombreMin"),
@@ -176,7 +176,6 @@ public class PartieDao {
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors du chargement de la partie", e);
         }
-
         return null;
     }
 

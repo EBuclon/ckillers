@@ -14,7 +14,7 @@
 			<h3 class="col-md-4">[[${partie.creneau.heure}]]</h3>
 		</div>
 		<div class="row">
-			<p class="col-md"> Créneau mis à disposition par : [[${inscritC.nom}]] [[${inscritC.prenom}]]</p>
+			<p class="col-md"> Créneau mis à disposition par : [[${partie.creneau.inscrit.nom}]] [[${partie.creneau.inscrit.prenom}]]</p>
 		</div>
 	<form method="post">
 		<label for="idPartie" class="invisible"></label> <input class="invisible" type="number" id="idPartie" name="idPartie" th:value="${partie.idPartie}"/>
@@ -23,10 +23,11 @@
 			<input type="text" id="nomJeu" name="nomJeu" class="col-md-4" th:value="${partie.nomJeu}"/></div>
 			<div class="col-5"><label for="typeSoiree" class="col-md-4">type de soirée :</label>
 			<select id="typeSoiree" name="typeSoiree">
-				<option>One shot</option>
-				<option>Debut de scénario court</option>
-				<option>Suite de scénario court</option>
-				<option>Campagne ouverte</option>
+				<option selected>[[${partie.typeSoiree}]]</option>
+				<option th:unless="${partie.typeSoiree}=='One shot'">One shot</option>
+				<option th:unless="${partie.typeSoiree}=='Debut de scénario court'">Debut de scénario court</option>
+				<option th:unless="${partie.typeSoiree}=='Suite de scénario court'">Suite de scénario court</option>
+				<option th:unless="${partie.typeSoiree}=='Campagne ouverte'">Campagne ouverte</option>
 			</select></div>
 		</div>
 		<div class="row">
@@ -68,7 +69,7 @@
 			<p>Partie proposée par : [[${partie.inscrit.nom}]] [[${partie.inscrit.prenom}]]</p>
 		</div>
 		<div class="row">
-			<a th:href="'/supprimerPartie?idPartie='+${partie.idPartie}" id="refuserPartie" >Refuser Partie</a>
+			<a th:href="'/supprimerPartie?idPartie='+${partie.idPartie}+'&idCreneau='+${partie.creneau.idCreneau}">Refuser Partie</a>
 			<input type="submit" name="Valider Partie" id="validerPartie" value="validerPartie">
 		</div>
 	</form>

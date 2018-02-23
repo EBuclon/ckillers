@@ -40,6 +40,13 @@ public class Inscrit {
         this.prenom = prenom;
     }
 
+    public Inscrit(Integer idInscrit, String nom, String prenom, String mail){
+        this.idInscrit = idInscrit;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mail=mail;
+    }
+
     public Inscrit(){
 
     };

@@ -34,6 +34,8 @@ div ul
 
 #invisible {
 	display: none;
+	position: fixed;
+	top: -999px;
 }
 
 div:hover ul.niveau2, div li:hover, #menu-haut div:hover{
@@ -211,6 +213,7 @@ input, select, textarea{
     border-bottom:0px solid black;
     padding-bottom:4px;
 }
+
 .contenu_onglet
 {
     background-color:#dddddd;

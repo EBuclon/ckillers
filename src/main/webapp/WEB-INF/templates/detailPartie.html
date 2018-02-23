@@ -4,16 +4,7 @@
 	<title>Détail</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
-	<script type="text/javascript">
-		function confirmSuppression(idPartie,idCreneau) {
-			console.log(idCreneau);
-			console.log(idPartie);
-			if (confirm("Voulez-vous vraiment supprimer cette partie ?")) {
-				// Clic sur OK
-				document.location.href="/supprimerPartie?idPartie="+idPartie+"&idCreneau="+idCreneau;
-			}
-		}
-    </script>
+	<script  type="text/javascript" src="js/detailPartie.js"></script>
 </head>
 <body>
 	<header th:replace="~{fragments::header}"></header>
@@ -51,20 +42,28 @@
 			<div class="row">
 				<p class="col-md-8">[[${partie.presentation}]]</p>
 			</div>
-			<div th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" class="row">
-				<button th:id="${partie.idPartie}" class="col-md-4"><script th:inline="javascript">
-            		document.getElementById(/*[[${partie.idPartie}]]*/).onclick=function () {
-                			confirmSuppression(/*[[${partie.idPartie}]],[[${partie.getCreneau().idCreneau}]]*/)}</script>supprimer</button>
+			<div class="row" id="boutons">
+				<button th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="col-md-4">Supprimer</button>
+				<p th:unless="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="invisible"></p>
+				<button id="participer" th:unless="${joueur}">Participer</button>
+				<p id="participer" th:if="${joueur}"></p>
+				<button id="annulerParticiper" th:if="${joueur}">Ne plus participer</button>
+				<p id="annulerParticiper" th:unless="${joueur}"></p>
 			</div>
 		</div>
 	</div>
-	<div class="container" id="ajout-joueur">
+	<div th:unless="${inscrit.statut}=='Visiteur'" class="container" id="ajout-joueur">
 
-				<button>j'y participe</button>
+		<div class="row" id="participants">
 
-		<div class="row">
-			<p>Ils y participent également :</p>
+			<h5 class="col-md-10">Ils y participent également :</h5>
+			<p th:each="participant:${participants}" class="col-md-10" th:id="'participant'+${participant.idInscrit}">[[${participant.prenom}]] [[${participant.nom}]]</p>
 		</div>
+
 	</div>
 </body>
+<!--<p class="invisible" id="statut">[[${inscrit.statut}]]</p>
+<p class="invisible" id="joueur">[[${joueur}]]</p>-->
+<p class="invisible" id="idPartie">[[${partie.idPartie}]]</p>
+<p class="invisible" id="idCreneau">[[${partie.creneau.idCreneau}]]</p>
 </html>

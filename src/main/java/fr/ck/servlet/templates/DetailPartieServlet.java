@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/detailPartie")
 public class DetailPartieServlet extends GenericServlet {
@@ -32,12 +33,23 @@ public class DetailPartieServlet extends GenericServlet {
         String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
         String statutUtil = (String) req.getSession().getAttribute("statut");
 
+        List<Inscrit> participants = Service.getInstance().listeParticipants(idPartie);
+        Boolean joueur = false;
+        for(int i=0;i<participants.size();i++){
+            if(participants.get(i).getMail().equals(identifiantUtilisateur)){
+                joueur=true;
+            }
+        }
+        context.setVariable("joueur",joueur);
+
         if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur)) {
             context.setVariable("inscrit", new Inscrit("Visiteur"));
         }else{
             context.setVariable("inscrit", new Inscrit(identifiantUtilisateur,statutUtil));
         }
         context.setVariable("partie", partie);
+        context.setVariable("participants",participants);
+
         templateEngine.process("detailPartie", context, resp.getWriter());
     }
 }

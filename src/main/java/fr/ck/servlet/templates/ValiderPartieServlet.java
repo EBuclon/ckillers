@@ -32,7 +32,6 @@ public class ValiderPartieServlet extends GenericServlet {
         String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
         String statutUtil = (String) req.getSession().getAttribute("statut");
         context.setVariable("partie", partie);
-        context.setVariable("inscritC", partie.getCreneau().getIncrit());
 
         if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur) || "adherent".equals(statutUtil) || "inscrit".equals(statutUtil) ) {
             resp.sendRedirect("accueil");

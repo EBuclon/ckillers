@@ -60,7 +60,7 @@ public class CreneauDao {
             statement.setString(1, creneau.getDate());
             statement.setString(2, creneau.getHeure());
             statement.setString(3, creneau.getLieu());
-            statement.setInt(4, creneau.getIncrit().getIdInscrit());
+            statement.setInt(4, creneau.getInscrit().getIdInscrit());
             statement.executeUpdate();
         }catch (SQLException e) {
             throw new RuntimeException("Erreur lors de l'insertion du jeu à la base", e);

@@ -20,13 +20,7 @@ import java.io.IOException;
             Integer idCreneau = Integer.parseInt(req.getParameter("idCreneau"));
             Service.getInstance().supprimerPartie(idPartie,idCreneau);
             resp.sendRedirect("/creneauPartie");
-
-            TemplateEngine templateEngine = this.createTemplateEngine(req.getServletContext());
-            WebContext context = new WebContext(req, resp, req.getServletContext());
-            context.setVariable("Partie",Service.getInstance().getPartie(idPartie));
-
-            //templateEngine.process("supprimerCreneau", context, resp.getWriter());
-
+            return;
         }
 
     }

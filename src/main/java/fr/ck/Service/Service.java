@@ -2,6 +2,7 @@ package fr.ck.Service;
 
 import fr.ck.daos.CreneauDao;
 import fr.ck.daos.InscritDao;
+import fr.ck.daos.ParticipationDao;
 import fr.ck.daos.PartieDao;
 import fr.ck.entite.Creneau;
 import fr.ck.entite.Inscrit;
@@ -16,6 +17,7 @@ public class Service {
     private PartieDao partieDao = new PartieDao();
     private CreneauDao creneauDao = new CreneauDao();
     private InscritDao inscritDao = new InscritDao();
+    private ParticipationDao participationDao = new ParticipationDao();
 
 
     private static class ServiceHolder {
@@ -44,14 +46,16 @@ public class Service {
         return creneauDao.getCreneau(idCreneau);
     }
 
-    public void supprimerCreneau(Integer idCreneau){creneauDao.supprimerCreneau(idCreneau);}
+    public void supprimerCreneau(Integer idCreneau) {
+        creneauDao.supprimerCreneau(idCreneau);
+    }
 
     public void ajouterPartie(Partie partie) {
         partieDao.ajouterPartie(partie);
     }
 
     public void validerPartie(Partie partie, Integer idInscrit) {
-        partieDao.validerPartie(partie,idInscrit);
+        partieDao.validerPartie(partie, idInscrit);
     }
 
     public List<Partie> listPartieValide() {
@@ -66,10 +70,9 @@ public class Service {
         return partieDao.getPartie(idPartie);
     }
 
-    public void supprimerPartie(Integer idPartie,Integer idCreneau){
-        partieDao.supprimerPartie(idPartie,idCreneau);
+    public void supprimerPartie(Integer idPartie, Integer idCreneau) {
+        partieDao.supprimerPartie(idPartie, idCreneau);
     }
-
 
 
 
@@ -85,7 +88,23 @@ public class Service {
         return inscritDao.getInscritParMail(mail);
     }
 
+    public Integer getIdParMail(String mail) {
+        return inscritDao.getIdParMail(mail);
+    }
+
     public Inscrit getInscritValideur(Integer idPartie) {
         return inscritDao.getInscritValideur(idPartie);
+    }
+
+    public void participer(Integer idPartie, Integer idInscrit) {
+        participationDao.participer(idPartie, idInscrit);
+    }
+
+    public void annulerParticiper(Integer idPartie, Integer idInscrit) {
+        participationDao.annulerParticiper(idPartie, idInscrit);
+    }
+
+    public List<Inscrit> listeParticipants(Integer idPartie) {
+        return participationDao.listeParticipants(idPartie);
     }
 }

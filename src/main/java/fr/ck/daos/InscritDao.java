@@ -52,6 +52,25 @@ public class InscritDao {
         return null;
     }
 
+    public Integer getIdParMail(String mail){
+        String query = "SELECT idInscrit FROM inscrit WHERE mail=?";
+
+        try(Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+        ) {
+            statement.setString(1,mail);
+            try(ResultSet resultSet = statement.executeQuery()){
+                if(resultSet.next()){
+                    return resultSet.getInt("idInscrit");
+                }
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public Inscrit getInscritValideur(Integer idPartie){
         String query = "SELECT inscrit.idInscrit,nom,prenom FROM inscrit INNER JOIN partie WHERE idInscrit_1=inscrit.idInscrit AND idPartie=?";
 
@@ -106,8 +125,7 @@ public class InscritDao {
         }catch (SQLException e){
             throw new RuntimeException("Erreur lors de l'insertion de l'inscrit à la base", e);
         }
-
-
     }
+
 
 }
