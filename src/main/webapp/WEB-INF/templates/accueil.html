@@ -4,6 +4,14 @@
 	<title>Accueil</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<script type="text/javascript">
+	function lienPartie(idPartie) {
+	console.log(idPartie)
+
+	document.location.href="/detailPartie?idPartie="+idPartie;
+
+	}
+	</script>
 </head>
 <body>
 <header th:replace="~{fragments::header}"></header>
@@ -33,7 +41,21 @@
 			</form>
 		</div>
 	</div>
+	<div class="row">
+		<div>
+			<table id="table-accueil">
+			<tr th:each="partie:${parties}" th:id="${partie.idPartie}"><script th:inline="javascript">
+                document.getElementById(/*[[${partie.idPartie}]]*/).onclick=function () {lienPartie(/*[[${partie.idPartie}]]*/)}</script>
+				<td>[[${partie.nomScenario}]]</td>
+				<td>[[${partie.nomJeu}]]</td>
+				<td>[[${partie.creneau.date}]]</td>
+				<td>[[${partie.creneau.heure}]]</td>
+				<td>[[${partie.creneau.lieu}]]</td>
 
+			</tr>
+			</table>
+		</div>
+	</div>
 </div>
 </body>
 </html>
