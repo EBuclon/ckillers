@@ -20,7 +20,17 @@
 	height: 100px;
 }
 
-div ul {display: none;}
+div ul
+{
+	display: none;
+	list-style: none;
+}
+
+.niveau2 a:hover li
+{
+	color:#ffe8a1;
+	z-index: 3;
+}
 
 #invisible {
 	display: none;
@@ -73,6 +83,11 @@ body{
 	width: 70%;
 	height: 600px;
 	margin-right: 5%;
+}
+
+.bloc-info h2{
+	margin: 1%;
+	margin-left: 2%;
 }
 
 .col-xs-4{
@@ -205,4 +220,8 @@ input, select, textarea{
     padding: 2%;
     border-radius: 5px;
 
+}
+
+#table-accueil tr:hover{
+	font-weight: bold;
 }
