@@ -1,20 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<title>Accueil</title>
+	<link rel="stylesheet" type="text/css" href="./css/calendrier.css" />
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
 	<script type="text/javascript" src="./js/lien.js"></script>
+	<script type="text/javascript" src="./js/calendrier.js"></script>
 </head>
 <body>
 <header th:replace="~{fragments::header}"></header>
-<div class="container bloc-info">
+<div class="row">
+<div id="calendarMain" class="calendarMain col-md-2"></div>
+<script type="text/javascript">
+    //<![CDATA[
+    var myCalendar = new jsSimpleDatePickr();
+    myCalendar.CalAdd({
+        'divId': 'calendarMain',
+        'buttonTitle': '',
+        /*'callBack': callback_date,*/
+        'dateMask': 'AAAA/MM/JJ',
+        'dateCentury': 20,
+        'titleMask': 'M AAAA',
+        'navType': '01',
+        'classTable': 'jsCalendar',
+        'classDay': 'day',
+        'classDaySelected': 'selectedDay',
+        'monthLst': ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        'dayLst': ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+        'hideOnClick': false,
+        'showOnLaunch': true
+    });
+    //]]>
+</script>
+<div class="container bloc-info col-md-8">
 	<div class="row">
 		<h2 class="col-xs-8">Parties</h2>
 		<div class="container col-sm-5">
 			<form action="link" id=f-accueil>
-				<!--<div class="row">
-              <!--<div class="col-xs-4">
+				<div class="row">
+					<!--<div class="col-xs-4">
                     <input type="checkbox" id="News" name="news"/>
                     <label for="News">News</label>
                   </div>
@@ -25,8 +51,8 @@
                   <div class="col-xs-4">
                     <input type="checkbox" id="partie" name="partie"/>
                     <label for="partie">Partie</label>
-                  </div>
-                </div>-->
+                  </div>-->
+                </div>
 				<div class="col-xs-4">
 					<input type="text" placeholder="Rechercher" name="search"/>
 					<button type="submit">GO</button>
@@ -48,6 +74,7 @@
 			</table>
 		</div>
 	</div>
+</div>
 </div>
 </body>
 </html>
