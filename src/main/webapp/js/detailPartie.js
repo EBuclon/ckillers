@@ -39,7 +39,6 @@ window.onload = function () {
 
     document.getElementById("annulerParticiper").onclick=function() {
         annulerParticiper();
-        //
         return false;
     };
 

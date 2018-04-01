@@ -112,14 +112,15 @@ public class InscritDao {
 
     public void ajouterInscrit(Inscrit inscrit){
         try(Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO inscrit(nom,prenom,mail,adresse,statut,dateInscription,motDePasse) VALUES (?,?,?,?,?,?,?)")){
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO inscrit(nom,prenom,mail,adresse,statut,dateInscription,nbrPartieJouees,motDePasse) VALUES (?,?,?,?,?,?,?,?)")){
             statement.setString(1,inscrit.getNom());
             statement.setString(2,inscrit.getPrenom());
             statement.setString(3,inscrit.getMail());
             statement.setString(4,inscrit.getAdresse());
             statement.setString(5,"inscrit");
             statement.setString(6,inscrit.getDateInscription());
-            statement.setString(7,inscrit.getMotDePasse());
+            statement.setInt(7,0);
+            statement.setString(8,inscrit.getMotDePasse());
             statement.executeUpdate();
 
         }catch (SQLException e){

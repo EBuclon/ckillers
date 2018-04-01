@@ -72,9 +72,9 @@ public class PartieDao {
         return parties;
     }
 
-    public void ajouterPartie(Partie partie){
+    public void ajouterPartie(Partie partie, String image){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO Partie(nomScenario, nomJeu, nombreMin, nombreMax, desUtil, typeSoiree, genre, typeJ, ton, inspiration, niveauAttendu, presentation, idCreneau, idInscrit) VALUES (?, ?, ?, ?, ?,?, ?, ?, ?, ?,?, ?, ?, ?)",Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO Partie(nomScenario, nomJeu, nombreMin, nombreMax, desUtil, typeSoiree, genre, typeJ, ton, inspiration, niveauAttendu, presentation, image, idCreneau, idInscrit) VALUES (?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?,?, ?, ?, ?)",Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, partie.getNomScenario());
             statement.setString(2, partie.getNomJeu());
             statement.setInt(3, partie.getNbMin());
@@ -87,13 +87,14 @@ public class PartieDao {
             statement.setString(10, partie.getInspiration());
             statement.setString(11, partie.getNiveauAttendu());
             statement.setString(12, partie.getPresentation());
-            statement.setInt(13, partie.getCreneau().getIdCreneau());
-            statement.setInt(14, partie.getInscrit().getIdInscrit());
-            /*if (image != null) {
-                statement.setString(4, image);
+            if (image != null) {
+                statement.setString(13, image);
             } else {
-                statement.setString(4, );
-            }*/
+                statement.setString(13,"");
+            }
+            statement.setInt(14, partie.getCreneau().getIdCreneau());
+            statement.setInt(15, partie.getInscrit().getIdInscrit());
+
             statement.executeUpdate();
             ResultSet resultset = statement.getGeneratedKeys();
             resultset.next();
@@ -175,6 +176,21 @@ public class PartieDao {
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors du chargement de la partie", e);
+        }
+        return null;
+    }
+
+    public String getImage(Integer idPartie) {
+        try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT image FROM partie WHERE idPartie=?")) {
+            statement.setInt(1, idPartie);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("image");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erreur dans l'obtention du chemin de l'image", e);
         }
         return null;
     }

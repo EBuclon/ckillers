@@ -8,11 +8,17 @@ import fr.ck.entite.Creneau;
 import fr.ck.entite.Inscrit;
 import fr.ck.entite.Partie;
 
+import javax.servlet.http.Part;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 public class Service {
 
-    private static final String IMAGE_DIRECTORY_PATH = "C:/Developpement Web/ck/src/main/webapp/img";
+    private static final String IMAGE_DIRECTORY_PATH = "C:/Developpement Web/ck/src/main/webapp/image";
 
     private PartieDao partieDao = new PartieDao();
     private CreneauDao creneauDao = new CreneauDao();
@@ -50,12 +56,31 @@ public class Service {
         creneauDao.supprimerCreneau(idCreneau);
     }
 
-    public void ajouterPartie(Partie partie) {
-        partieDao.ajouterPartie(partie);
+    public void ajouterPartie(Partie partie, Part image) {
+        if (partie == null) {
+            throw new IllegalArgumentException("Partie inexistante");
+        }
+
+        String nomImage = chargerImage(image);
+        partieDao.ajouterPartie(partie,nomImage);
     }
 
     public void validerPartie(Partie partie, Integer idInscrit) {
         partieDao.validerPartie(partie, idInscrit);
+    }
+
+    private String chargerImage(Part image){
+        String nomFichier = null;
+        if (!image.getSubmittedFileName().equals("")) {
+            nomFichier = UUID.randomUUID().toString().substring(0, 8) + "-" + image.getSubmittedFileName();
+            Path cheminImage = Paths.get(IMAGE_DIRECTORY_PATH, nomFichier);
+            try {
+                Files.copy(image.getInputStream(), cheminImage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return nomFichier;
     }
 
     public List<Partie> listPartieValide() {
@@ -68,6 +93,17 @@ public class Service {
 
     public Partie getPartie(Integer idPartie) {
         return partieDao.getPartie(idPartie);
+    }
+
+    public Path getImage(Integer idPartie) {
+        String image = partieDao.getImage(idPartie);
+        Path chemin;
+        if (image.equals("")) {
+            chemin = Paths.get(IMAGE_DIRECTORY_PATH + "/banner.jpg");
+        } else {
+            chemin = Paths.get(IMAGE_DIRECTORY_PATH + "/" + image);
+        }
+        return chemin;
     }
 
     public void supprimerPartie(Integer idPartie, Integer idCreneau) {

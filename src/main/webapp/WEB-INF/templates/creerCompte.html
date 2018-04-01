@@ -4,6 +4,7 @@
 	<title>Céréale Killers</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<script type="text/javascript" src="js/creerCompte.js"></script>
 </head>
 <body>
 	<header th:replace="~{fragments::header}"></header>
@@ -14,33 +15,35 @@
 			<form method="post">
 				<div class="row">
 					<div class="col-5"><label for="nom" class="col-sm-3">Nom :</label>
-					<input type="text" id="nom" name="nom"/></div>
+					<input type="text" id="nom" name="nom" onblur="verifNom(this)" required/></div>
 					<div class="col-5"><label for="adresse" class="col-sm-4">Adresse :</label>
-					<input type="text" id="adresse" name="adresse"/></div>
+					<input type="text" id="adresse" name="adresse"  onblur="verifAdresse(this)" required/></div>
 				</div>
 				<div class="row">
 					<div class="col-5"><label for="prenom" class="col-sm-3">Prenom :</label>
-					<input type="text" id="prenom" name="prenom"/></div>
+					<input type="text" id="prenom" name="prenom" onblur="verifNom(this)" required/></div>
 					<div class="col-5"><label for="cp" class="col-sm-4">Code Postal :</label>
-					<input type="text" id="cp" name="cp"/></div>
+					<input type="text" id="cp" name="cp" size="5" onblur="verifCP(this)" required/></div>
 				</div>
 				<div class="row">
 					<div class="col-5"><label for="mail" class="col-sm-3">Mail :</label>
-					<input type="text" id="mail" name="mail"/></div>
+					<input type="text" id="mail" name="mail" onblur="verifMail(this)" required/></div>
 					<div class="col-5"><label for="ville" class="col-sm-4">Ville :</label>
-					<input type="text" id="ville" name="ville"/></div>
+					<input type="text" id="ville" name="ville" onblur="verifAdresse(this)" required/></div>
 				</div>
 				<div class="row">
 					<div class="col-5 offset-sm-3"><label for="mdp">Mot de Passe :</label>
-					<input type="text" id="mdp" name="mdp"/></div>
+					<input type="password" id="mdp" name="mdp" onblur="verifNom(this)" required/></div>
 				</div>
 				<div class="row">
 					<div class="col-5 offset-sm-3"><label for="mdpbis">Mot de Passe :</label>
-					<input type="text" id="mdpbis" name="mdpbis"/></div>
+					<input type="password" id="mdpbis" name="mdpbis" onblur="verifNom(this)" required/></div>
+					<div id="mdpb"></div>
 				</div>
 				<div class="row">
 					<div class="col-5 offset-sm-3">
-					<button type="submit" class="valider"/>Valider</div>
+						<button type="submit" class="valider">Valider</button>
+					</div>
 				</div>
 			</form>
 	</div>

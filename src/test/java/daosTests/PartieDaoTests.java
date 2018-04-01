@@ -113,7 +113,7 @@ public class PartieDaoTests {
     @Test
     public void shouldAjouterPartie() throws SQLException {
         Partie partie = new Partie(4,"nomScenario","nomJeu",1,3,"desUtil","One shot","genre","typeJ","ton","inspiration","niveauAttendu","presentation",new Creneau(4),new Inscrit(1));
-        partieDao.ajouterPartie(partie);
+        partieDao.ajouterPartie(partie,null);
 
         Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
         Statement stmt = connection.createStatement();

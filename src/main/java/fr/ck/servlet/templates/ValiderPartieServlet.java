@@ -9,12 +9,15 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 
 @WebServlet("/validerPartie")
+@MultipartConfig
 public class ValiderPartieServlet extends GenericServlet {
 
     @Override
@@ -59,7 +62,7 @@ public class ValiderPartieServlet extends GenericServlet {
 
         Inscrit inscrit = Service.getInstance().getInscritParMail((String) req.getSession().getAttribute("utilisateur"));
 
-        //Part image = req.getPart("image");
+        Part image = req.getPart("image");
 
         Partie partie = new Partie(idPartie, nomScenario, nomJeu, nbMin, nbMax, deUtil, typeSoiree, genre,
                 type, ton, inspiration, niveauAttendu, presentation, new Creneau(0), new Inscrit());

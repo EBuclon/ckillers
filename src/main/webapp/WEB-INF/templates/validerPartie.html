@@ -7,6 +7,7 @@
 </head>
 <body>
 	<header th:replace="~{fragments::header}"></header>
+
 	<div class="container">
 		<div class="row">
 			<h3 class="col-md-4">[[${partie.creneau.lieu}]]</h3>
@@ -16,7 +17,10 @@
 		<div class="row">
 			<p class="col-md"> Créneau mis à disposition par : [[${partie.creneau.inscrit.nom}]] [[${partie.creneau.inscrit.prenom}]]</p>
 		</div>
-	<form method="post">
+		<div class="row">
+			<figure id="detail-partie"><img th:src="'image?idPartie='+${partie.idPartie}"></figure>
+		</div>
+	<form method="post" enctype="multipart/form-data">
 		<label for="idPartie" class="invisible"></label> <input class="invisible" type="number" id="idPartie" name="idPartie" th:value="${partie.idPartie}"/>
 		<div class="row">
 			<div class="col-5"><label for="nomJeu" class="col-md-5">Nom du jeu :</label>
@@ -62,8 +66,8 @@
 			</div>
 		</div>
 		<div class="row">
-			 <div class="offset-4 col-5"><label for="banneriere">Bannière</label>
-			 <input type="file" id="banneriere" name="banneriere"/></div>
+			 <div class="offset-4 col-5"><label for="image">Bannière</label>
+				 <input type="file" accept=image/* id="image" name="image"></div>
 		</div>
 		<div class="row">
 			<p>Partie proposée par : [[${partie.inscrit.nom}]] [[${partie.inscrit.prenom}]]</p>

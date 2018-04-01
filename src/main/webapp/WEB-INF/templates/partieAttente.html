@@ -2,8 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Céréale Killers</title>
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
-	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script type="text/javascript" src="js/lien.js"></script>
 </head>
 <body>
 	<header th:replace="~{fragments::header}"></header>
@@ -20,14 +21,15 @@
 					<th>Lieu</th>
 					<th></th>
 				</tr>
-				<tr th:each="partie:${parties}">
+				<tr th:each="partie:${parties}" th:id="${partie.idPartie}"><script th:inline="javascript">
+                    document.getElementById([[${partie.idPartie}]]).onclick=function () {validerPartie([[${partie.idPartie}]])}</script>
 					<td>[[${partie.nomScenario}]]</td>
 					<td>[[${partie.nomJeu}]]</td>
 					<td>[[${partie.inscrit.nom}]] [[${partie.inscrit.prenom}]]</td>
 					<td>[[${partie.creneau.date}]]</td>
 					<td>[[${partie.creneau.heure}]]</td>
 					<td>[[${partie.creneau.lieu}]]</td>
-					<td><a th:href="'/validerPartie?idPartie='+${partie.idPartie}">Voir</a></td>
+					<!--td><a th:href="'/validerPartie?idPartie='+${partie.idPartie}">Voir</a></td-->
 				</tr>
 			</table>
 		</div>

@@ -4,7 +4,7 @@
 	<title>Détail</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
-	<script  type="text/javascript" src="js/detailPartie.js"></script>
+	<script type="text/javascript" src="js/detailPartie.js"></script>
 </head>
 <body>
 	<header th:replace="~{fragments::header}"></header>
@@ -12,7 +12,7 @@
 		<h2>Détail de la partie</h2>
 		<div class="container" id="detail-partie">
 			<div class="row">
-				<img src="./image/chtulu.jpg">
+				<figure><img th:src="'image?idPartie='+${partie.idPartie}"></figure>
 			</div>
 			<div class="row">
 				<h5 class="col-sm-4">[[${partie.creneau.lieu}]]</h5>
@@ -55,15 +55,12 @@
 	<div th:unless="${inscrit.statut}=='Visiteur'" class="container" id="ajout-joueur">
 
 		<div class="row" id="participants">
-
 			<h5 class="col-md-10">Ils y participent également :</h5>
 			<p th:each="participant:${participants}" class="col-md-10" th:id="'participant'+${participant.idInscrit}">[[${participant.prenom}]] [[${participant.nom}]]</p>
 		</div>
 
 	</div>
 </body>
-<!--<p class="invisible" id="statut">[[${inscrit.statut}]]</p>
-<p class="invisible" id="joueur">[[${joueur}]]</p>-->
 <p class="invisible" id="idPartie">[[${partie.idPartie}]]</p>
 <p class="invisible" id="idCreneau">[[${partie.creneau.idCreneau}]]</p>
 </html>

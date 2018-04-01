@@ -9,12 +9,15 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 
 @WebServlet("/ajouterPartie")
+@MultipartConfig
 public class AjouterPartieServlet extends GenericServlet {
 
     @Override
@@ -57,17 +60,18 @@ public class AjouterPartieServlet extends GenericServlet {
         String niveauAttendu = req.getParameter("niveauAttendu");
         String presentation = req.getParameter("presentation");
 
+        Part image = req.getPart("image");
+
         Integer idCreneau = Integer.parseInt(req.getParameter("idCreneau"));
         Creneau creneau = new Creneau(idCreneau);
         Inscrit inscrit = Service.getInstance().getInscritParMail((String) req.getSession().getAttribute("utilisateur"));
 
-        //Part image = req.getPart("image");
 
         Partie partie = new Partie(0, nomScenario, nomJeu, nbMin, nbMax, desUtil, typeSoiree, genre,
                 type, ton, inspiration, niveauAttendu, presentation, creneau, inscrit);
 
         try {
-            Service.getInstance().ajouterPartie(partie);
+            Service.getInstance().ajouterPartie(partie,image);
             resp.sendRedirect("accueil");
         }catch (IllegalArgumentException e){
             resp.sendRedirect("accueil");
