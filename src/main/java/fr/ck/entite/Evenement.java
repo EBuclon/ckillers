@@ -5,13 +5,19 @@ public class Evenement {
     private Integer id_Event;
     private String titre;
     private String contenu;
-    private Integer id_Creneau;
+    private Creneau Creneau;
 
-    public Evenement(Integer id_Event, String titre, String contenu, Integer id_Creneau) {
+    public Evenement(Integer id_Event, String titre, String contenu, Creneau creneau) {
         this.id_Event = id_Event;
         this.titre = titre;
         this.contenu = contenu;
-        this.id_Creneau = id_Creneau;
+        this.Creneau = creneau ;
+    }
+
+    public Evenement(String titre, String contenu, Creneau creneau) {
+        this.titre = titre;
+        this.contenu = contenu;
+        this.Creneau = creneau ;
     }
 
     public Integer getId_Event() {
@@ -38,11 +44,11 @@ public class Evenement {
         this.contenu = contenu;
     }
 
-    public Integer getId_Creneau() {
-        return id_Creneau;
+    public fr.ck.entite.Creneau getCreneau() {
+        return Creneau;
     }
 
-    public void setId_Creneau(Integer id_Creneau) {
-        this.id_Creneau = id_Creneau;
+    public void setCreneau(fr.ck.entite.Creneau creneau) {
+        Creneau = creneau;
     }
 }

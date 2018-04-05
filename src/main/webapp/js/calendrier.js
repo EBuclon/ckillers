@@ -1,3 +1,5 @@
+var datePick = null;
+
 function jsSimpleDatePickr(){
     var me = this;
     me.jsSDPObj = Array();
@@ -8,7 +10,7 @@ function jsSimpleDatePickr(){
     me.CalAdd = function(data){
         var calDiv = document.getElementById(data.divId);
         var dateEl = document.getElementById(data.inputFieldId);
-        // vÃ©rifie les donnÃ©es
+        // vérifie les donnÃ©es
         if(typeof(calDiv) == 'undefined') return 0;
         if(typeof(dateEl) == 'undefined') data.inputFieldId = '';
         if(typeof(data.hideOnClick) != 'boolean') data.hideOnClick = 1;
@@ -34,22 +36,22 @@ function jsSimpleDatePickr(){
         var divNav = me.DomElementInit('div', {'parent': divW, 'class': 'calendarNav'});
         // ajoute les boutons pour la navigation par an
         if(data.navType != null && data.navType.charAt(0) == 1){
-            var i = me.DomElementInit('input', {'parent': divNav, 'class': 'calendarNavYL', 'type': 'button', 'value': 'Â«'});
+            var i = me.DomElementInit('input', {'parent': divNav, 'class': 'calendarNavYL', 'type': 'button', 'value': '<='});
             i.onclick = function(){
                 me.CalYearNav(id, '-1');
             };
-            i = me.DomElementInit('input', {'parent': divNav, 'class': 'calendarNavYR', 'type': 'button', 'value': 'Â»'});
+            i = me.DomElementInit('input', {'parent': divNav, 'class': 'calendarNavYR', 'type': 'button', 'value': '=>'});
             i.onclick = function(){
                 me.CalYearNav(id, '+1');
             };
         }
         // ajoute les boutons pour la navigation par mois
         if(data.navType != null && data.navType.charAt(1) == 1){
-            var i = me.DomElementInit('input', {'parent': divNav, 'class': 'calendarNavML', 'type': 'button', 'value': 'â€¹'});
+            var i = me.DomElementInit('input', {'parent': divNav, 'class': 'calendarNavML', 'type': 'button', 'value': '<='});
             i.onclick = function(){
                 me.CalMonthNav(id, '-1');
             };
-            i = me.DomElementInit('input', {'parent': divNav, 'class': 'calendarNavMR', 'type': 'button', 'value': 'â€º'});
+            i = me.DomElementInit('input', {'parent': divNav, 'class': 'calendarNavMR', 'type': 'button', 'value': '=>'});
             i.onclick = function(){
                 me.CalMonthNav(id, '+1');
             };
@@ -75,6 +77,7 @@ function jsSimpleDatePickr(){
             'hideOnClick': data.hideOnClick,
             'classTable': data.classTable,
             'classDay': data.classDay,
+            'classDayWithPartie': data.classDayWithPartie,
             'classDaySelected': data.classDaySelected
         });
         me.CalDateInit(id);
@@ -103,7 +106,7 @@ function jsSimpleDatePickr(){
         me.jsSDPId = 1;
     }
 //
-// renvoi le numÃ©ro dans l'Array d'aprÃ¨s l'id
+// renvoi le numéro dans l'Array d'après l'id
 //
     me.CalId2Nb = function(id){
         for(var i = 0; i < me.jsSDPObj.length; i++){
@@ -181,7 +184,7 @@ function jsSimpleDatePickr(){
         me.CalShowTitle(nb);
     }
 //
-// navigation par annÃ©e
+// navigation par année
 //
     me.CalYearNav = function(id, val){
         var nb = me.CalId2Nb(id);
@@ -265,7 +268,7 @@ function jsSimpleDatePickr(){
         }
     }
 //
-// callback : gÃ¨re une clic sur une date
+// callback : gère une clic sur une date
 //
     me.CalClick = function(nb, dateStr){
         var dateArr = dateStr.split('/');
@@ -282,6 +285,7 @@ function jsSimpleDatePickr(){
             m = m.replace('J', dateArr[0]);
             f = document.getElementById(cal['inputFieldId']);
             if(f != null) f.value = m;
+            datePick=m;
             if(cal['hideOnClick']) document.getElementById('calendarWrap'+cal['id']).style.display = 'none';
             else me.CalContentInit(nb);
 
@@ -310,7 +314,7 @@ function jsSimpleDatePickr(){
         e.innerHTML = m;
     }
 //
-// crÃ©e un element DOM
+// crée un element DOM
 //
     me.DomElementInit = function(type, opt){
         var e = document.createElement(type);
@@ -321,6 +325,87 @@ function jsSimpleDatePickr(){
         if(opt.content != undefined) e.innerHTML = opt.content;
         if(opt.parent != undefined) opt.parent.appendChild(e);
         return e;
-    }
+    };
     return me;
 }
+
+function ajouterALaPage(partieObjet){
+    var trPartie = document.createElement("tr");
+    //trPartie.id="part"+partieObjet.idPartie;
+
+    var tdPartie = document.createElement("td");
+    var lienPartie = document.createElement("a");
+
+    lienPartie.textContent = partieObjet.nomScenario;
+    lienPartie.setAttribute("href","detailPartie?idPartie="+partieObjet.idPartie);
+
+    var tdJeu = document.createElement("td");
+    var lienPartie2 = document.createElement("a");
+
+    lienPartie2.textContent = partieObjet.nomScenario;
+    lienPartie2.setAttribute("href","detailPartie?idPartie="+partieObjet.idPartie);
+    lienPartie2.textContent = partieObjet.nomJeu;
+
+    tdPartie.appendChild(lienPartie);
+    trPartie.appendChild(tdPartie);
+    tdJeu.appendChild(lienPartie2);
+    trPartie.appendChild(tdJeu);
+    document.getElementById("tableau").appendChild(trPartie);
+
+    //document.getElementById('part'+partie.idPartie).onclick=function () {document.location.href="/detailPartie?idPartie="+idPartie;}
+}
+
+function callback_date() {
+    console.log(datePick);
+    var requetePartieParDate = new XMLHttpRequest();
+    requetePartieParDate.open("POST","partieParDate",true);
+    requetePartieParDate.responseType="json";
+
+    document.getElementById("entete").textContent = "";
+    document.getElementById("tableau").textContent = "";
+
+    var trEntete = document.createElement("tr");
+    trEntete.className="partieParJour";
+
+    var thScenario = document.createElement("th");
+    thScenario.textContent = "Nom du scenario";
+
+    var thJeu = document.createElement("th");
+    thJeu.textContent = "Nom du jeu";
+
+    trEntete.appendChild(thScenario);
+    trEntete.appendChild(thJeu);
+    document.getElementById("entete").appendChild(trEntete);
+
+    requetePartieParDate.onload= function(){
+        for(var i=0;i<this.response.length;i++){
+            console.log("partie : "+this.response[i].nomScenario);
+            ajouterALaPage(this.response[i]);
+        }
+    };
+
+    requetePartieParDate.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    requetePartieParDate.send("Date="+datePick);
+}
+
+window.onload = function () {
+    var myCalendar = new jsSimpleDatePickr();
+    myCalendar.CalAdd({
+        'divId': 'calendarMain',
+        'buttonTitle': '',
+        'callBack': callback_date,
+        'dateMask': 'AAAA/MM/JJ',
+        'dateCentury': 20,
+        'titleMask': 'M AAAA',
+        'navType': '01',
+        'classTable': 'jsCalendar',
+        'classDay': 'day',
+        'classDayWithPartie': 'dayWPartie',
+        'classDaySelected': 'selectedDay',
+        'monthLst': ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        'dayLst': ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+        'hideOnClick': false,
+        'showOnLaunch': true
+    });
+
+};

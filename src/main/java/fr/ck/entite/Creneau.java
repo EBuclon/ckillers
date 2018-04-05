@@ -17,6 +17,12 @@ public class Creneau {
         this.inscrit = inscrit;
     }
 
+     public Creneau(String date, String heure, String lieu) {
+        this.date = date;
+        this.heure = heure;
+        this.lieu = lieu;
+    }
+
     public Creneau(Integer idCreneau){
         this.idCreneau=idCreneau;
     }

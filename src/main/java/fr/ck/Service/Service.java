@@ -1,12 +1,7 @@
 package fr.ck.Service;
 
-import fr.ck.daos.CreneauDao;
-import fr.ck.daos.InscritDao;
-import fr.ck.daos.ParticipationDao;
-import fr.ck.daos.PartieDao;
-import fr.ck.entite.Creneau;
-import fr.ck.entite.Inscrit;
-import fr.ck.entite.Partie;
+import fr.ck.daos.*;
+import fr.ck.entite.*;
 
 import javax.servlet.http.Part;
 import java.io.IOException;
@@ -24,6 +19,9 @@ public class Service {
     private CreneauDao creneauDao = new CreneauDao();
     private InscritDao inscritDao = new InscritDao();
     private ParticipationDao participationDao = new ParticipationDao();
+    private NouvelleDao nouvelleDao = new NouvelleDao();
+    private EvenementDao evenementDao = new EvenementDao();
+    private AllerDao allerDao = new AllerDao();
 
 
     private static class ServiceHolder {
@@ -48,6 +46,10 @@ public class Service {
         return creneauDao.listCreneauxLibres();
     }
 
+    public List<Partie> listPartiesEvenements() {
+        return creneauDao.listPartiesEvenements();
+    }
+
     public Creneau getCreneau(Integer idCreneau) {
         return creneauDao.getCreneau(idCreneau);
     }
@@ -62,14 +64,15 @@ public class Service {
         }
 
         String nomImage = chargerImage(image);
-        partieDao.ajouterPartie(partie,nomImage);
+        partieDao.ajouterPartie(partie, nomImage);
     }
 
-    public void validerPartie(Partie partie, Integer idInscrit) {
-        partieDao.validerPartie(partie, idInscrit);
+    public void validerPartie(Partie partie, Part image, Integer idInscrit) {
+        String nomImage = chargerImage(image);
+        partieDao.validerPartie(partie, nomImage, idInscrit);
     }
 
-    private String chargerImage(Part image){
+    private String chargerImage(Part image) {
         String nomFichier = null;
         if (!image.getSubmittedFileName().equals("")) {
             nomFichier = UUID.randomUUID().toString().substring(0, 8) + "-" + image.getSubmittedFileName();
@@ -110,7 +113,12 @@ public class Service {
         partieDao.supprimerPartie(idPartie, idCreneau);
     }
 
-
+    public List<Partie> listePartiesParJour(String date){
+        String dateT;
+        String[] parts = date.split("/");
+        dateT = parts[0]+"-"+parts[1]+"-"+parts[2];
+        return partieDao.listePartiesParJour(dateT);
+    }
 
     public Inscrit getConnexion(String mail) {
         return inscritDao.getConnexion(mail);
@@ -132,6 +140,7 @@ public class Service {
         return inscritDao.getInscritValideur(idPartie);
     }
 
+
     public void participer(Integer idPartie, Integer idInscrit) {
         participationDao.participer(idPartie, idInscrit);
     }
@@ -143,4 +152,54 @@ public class Service {
     public List<Inscrit> listeParticipants(Integer idPartie) {
         return participationDao.listeParticipants(idPartie);
     }
+
+
+    public void ajouterNouvelle(Nouvelle nouvelle) {
+        nouvelleDao.ajouterNouvelle(nouvelle);
+    }
+
+    public void ajouterEvent(Evenement evenement) {
+        evenementDao.ajouterEvent(evenement);
+    }
+
+    public Evenement getEvenement(Integer idEvenement){
+        return evenementDao.getEvenement(idEvenement);
+    }
+
+    public Path getImageEvent(Integer idEvenement) {
+        String image = evenementDao.getImageEvent(idEvenement);
+        Path chemin;
+        if (image.equals("")) {
+            chemin = Paths.get(IMAGE_DIRECTORY_PATH + "/banner.jpg");
+        } else {
+            chemin = Paths.get(IMAGE_DIRECTORY_PATH + "/" + image);
+        }
+        return chemin;
+    }
+
+    public void ajouterImageE(Integer idEvenement, Part image) {
+        if (idEvenement == null) {
+            throw new IllegalArgumentException("Partie inexistante");
+        }
+
+        String nomImage = chargerImage(image);
+        evenementDao.ajouterImageE(idEvenement, nomImage);
+    }
+
+    public void supprimerEvenement(Integer idEvenement, Integer idCreneau) {
+        evenementDao.supprimerEvenement(idEvenement, idCreneau);
+    }
+
+    public void aller(Integer idEvenement, Integer idInscrit) {
+        allerDao.aller(idEvenement, idInscrit);
+    }
+
+    public void annulerAller(Integer idEvenement, Integer idInscrit) {
+        allerDao.annulerAller(idEvenement, idInscrit);
+    }
+
+    public List<Inscrit> listeAllants(Integer idEvenement) {
+        return allerDao.listeAllants(idEvenement);
+    }
+
 }

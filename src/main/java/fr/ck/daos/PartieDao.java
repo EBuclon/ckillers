@@ -72,6 +72,37 @@ public class PartieDao {
         return parties;
     }
 
+    public List<Partie> listePartiesParJour(String date) {
+        List<Partie> parties = new ArrayList<Partie>();
+        try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT P.idPartie, nomScenario, nomJeu, dateCreneau, heure, lieu " +
+                     "FROM Partie P INNER JOIN Creneau C " +
+                     "WHERE P.idCreneau=C.idCreneau AND dateCreneau=?")) {
+            statement.setString(1, date);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    parties.add(
+                            new Partie(
+                                    resultSet.getInt("idPartie"),
+                                    resultSet.getString("nomScenario"),
+                                    resultSet.getString("nomJeu"),
+                                    new Creneau(resultSet.getString("dateCreneau"),
+                                            resultSet.getString("heure"),
+                                            resultSet.getString("lieu")
+                                    )
+                            ));
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Erreur de Collecte des parties journalieres", e);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return parties;
+    }
+
     public void ajouterPartie(Partie partie, String image){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("INSERT INTO Partie(nomScenario, nomJeu, nombreMin, nombreMax, desUtil, typeSoiree, genre, typeJ, ton, inspiration, niveauAttendu, presentation, image, idCreneau, idInscrit) VALUES (?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?,?, ?, ?, ?)",Statement.RETURN_GENERATED_KEYS)) {
@@ -109,7 +140,7 @@ public class PartieDao {
         }
     }
 
-    public void validerPartie(Partie partie, Integer idInscrit){
+    public void validerPartie(Partie partie, String image, Integer idInscrit){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("UPDATE Partie SET nomScenario=?, nomJeu=?, nombreMin=?, nombreMax=?, desUtil=?, typeSoiree=?, genre=?, typeJ=?, ton=?, inspiration=?, niveauAttendu=?, presentation=?, idInscrit_1=? WHERE idPartie=?")) {
             statement.setString(1, partie.getNomScenario());
@@ -126,12 +157,14 @@ public class PartieDao {
             statement.setString(12, partie.getPresentation());
             statement.setInt(13, idInscrit);
             statement.setInt(14, partie.getIdPartie());
-            /*if (image != null) {
-                statement.setString(4, image);
-            } else {
-                statement.setString(4, );
-            }*/
             statement.executeUpdate();
+            if (image != null) {
+                try(PreparedStatement statement1 = connection.prepareStatement("UPDATE Partie SET image=? WHERE idPartie=?")){
+                    statement1.setString(1, image);
+                    statement1.setInt(2, partie.getIdPartie());
+                    statement1.executeUpdate();
+                }
+            }
         }catch (SQLException e) {
             throw new RuntimeException("Erreur lors de la validation de la partie dans la base", e);
         }

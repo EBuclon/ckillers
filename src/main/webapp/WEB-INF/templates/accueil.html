@@ -7,74 +7,66 @@
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
 	<script type="text/javascript" src="./js/lien.js"></script>
-	<script type="text/javascript" src="./js/calendrier.js"></script>
 </head>
 <body>
 <header th:replace="~{fragments::header}"></header>
-<div class="row">
-<div id="calendarMain" class="calendarMain col-md-2"></div>
-<script type="text/javascript">
-    //<![CDATA[
-    var myCalendar = new jsSimpleDatePickr();
-    myCalendar.CalAdd({
-        'divId': 'calendarMain',
-        'buttonTitle': '',
-        /*'callBack': callback_date,*/
-        'dateMask': 'AAAA/MM/JJ',
-        'dateCentury': 20,
-        'titleMask': 'M AAAA',
-        'navType': '01',
-        'classTable': 'jsCalendar',
-        'classDay': 'day',
-        'classDaySelected': 'selectedDay',
-        'monthLst': ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-        'dayLst': ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-        'hideOnClick': false,
-        'showOnLaunch': true
-    });
-    //]]>
-</script>
-<div class="container bloc-info col-md-8">
-	<div class="row">
-		<h2 class="col-xs-8">Parties</h2>
-		<div class="container col-sm-5">
-			<form action="link" id=f-accueil>
-				<div class="row">
-					<!--<div class="col-xs-4">
-                    <input type="checkbox" id="News" name="news"/>
-                    <label for="News">News</label>
-                  </div>
-                  <div class="col-xs-4">
-                    <input type="checkbox" id="Event" name="Evenement"/>
-                    <label for="Event">Evènement</label>
-                  </div>
-                  <div class="col-xs-4">
-                    <input type="checkbox" id="partie" name="partie"/>
-                    <label for="partie">Partie</label>
-                  </div>-->
-                </div>
-				<div class="col-xs-4">
-					<input type="text" placeholder="Rechercher" name="search"/>
-					<button type="submit">GO</button>
-				</div>
-			</form>
-		</div>
+<div class="ensemble">
+<div class="bloc-cal">
+	<div id="calendarMain" class="calendarMain margeG">
+		<script type="text/javascript" src="./js/calendrier.js"></script>
 	</div>
-	<div class="row">
-		<div>
-			<table id="table-accueil">
-			<tr th:each="partie:${parties}" th:id="${partie.idPartie}"><script th:inline="javascript">
-                document.getElementById(/*[[${partie.idPartie}]]*/).onclick=function () {lienPartie(/*[[${partie.idPartie}]]*/)}</script>
-				<td>[[${partie.nomScenario}]]</td>
-				<td>[[${partie.nomJeu}]]</td>
-				<td>[[${partie.creneau.date}]]</td>
-				<td>[[${partie.creneau.heure}]]</td>
-				<td>[[${partie.creneau.lieu}]]</td>
-			</tr>
-			</table>
+	<table>
+		<thead id="entete">
+		</thead>
+		<tbody id="tableau">
+		</tbody>
+	</table>
+	<div>
+		<h3>
+
+		</h3>
+		<p>
+
+		</p>
+	</div>
+</div>
+<div class="bloc-info bloc">
+	<h2>Parties et évènements disponibles</h2>
+	<div class="bloc-indiv" th:each="partie:${parties}">
+		<div th:if="${partie.nomJeu!=''}" th:id="'partie'+${partie.idPartie}">
+			<script th:inline="javascript">
+                document.getElementById('partie'+[[${partie.idPartie}]]).onclick=function () {lienPartie(/*[[${partie.idPartie}]]*/)}
+			</script>
+			<figure><img th:src="'image?idPartie='+${partie.idPartie}"></figure>
+			<p>[[${partie.nomScenario}]]</p>
+			<p>[[${partie.nomJeu}]]</p>
+			<p>[[${partie.creneau.date}]]</p>
+			<p>[[${partie.creneau.heure}]]</p>
+			<p>[[${partie.creneau.lieu}]]</p>
+		</div>
+		<div th:if="${partie.nomJeu==''}" th:id="'ev'+${partie.idPartie}">
+			<script th:inline="javascript">
+                document.getElementById('ev'+[[${partie.idPartie}]]).onclick=function () {lienEvent(/*[[${partie.idPartie}]]*/)}
+			</script>
+			<figure><img th:src="'imageE?idEvenement='+${partie.idPartie}"></figure>
+			<h3>Evenement!</h3>
+			<p>Vous êtes conviés lors de l'évènement [[${partie.nomScenario}]] ! </p>
+			<p>Le [[${partie.creneau.date}]] </p>
+			<p> [[${partie.creneau.heure}]] </p>
+			<p>à [[${partie.creneau.lieu}]].</p>
 		</div>
 	</div>
 </div>
 </div>
 </body>
 </html>
+
+
+<!--div class="container col-sm-5">
+			<form action="" id=f-accueil>
+				<div>
+					<input type="text" placeholder="Rechercher" name="search"/>
+					<button type="submit">GO</button>
+				</div>
+			</form>
+	</div-->

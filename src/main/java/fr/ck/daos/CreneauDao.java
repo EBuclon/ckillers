@@ -2,6 +2,7 @@ package fr.ck.daos;
 
 import fr.ck.entite.Creneau;
 import fr.ck.entite.Inscrit;
+import fr.ck.entite.Partie;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class CreneauDao {
 
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT idCreneau,dateCreneau,heure,lieu FROM creneau WHERE idPartie is null AND idEvenement is null ORDER BY dateCreneau,heure;\n")) {
+             ResultSet resultSet = statement.executeQuery("SELECT idCreneau,dateCreneau,heure,lieu FROM creneau WHERE idPartie is null AND idEvenement is null ORDER BY dateCreneau,heure ")) {
             while (resultSet.next()) {
                 creneaux.add(
                         new Creneau(
@@ -28,6 +29,48 @@ public class CreneauDao {
             throw new RuntimeException("Erreur de Collecte des creneaux horraires", e);
         }
         return creneaux;
+    }
+
+    /*
+    Liste les parties et évènements dans l'ordre chronologique pour la page d'accueil (les evenements sont traités comme des parties)
+     */
+    public List<Partie> listPartiesEvenements() {
+        List<Partie> parties = new ArrayList<Partie>();
+
+        try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT C.idCreneau, dateCreneau, heure, lieu, P.idPartie, nomScenario, nomJeu, E.idEvenement, titre " +
+                     "FROM Partie P RIGHT JOIN Creneau C ON P.idCreneau=C.idCreneau LEFT JOIN Evenement E ON C.idCreneau=E.idCreneau " +
+                     "WHERE P.idInscrit_1 IS NOT NULL OR titre IS NOT NULL ORDER BY dateCreneau DESC, heure DESC")) {
+            while (resultSet.next()) {
+                if (resultSet.getString("nomScenario")!=null) {
+                    parties.add(
+                            new Partie(
+                                    resultSet.getInt("idPartie"),
+                                    resultSet.getString("nomScenario"),
+                                    resultSet.getString("nomJeu"),
+                                    new Creneau(resultSet.getString("dateCreneau"),
+                                            resultSet.getString("heure"),
+                                            resultSet.getString("lieu")
+                                    )
+                            ));
+                }else{
+                    parties.add(
+                            new Partie(
+                                    resultSet.getInt("idEvenement"),
+                                    resultSet.getString("titre"),
+                                    "",
+                                    new Creneau(resultSet.getString("dateCreneau"),
+                                            resultSet.getString("heure"),
+                                            resultSet.getString("lieu")
+                                    )
+                            ));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erreur de Collecte des parties", e);
+        }
+        return parties;
     }
 
     public Creneau getCreneau(Integer idCreneau){
@@ -63,7 +106,7 @@ public class CreneauDao {
             statement.setInt(4, creneau.getInscrit().getIdInscrit());
             statement.executeUpdate();
         }catch (SQLException e) {
-            throw new RuntimeException("Erreur lors de l'insertion du jeu à la base", e);
+            throw new RuntimeException("Erreur lors de l'insertion du creneau à la base", e);
         }
     }
 

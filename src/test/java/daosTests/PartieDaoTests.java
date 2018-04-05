@@ -140,7 +140,7 @@ public class PartieDaoTests {
     @Test
     public void shouldValiderPartie() throws SQLException {
         Partie partie = new Partie(1,"nomScenariobis","nomJeu",1,3,"desUtil","One shot","genre","typeJ","ton","inspiration","niveauAttendu","presentation",new Creneau(1),new Inscrit(1));
-        partieDao.validerPartie(partie,1);
+        partieDao.validerPartie(partie,null,1);
 
         Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
         Statement stmt = connection.createStatement();

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Détail</title>
+	<title>[[${partie.nomScenario}]]</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
 	<script type="text/javascript" src="js/detailPartie.js"></script>
@@ -12,7 +12,7 @@
 		<h2>Détail de la partie</h2>
 		<div class="container" id="detail-partie">
 			<div class="row">
-				<figure><img th:src="'image?idPartie='+${partie.idPartie}"></figure>
+				<figure><img class="image-fond" th:src="'image?idPartie='+${partie.idPartie}"></figure>
 			</div>
 			<div class="row">
 				<h5 class="col-sm-4">[[${partie.creneau.lieu}]]</h5>
@@ -24,7 +24,7 @@
 				<p class="col-md-4">[[${partie.typeSoiree}]]</p>
 			</div>
 			<div class="row">
-				<p class="col-md-4">[[${partie.nomScenario}]]</p>
+				<p class="col-md-4">[[${partie.nomJeu}]]</p>
 				<p class="col-md-4">Entre [[${partie.nbMin}]] et [[${partie.nbMax}]] joueurs.</p>
 			</div>
 			<div class="row">
@@ -50,9 +50,11 @@
 				<button id="annulerParticiper" th:if="${joueur}">Ne plus participer</button>
 				<p id="annulerParticiper" th:unless="${joueur} AND ${inscrit.statut}!='Visiteur'"></p>
 			</div>
+			<p class="row" th:if="${inscrit.statut}=='admin'">Mis en ligne par: [[${partie.inscrit.nom}]] [[${partie.creneau.inscrit.prenom}]]</p>
+			<p class="row" th:if="${inscrit.statut}=='admin'">Creneau mis a disposition par: [[${partie.creneau.inscrit.nom}]] [[${partie.creneau.inscrit.prenom}]]</p>
 		</div>
 	</div>
-	<div th:unless="${inscrit.statut}=='Visiteur'" class="container" id="ajout-joueur">
+	<div th:unless="${inscrit.statut}=='Visiteur'" class="container " id="ajout-joueur">
 
 		<div class="row" id="participants">
 			<h5 class="col-md-10">Ils y participent également :</h5>

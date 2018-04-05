@@ -48,6 +48,13 @@ public class Partie {
         this.inscrit = inscrit;
     }
 
+    public Partie(Integer idPartie, String nomScenario, String nomJeu, Creneau creneau) {
+        this.idPartie=idPartie;
+        this.nomScenario = nomScenario;
+        this.nomJeu = nomJeu;
+        this.creneau = creneau;
+    }
+
     public Integer getIdPartie() {
         return idPartie;
     }

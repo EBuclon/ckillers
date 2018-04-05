@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>[[${evenement.titre}]]</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<script type="text/javascript" src="js/detailEvenement.js"></script>
+</head>
+<body>
+	<header th:replace="~{fragments::header}"></header>
+	<div class="container">
+		<h2>Détail de l'évènement [[${evenement.titre}]]</h2>
+		<div class="container" id="detail-partie">
+			<div class="row">
+				<figure><img class="image-fond" th:src="'imageE?idEvenement='+${evenement.id_Event}"></figure>
+			</div>
+			<div class="row">
+				<p class="col-md-8">[[${evenement.contenu}]]</p>
+			</div>
+			<div class="row" id="boutons">
+				<button th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="col-md-4">Supprimer</button>
+				<p th:unless="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="invisible"></p>
+				<button id="aller" th:unless="${joueur} OR ${inscrit.statut}=='Visiteur'">Participer</button>
+				<p id="aller" th:if="${joueur} OR ${inscrit.statut}=='Visiteur'"></p>
+				<button id="annulerAller" th:if="${joueur}">Ne plus participer</button>
+				<p id="annulerAller" th:unless="${joueur} AND ${inscrit.statut}!='Visiteur'"></p>
+			</div>
+			<form th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" method="post" enctype="multipart/form-data">
+				<div class="row">
+					<div class="offset-4 col-5"><label for="image">Bannière</label>
+						<input type="file" accept=image/* id="image" name="image">
+					</div>
+				</div>
+				<div class="row">
+					<div class="offset-5 col-5">
+						<input type="submit" value="soumettre">
+					</div>
+				</div>
+			</form>
+			<p class="row" th:if="${inscrit.statut}=='admin'">Mis en ligne par: [[${evenement.creneau.inscrit.nom}]] [[${evenement.creneau.inscrit.prenom}]]</p>
+		</div>
+	</div>
+	<div th:unless="${inscrit.statut}=='Visiteur'" class="container" id="ajout-joueur">
+
+		<div class="row" id="participants">
+			<h5 class="col-md-10">Ils y participent également :</h5>
+			<p th:each="participant:${participants}" class="col-md-10" th:id="'participant'+${participant.idInscrit}">[[${participant.prenom}]] [[${participant.nom}]]</p>
+		</div>
+
+	</div>
+</body>
+<p class="invisible" id="idEvenement">[[${evenement.id_Event}]]</p>
+<p class="invisible" id="idCreneau">[[${evenement.creneau.idCreneau}]]</p>
+</html>

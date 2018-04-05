@@ -19,7 +19,7 @@
 			</div>
 			<div class="row">
 				<label for="dateC" class="col-sm-1">Date :</label>
-				<input type="date" name="dateC" id="dateC" /><!--class="col-md-1"-->
+				<input type="date" name="dateC" id="dateC" />
 			</div>
 			<div class="row">
 				<label for="heureC" class="col-sm-1">Horraire:</label>
@@ -28,6 +28,51 @@
 			</div>
 		</form>
 		<p id="messageC"></p>
+
+		<div class="row">
+			<h2>Ajouter une nouvelle</h2>
+		</div>
+		<form id="ajouterNouvelle" method="post" role="form">
+			<div class="row">
+				<label for="titre" class="col-sm-1">Titre :</label>
+				<input type="text" name="titre" id="titre"/>
+			</div>
+			<div class="row">
+				<label for="texte" class="col-sm-1">Texte:</label>
+				<textarea name="texte" id="texte" class="col-md-1"></textarea>
+				<input type="submit" name="submit" value="ajouter" class="col-xs-2"/>
+			</div>
+		</form>
+		<p id="messageN"></p>
+
+		<div class="row">
+			<h2>Ajouter un évènement</h2>
+		</div>
+		<form id="ajouterEvent" method="post">
+			<div class="row">
+				<label for="titreE" class="col-sm-1">Titre :</label>
+				<input type="text" name="titreE" id="titreE"/>
+			</div>
+			<div class="row">
+				<label for="contenu" class="col-sm-1">Texte:</label>
+				<textarea name="contenu" id="contenu"></textarea>
+			</div>
+			<div class="row">
+				<label for="lieuE" class="col-sm-1">Lieu :</label>
+				<input type="text" name="LieuE" id="lieuE"/>
+			</div>
+			<div class="row">
+				<label for="dateE" class="col-sm-1">Date :</label>
+				<input type="date" name="dateE" id="dateE"/>
+			</div>
+			<div class="row">
+				<label for="heureE" class="col-sm-1">Horraire:</label>
+				<input type="text" name="heureE" id="heureE" class="col-md-1" />
+				<input type="submit" name="submit" value="ajouter" class="col-xs-2"/>
+			</div>
+		</form>
+		<p id="messageE"></p>
 	</div>
+
 </body>
 </html>

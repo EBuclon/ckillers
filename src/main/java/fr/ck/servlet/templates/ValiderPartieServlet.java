@@ -68,7 +68,7 @@ public class ValiderPartieServlet extends GenericServlet {
                 type, ton, inspiration, niveauAttendu, presentation, new Creneau(0), new Inscrit());
 
         try {
-            Service.getInstance().validerPartie(partie,inscrit.getIdInscrit());
+            Service.getInstance().validerPartie(partie,image,inscrit.getIdInscrit());
             resp.sendRedirect("detailPartie?idPartie="+idPartie);
         }catch (IllegalArgumentException e){
             resp.sendRedirect("accueil");

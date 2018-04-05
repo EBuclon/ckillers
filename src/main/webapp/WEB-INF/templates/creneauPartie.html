@@ -4,24 +4,16 @@
 	<title>Céréale Killers</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
-	<script type="text/javascript" src="./js/lien.js">
-        function confirmSuppression(idCreneau) {
-            console.log(idCreneau)
-            if (confirm("Voulez-vous vraiment supprimer ce creneau ?")) {
-                // Clic sur OK
-                document.location.href="/supprimerCreneau?idCreneau="+idCreneau;
-            }
-        }
-	</script>
+	<script type="text/javascript" src="./js/lien.js"></script>
 </head>
 <body>
 <header th:replace="~{fragments::header}"></header>
 <div class="container" id="Parties">
-	<div class="row justify-content-between"><h2>Parties disponibles</h2>
+	<!--div class="row justify-content-between"><h2>Parties disponibles</h2>
 		<form class="searchbar">
-			<input type="text" placeholder="Search.." name="search"/>
-			<button type="submit">GO</button>
-		</form></div>
+			<input type="text" placeholder="Rechercher..." name="search"/>
+			<button type="submit">Recherche</button>
+		</form></div-->
 	<div class="row">
 		<table>
 			<tr>
