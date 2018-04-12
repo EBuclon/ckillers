@@ -18,7 +18,7 @@ public class AjouterNouvelleServlet extends GenericServlet {
 
         String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
 
-        Nouvelle nouvelle = new Nouvelle(titre, texte, Service.getInstance().getInscritParMail(identifiantUtilisateur).getIdInscrit());
+        Nouvelle nouvelle = new Nouvelle(titre, texte, Service.getInstance().getInscritParMail(identifiantUtilisateur));
         Service.getInstance().ajouterNouvelle(nouvelle);
     }
 }

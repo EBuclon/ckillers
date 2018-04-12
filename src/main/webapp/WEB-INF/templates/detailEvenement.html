@@ -18,14 +18,14 @@
 				<p class="col-md-8">[[${evenement.contenu}]]</p>
 			</div>
 			<div class="row" id="boutons">
-				<button th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="col-md-4">Supprimer</button>
-				<p th:unless="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="invisible"></p>
 				<button id="aller" th:unless="${joueur} OR ${inscrit.statut}=='Visiteur'">Participer</button>
 				<p id="aller" th:if="${joueur} OR ${inscrit.statut}=='Visiteur'"></p>
 				<button id="annulerAller" th:if="${joueur}">Ne plus participer</button>
 				<p id="annulerAller" th:unless="${joueur} AND ${inscrit.statut}!='Visiteur'"></p>
+				<button th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="col-md-4">Supprimer</button>
+				<p th:unless="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="invisible"></p>
 			</div>
-			<form th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" method="post" enctype="multipart/form-data">
+			<form class="form-default" th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" method="post" enctype="multipart/form-data">
 				<div class="row">
 					<div class="offset-4 col-5"><label for="image">Bannière</label>
 						<input type="file" accept=image/* id="image" name="image">

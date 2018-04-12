@@ -89,6 +89,10 @@
     background-color: #c44d38;
     border-color: #c44d38;
 }
+.jsCalendar .dayWithPartie{
+    background-color: #2ede22;
+    border-color: #2ede22;
+}
 
 #calendar1{
 

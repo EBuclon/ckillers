@@ -2,8 +2,8 @@
 	border-style: solid;
 	border-color: black;
 	background-color: #e66f10;
-	height:40px;
-	padding: 0.1%;
+	height: 40px;
+	padding: 4px;
 	text-align: center;
 }
 
@@ -111,13 +111,13 @@ body{
 	}
 }
 
-@media (min-width: 800px) {
+@media (min-width: 790px) {
 	.bloc {
 		max-width: 480px;
 	}
 }
 
-@media (min-width: 1020px) {
+@media (min-width: 1030px) {
 	.bloc {
 		max-width: 710px;
 	}
@@ -157,12 +157,24 @@ body{
 	margin: 0;
 	background-color: black;
 	width: 100%;
+	border-radius: 10px 10px 0 0;
 }
 
 .bloc-indiv img{
 	border-radius: 10px 10px 0 0;
 	width: 100%;
 	max-height: 50px;
+}
+
+.bloc-nouvelle{
+	border-radius: 10px;
+	background-color: #e66f10;
+	border-color: black;
+	border-style: solid;
+	width: 200px;
+	margin-left: 50px;
+	margin-top: 30px;
+
 }
 
 .col-xs-4{
@@ -189,12 +201,18 @@ form .row{
 }
 
 th, td{
-
 	padding-right: 40px;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	padding-left: 40px; 
+	padding-left: 40px;
+}
 
+.table-date td, .table-date th{
+	padding-right: 10px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 20px;
+	max-width: 150px;
 }
 
 th{
@@ -205,12 +223,12 @@ th{
 	margin-top: 100px;
 }
 
-textarea{
+.form-default textarea{
 	width: 110%;
 	height: 100px;
 }
 
-input, select, textarea{
+.form-default input, .form-default select, .form-default textarea{
 	margin: 10px;
 }
 
@@ -221,29 +239,49 @@ input, select, textarea{
 	margin-top:20px;
 	margin-left: 10px;
 	width: 60%;
+	border-radius: 15px;
+	margin-bottom: 50px;
+	min-width: 250px;
+}
+
+#detail-partie figure{
+	border-radius: 10px 10px 0 0;
+	margin: 0;
+	background-color: black;
+	width: 100%;
+}
+
+#detail-partie img{
+	border-radius: 10px 10px 0 0;
+	max-width: 100%;
+	max-height: 80px;
+}
+
+#detail-partie button{
+	border-radius: 15px;
+	margin: auto;
 }
 
 #ajout-joueur{
-	position: fixed;
-	right: 0px;
-	top:140px;
-	width: 25%;
+	position: relative;
+	float: right;
+	right: 0;
+	min-width: 300px;
+	max-width: 30%;
 	border-left-style: solid;
+	border-bottom-style: solid;
+	border-top-style: solid;
 	background-color: #e66f10;
-	height: 100%;
+	min-height: 150px;
 	z-index: -1;
-}
-
-#ajout-joueur button{
-	margin-top: 20px;
-	margin-left: 35%;
+	margin-left: 50px;
+	border-radius: 10px 0 0 10px;
 }
 
 #ajout-joueur p{
 	margin-left: 10%;
 	margin-top: 10px;
 }
-
 
 #onglet{
 	
@@ -295,4 +333,23 @@ input, select, textarea{
 
 table td:hover{
 	cursor: pointer;
+}
+
+.bloc-partenaire{
+	border-radius: 10px;
+	background-color: #e66f10;
+	border-color: black;
+	border-style: solid;
+	/*border-width: 1px;*/
+	width: 500px;
+	margin-right: 30px;
+	margin-bottom: 20px;
+	/*height: fit-content;*/
+}
+
+
+.bloc-partenaire label{
+	width: 20px;
+	margin-left: 0px;
+	margin-right: 5px;
 }

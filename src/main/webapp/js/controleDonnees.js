@@ -18,8 +18,8 @@ function verifNom(champ) {
     }
 }
 
-function verifAdresse(champ) {
-    if(champ.value.length > 40)
+function verifNiveau(champ) {
+    if(champ.value.length > 30)
     {
         surligne(champ, true);
         return false;
@@ -31,9 +31,8 @@ function verifAdresse(champ) {
     }
 }
 
-function verifCP(champ) {
-    var code_postal = /^(([0-8][0-9])|(9[0-5]))[0-9]{3}$/;
-    if(!code_postal.test(champ.value))
+function verifPresentation(champ) {
+    if(champ.value.length > 400)
     {
         surligne(champ, true);
         return false;
@@ -45,9 +44,8 @@ function verifCP(champ) {
     }
 }
 
-function verifMail(champ) {
-    var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
-    if(!regex.test(champ.value) || champ.value.length > 40)
+function verifInspi(champ) {
+    if(champ.value.length > 50)
     {
         surligne(champ, true);
         return false;

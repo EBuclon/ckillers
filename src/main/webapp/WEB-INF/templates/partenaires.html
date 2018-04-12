@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Nos partenaires</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+</head>
+<body>
+<header th:replace="~{fragments::header}"></header>
+<div class="ensemble">
+<div class="bloc-info">
+	<h2>Nos Partenaires</h2>
+	<div class="bloc-partenaire" th:each="partenaire:${partenaires}">
+			<!--figure><img th:src="'imagePartenaire?idPartenaire='+${partenaire.idPartenaire}"></figure-->
+			<p>[[${partenaire.nom}]]</p>
+			<p>[[${parpartenairetie.description}]]</p>
+	</div>
+	<div class="bloc-partenaire" th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'">
+	<form method="post" enctype="multipart/form-data">
+		<div class="row">
+			<label class="col-5" for="nomPartenaire">Nom :</label>
+			<input class="col-4" type="text" name="nomPartenaire" id="nomPartenaire"/>
+		</div>
+		<div class="row">
+			<label class="col-5" for="descriptionPartenaire">Description:</label>
+			<textarea name="descriptionPartenaire" id="descriptionPartenaire" class="col-4"></textarea>
+		</div>
+		<div class="row">
+			<div class="offset-4"><label for="image">Bannière</label>
+				<input type="file" accept=image/* id="image" name="image">
+			</div>
+		</div>
+		<div class="row">
+			<div class="offset-5 col-5">
+				<input type="submit" value="soumettre">
+			</div>
+		</div>
+	</form>
+	</div>
+</div>
+</div>
+</body>
+</html>

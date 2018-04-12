@@ -29,6 +29,7 @@ public class AccueilServlet extends GenericServlet {
             context.setVariable("inscrit", new Inscrit(identifiantUtilisateur,statutUtil));
         }
         context.setVariable("parties", Service.getInstance().listPartiesEvenements());
+        context.setVariable("nouvelles", Service.getInstance().listNouvelle());
         templateEngine.process("accueil", context, resp.getWriter());
 
     }

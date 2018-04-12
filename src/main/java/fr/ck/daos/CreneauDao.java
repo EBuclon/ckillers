@@ -31,6 +31,26 @@ public class CreneauDao {
         return creneaux;
     }
 
+    public List<Integer> listeDateAvecPartie(String mois, String annee) {
+        List<Integer> jours = new ArrayList<Integer>();
+
+        try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT dateCreneau FROM creneau C INNER JOIN partie P WHERE P.idPartie=C.idPartie AND idInscrit_1 is not null ORDER BY dateCreneau,heure ")) {
+            while (resultSet.next()) {
+                String[] parts = resultSet.getString("dateCreneau").split("-");
+                if(parts[0].equals(annee) && ( parts[1].equals(mois) || parts[1].equals("0"+mois) ) ) {
+                    jours.add(
+                            Integer.parseInt(parts[2])
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erreur de Collecte des dates", e);
+        }
+        return jours;
+    }
+
     /*
     Liste les parties et évènements dans l'ordre chronologique pour la page d'accueil (les evenements sont traités comme des parties)
      */

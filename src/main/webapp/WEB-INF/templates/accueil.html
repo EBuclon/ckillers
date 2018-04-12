@@ -15,19 +15,33 @@
 	<div id="calendarMain" class="calendarMain margeG">
 		<script type="text/javascript" src="./js/calendrier.js"></script>
 	</div>
-	<table>
+	<table class="table-date">
 		<thead id="entete">
 		</thead>
 		<tbody id="tableau">
 		</tbody>
 	</table>
-	<div>
+	<div th:each="nouvelle:${nouvelles}" class="bloc-nouvelle">
 		<h3>
-
+			[[${nouvelle.titre}]]
 		</h3>
 		<p>
-
+			[[${nouvelle.texte}]]
 		</p>
+
+		<div th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'">
+			<p>
+				Mis en ligne par [[${nouvelle.inscrit.nom}]] [[${nouvelle.inscrit.prenom}]]
+			</p>
+			<button th:id="'nouv'+${nouvelle.idNouvelle}">
+				<script th:inline="javascript">
+                    document.getElementById("nouv"+[[${nouvelle.idNouvelle}]]).onclick=function () {
+                        confirmSuppr([[${nouvelle.idNouvelle}]])
+                    }
+				</script>
+				Supprimer
+			</button>
+		</div>
 	</div>
 </div>
 <div class="bloc-info bloc">

@@ -4,6 +4,7 @@
 	<title>Céréale Killers</title>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<script type="text/javascript" src="js/controleDonnees.js"></script>
 </head>
 <body>
 	<header th:replace="~{fragments::header}"></header>
@@ -20,11 +21,11 @@
 		<div class="row">
 			<figure id="detail-partie"><img th:src="'image?idPartie='+${partie.idPartie}"></figure>
 		</div>
-	<form method="post" enctype="multipart/form-data">
+	<form  class="form-default" method="post" enctype="multipart/form-data">
 		<label for="idPartie" class="invisible"></label> <input class="invisible" type="number" id="idPartie" name="idPartie" th:value="${partie.idPartie}"/>
 		<div class="row">
 			<div class="col-5"><label for="nomJeu" class="col-md-5">Nom du jeu :</label>
-			<input type="text" id="nomJeu" name="nomJeu" class="col-md-4" th:value="${partie.nomJeu}"/></div>
+			<input type="text" id="nomJeu" name="nomJeu" class="col-md-4" th:value="${partie.nomJeu}" onblur="verifNom(this)" required></div>
 			<div class="col-5"><label for="typeSoiree" class="col-md-4">type de soirée :</label>
 			<select id="typeSoiree" name="typeSoiree">
 				<option selected>[[${partie.typeSoiree}]]</option>
@@ -32,37 +33,38 @@
 				<option th:unless="${partie.typeSoiree}=='Debut de scénario court'">Debut de scénario court</option>
 				<option th:unless="${partie.typeSoiree}=='Suite de scénario court'">Suite de scénario court</option>
 				<option th:unless="${partie.typeSoiree}=='Campagne ouverte'">Campagne ouverte</option>
+				<option th:unless="${partie.typeSoiree}=='Campagne fermée'">Campagne fermée</option>
 			</select></div>
 		</div>
 		<div class="row">
 			<div class="col-5"><label for="nomScenario" class="col-md-5">Titre du scénario :</label>
-			<input type="text" id="nomScenario" name="nomScenario" class="col-md-4" th:value="${partie.nomScenario}"></div>
+			<input type="text" id="nomScenario" name="nomScenario" class="col-md-4" th:value="${partie.nomScenario}" onblur="verifNom(this)" required></div>
 			<div class="col-3"><label for="min" class="col-md-6">nombre min :</label>
-			<input type="number" id="min" name="nbMin" class="col-sm-3" th:value="${partie.nbMin}"/></div>
+			<input type="number" id="min" name="nbMin" class="col-sm-3" th:value="${partie.nbMin}" required></div>
 			<div class="col-3"><label for="max" class="col-md-6">nombre max :</label>
-			<input type="number" id="max" name="nbMax" class="col-sm-3" th:value="${partie.nbMax}"/></div>
+			<input type="number" id="max" name="nbMax" class="col-sm-3" th:value="${partie.nbMax}" required></div>
 		</div>
 		<div class="row">
 			<div class="col-5"><label for="desUtil" class="col-md-5">Dés utilisés :</label>
-			<input type="text" id="desUtil" name="desUtil" class="col-md-4" th:value="${partie.desUtil}"/></div>
+			<input type="text" id="desUtil" name="desUtil" class="col-md-4" th:value="${partie.desUtil}" onblur="verifNom(this)" required></div>
 			<div class="col-5"><label for="niveauAttendu" class="col-md-4">niveau attendu :</label>
-				<input type="text" id="niveauAttendu" name="niveauAttendu" th:value="${partie.niveauAttendu}"/></div>
+				<input type="text" id="niveauAttendu" name="niveauAttendu" th:value="${partie.niveauAttendu}" onblur="verifNiveau(this)" required></div>
 		</div>
 		<div class="row">
 			<div class="col-5"><label for="genre" class="col-md-5">Genre :</label>
-			<input type="text" id="genre" name="genre" class="col-md-4" th:value="${partie.genre}"></div>
+			<input type="text" id="genre" name="genre" class="col-md-4" th:value="${partie.genre}" onblur="verifNom(this)" required></div>
 			<div class="col-5"><label for="type" class="col-md-4">Type :</label>
-			<input type="text" id="type" name="type" class="col-md-4" th:value="${partie.type}"></div>
+			<input type="text" id="type" name="type" class="col-md-4" th:value="${partie.type}" onblur="verifNom(this)" required></div>
 		</div>
 		<div class="row">
 			<div class="col-5"><label for="ton" class="col-md-5">Ton :</label>
-			<input type="text" id="ton" name="ton" class="col-md-4" th:value="${partie.ton}"></div>
+			<input type="text" id="ton" name="ton" class="col-md-4" th:value="${partie.ton}" onblur="verifNom(this)" required></div>
 			<div class="col-5"><label for="inspiration" class="col-md-4">Inspiration :</label>
-			<input type="text" id="inspiration" name="inspiration" class="col-md-4" th:value="${partie.inspiration}"></div>
+			<input type="text" id="inspiration" name="inspiration" class="col-md-4" th:value="${partie.inspiration}" onblur="verifInspi(this)" required></div>
 		</div>
 		<div class="row">
 			<div class="col-10">
-				<textarea title="presentation" name="presentation">[[${partie.presentation}]]</textarea>
+				<textarea title="presentation" name="presentation" onblur="verifPresentation(this)" required>[[${partie.presentation}]]</textarea>
 			</div>
 		</div>
 		<div class="row">

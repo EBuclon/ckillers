@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Céréale Killers</title>
+	<title></title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script type="text/javascript" src="js/controleDonnees.js"></script>
 </head>
 <body>
 	<header th:replace="~{fragments::header}"></header>
@@ -13,21 +14,22 @@
 			<h3 class="col-md-4">[[${creneau.date}]]</h3>
 			<h3 class="col-md-4">[[${creneau.heure}]]</h3>
 		</div>
-	<form method="post" enctype="multipart/form-data">
+	<form class="form-default" method="post" enctype="multipart/form-data">
 		<div class="row">
-			<div class="col-5"><label for="nomJeu" class="col-md-5">Nom du jeu :</label>
-			<input type="text" id="nomJeu" name="nomJeu" class="col-md-4" required></div>
+			<div class="col-5"><label for="nomScenario" class="col-md-5">Titre du scénario :</label>
+				<input type="text" id="nomScenario" name="nomScenario" class="col-md-4" onblur="verifNom(this)" required></div>
 			<div class="col-5"><label for="typeSoiree" class="col-md-4">type de soirée :</label>
 			<select id="typeSoiree" name="typeSoiree">
 				<option>One shot</option>
 				<option>Debut de scénario court</option>
 				<option>Suite de scénario court</option>
 				<option>Campagne ouverte</option>
+				<option>Campagne fermée</option>
 			</select></div>
 		</div>
 		<div class="row">
-			<div class="col-5"><label for="nomScenario" class="col-md-5">Titre du scénario :</label>
-			<input type="text" id="nomScenario" name="nomScenario" class="col-md-4" required></div>
+			<div class="col-5"><label for="nomJeu" class="col-md-5">Nom du jeu :</label>
+				<input type="text" id="nomJeu" name="nomJeu" class="col-md-4" onblur="verifNom(this)" required></div>
 			<div class="col-3"><label for="nbMin" class="col-md-6">nombre min :</label>
 			<input type="number" id="nbMin" name="nbMin" class="col-sm-3" min="1" required></div>
 			<div class="col-3"><label for="nbMax" class="col-md-6">nombre max :</label>
@@ -35,25 +37,25 @@
 		</div>
 		<div class="row">
 			<div class="col-5"><label for="desUtil" class="col-md-5">dés utilisés :</label>
-			<input type="text" id="desUtil" name="desUtil" class="col-md-4" required></div>
+			<input type="text" id="desUtil" name="desUtil" class="col-md-4" onblur="verifNom(this)" required></div>
 			<div class="col-5"><label for="niveauAttendu" class="col-md-4">niveau attendu :</label>
-				<input type="text" id="niveauAttendu" name="niveauAttendu" value="Débutant, Confirmé, Expert" required></div>
+				<input type="text" id="niveauAttendu" name="niveauAttendu" value="Débutant, Confirmé, Expert" onblur="verifNiveau(this)" required></div>
 		</div>
 		<div class="row">
 			<div class="col-5"><label for="genre" class="col-md-5">Genre :</label>
-			<input type="text" id="genre" name="genre" class="col-md-4" required></div>
+			<input type="text" id="genre" name="genre" class="col-md-4" onblur="verifNom(this)" required></div>
 			<div class="col-5"><label for="type" class="col-md-4">Type :</label>
-			<input type="text" id="type" name="type" class="col-md-4" required></div>
+			<input type="text" id="type" name="type" class="col-md-4" onblur="verifNom(this)" required></div>
 		</div>
 		<div class="row">
 			<div class="col-5"><label for="ton" class="col-md-5">Ton :</label>
-			<input type="text" id="ton" name="ton" class="col-md-4" required></div>
+			<input type="text" id="ton" name="ton" class="col-md-4" onblur="verifNom(this)" required></div>
 			<div class="col-5"><label for="inspiration" class="col-md-4">Inspiration :</label>
-			<input type="text" id="inspiration" name="inspiration" class="col-md-4" required></div>
+			<input type="text" id="inspiration" name="inspiration" class="col-md-4" onblur="verifInspi(this)" required></div>
 		</div>
 		<div class="row">
 			<div class="col-10">
-				<textarea name="presentation" placeholder="presentation" required></textarea>
+				<textarea name="presentation" placeholder="presentation" onblur="verifPresentation(this)" required></textarea>
 			</div>
 		</div>
 		<div class="row">

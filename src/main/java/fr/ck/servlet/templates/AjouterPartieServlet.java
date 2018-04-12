@@ -60,22 +60,27 @@ public class AjouterPartieServlet extends GenericServlet {
         String niveauAttendu = req.getParameter("niveauAttendu");
         String presentation = req.getParameter("presentation");
 
-        Part image = req.getPart("image");
+        if(nomScenario.length()>25 || nomJeu.length()>25 || desUtil.length()>25 || genre.length()>25 || type.length()>25 || ton.length()>25 || inspiration.length()>50 || niveauAttendu.length()>30 || presentation.length()>400){
+            resp.sendRedirect("ajouterPartie?idCreneau="+req.getParameter("idCreneau"));
+        }else{
+            Part image = req.getPart("image");
 
-        Integer idCreneau = Integer.parseInt(req.getParameter("idCreneau"));
-        Creneau creneau = new Creneau(idCreneau);
-        Inscrit inscrit = Service.getInstance().getInscritParMail((String) req.getSession().getAttribute("utilisateur"));
+            Integer idCreneau = Integer.parseInt(req.getParameter("idCreneau"));
+            Creneau creneau = new Creneau(idCreneau);
+            Inscrit inscrit = Service.getInstance().getInscritParMail((String) req.getSession().getAttribute("utilisateur"));
 
 
-        Partie partie = new Partie(0, nomScenario, nomJeu, nbMin, nbMax, desUtil, typeSoiree, genre,
-                type, ton, inspiration, niveauAttendu, presentation, creneau, inscrit);
+            Partie partie = new Partie(0, nomScenario, nomJeu, nbMin, nbMax, desUtil, typeSoiree, genre,
+                    type, ton, inspiration, niveauAttendu, presentation, creneau, inscrit);
 
-        try {
-            Service.getInstance().ajouterPartie(partie,image);
-            resp.sendRedirect("accueil");
-        }catch (IllegalArgumentException e){
-            resp.sendRedirect("accueil");
+            try {
+                Service.getInstance().ajouterPartie(partie,image);
+                resp.sendRedirect("accueil");
+            }catch (IllegalArgumentException e){
+                resp.sendRedirect("accueil");
+            }
         }
+
 
     }
 }

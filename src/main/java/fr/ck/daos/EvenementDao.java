@@ -91,8 +91,6 @@ public class EvenementDao {
              PreparedStatement statement = connection.prepareStatement("UPDATE Evenement SET imageE=? WHERE idEvenement=?")) {
             if (image != null) {
                 statement.setString(1, image);
-            } else {
-                statement.setString(1,"");
             }
             statement.setInt(2, idEvenement);
             statement.executeUpdate();

@@ -1,62 +1,24 @@
 package daosTests;
 
-import fr.ck.daos.CreneauDao;
 import fr.ck.daos.DataSourceProvider;
 import fr.ck.daos.PartieDao;
 import fr.ck.entite.Creneau;
 import fr.ck.entite.Inscrit;
 import fr.ck.entite.Partie;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
 
-public class PartieDaoTests {
+public class PartieDaoTests extends GenericDaoTest {
 
     private PartieDao partieDao = new PartieDao();
-    private CreneauDao creneauDao = new CreneauDao();
-
-    @Before
-    public void initDb() throws Exception{
-        try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
-             Statement stmt = connection.createStatement()) {
-
-            stmt.executeUpdate("UPDATE creneau SET idInscrit=null");
-            stmt.executeUpdate("UPDATE creneau SET idPartie=null");
-            stmt.executeUpdate("UPDATE partie SET idCreneau=null");
-            stmt.executeUpdate("UPDATE partie SET idInscrit=null");
-            stmt.executeUpdate("UPDATE partie SET idInscrit_1=null");
-
-            stmt.executeUpdate("DELETE FROM inscrit");
-            stmt.executeUpdate("DELETE FROM creneau");
-            stmt.executeUpdate("DELETE FROM partie");
-
-            stmt.executeUpdate("INSERT INTO inscrit(idInscrit,nom,prenom,mail,telephone,adresse,statut,dateAdhesion,dateInscription,nbrPartieJouees,motDePasse) VALUES (1,'Dylan','Bob','bob@dylan.us',null,'rue de toul','admin',null,'2018-02-22',0,'xxx')");
-            stmt.executeUpdate("INSERT INTO inscrit(idInscrit,nom,prenom,mail,telephone,adresse,statut,dateAdhesion,dateInscription,nbrPartieJouees,motDePasse) VALUES (2,'Dujardin','Jean-François','jf@hei.fr',null,'rue Colbert','adherent',null,'2018-02-22',0,'xxx')");
-
-            stmt.executeUpdate("INSERT INTO creneau(idCreneau,dateCreneau,heure,lieu,idPartie,idInscrit) VALUES (1,'2012-05-12','18h-20h','bar tandem',null,1)");
-            stmt.executeUpdate("INSERT INTO creneau(idCreneau,dateCreneau,heure,lieu,idPartie,idInscrit) VALUES (2,'2015-08-12','15h-20h','maison des associations',null,1)");
-            stmt.executeUpdate("INSERT INTO creneau(idCreneau,dateCreneau,heure,lieu,idPartie,idInscrit) VALUES (3,'2011-09-12','18h-22h','chez Robert',null,1)");
-            stmt.executeUpdate("INSERT INTO creneau(idCreneau,dateCreneau,heure,lieu,idPartie,idInscrit) VALUES (4,'2011-09-12','18h-22h','MDA',null,1)");
-
-            stmt.executeUpdate("INSERT INTO partie(idPartie, nomScenario, nomJeu, nombreMin, nombreMax, desUtil, typeSoiree, genre, typeJ, ton, inspiration, niveauAttendu, presentation, idCreneau, idInscrit,idInscrit_1) values (1,'La peur','Cthulu',2,5,'de6, de8','One shot','Horreur','','Horreur','Lovecraft','Expert','Une petite partie autour du mythe de Cthulu...',1,1,1)");
-            stmt.executeUpdate("INSERT INTO partie(idPartie, nomScenario, nomJeu, nombreMin, nombreMax, desUtil, typeSoiree, genre, typeJ, ton, inspiration, niveauAttendu, presentation, idCreneau, idInscrit,idInscrit_1) values (2,'Pirates','Pathfinder',3,5,'de6, 12, 20','Campagne ferme','Aventure','...','Leger','Medieval-Fantastique','Confirme, Expert','Des pirates égaré en mer',3,2,null)");
-            stmt.executeUpdate("INSERT INTO partie(idPartie, nomScenario, nomJeu, nombreMin, nombreMax, desUtil, typeSoiree, genre, typeJ, ton, inspiration, niveauAttendu, presentation, idCreneau, idInscrit,idInscrit_1) values (3,'Mon petit poney','Mon petit poney',4,8,'de6, 12, 20','One shot','Humour','...','Leger','Fantastique','Debutant, Confirme, Expert','Pour rigoler entre amis',2,2,null)");
-
-            stmt.executeUpdate("UPDATE creneau SET idPartie=1 WHERE idCreneau=1");
-            stmt.executeUpdate("UPDATE creneau SET idPartie=3 WHERE idCreneau=2");
-            stmt.executeUpdate("UPDATE creneau SET idPartie=2 WHERE idCreneau=3");
-        }
-    }
-
 
     @Test
     public void shouldListPartieValide() {
@@ -76,6 +38,16 @@ public class PartieDaoTests {
         assertThat(parties).extracting("idPartie", "nomScenario", "nomJeu", "creneau.idCreneau", "creneau.date", "creneau.heure", "creneau.lieu", "inscrit.idInscrit", "inscrit.nom", "inscrit.prenom").containsOnly(
                 tuple(3, "Mon petit poney", "Mon petit poney", 2, "2015-08-12", "15h-20h", "maison des associations", 2, "Dujardin", "Jean-François"),
                 tuple(2, "Pirates", "Pathfinder", 3, "2011-09-12", "18h-22h", "chez Robert", 2, "Dujardin", "Jean-François")
+        );
+    }
+
+    @Test
+    public void shouldListPartiesParJour() {
+        List<Partie> parties = partieDao.listePartiesParJour("2012-05-12");
+
+        assertThat(parties).hasSize(1);
+        assertThat(parties).extracting("idPartie", "nomScenario", "nomJeu", "creneau.idCreneau", "creneau.date", "creneau.heure", "creneau.lieu", "inscrit.idInscrit", "inscrit.nom", "inscrit.prenom").containsOnly(
+                tuple(1,"La peur","Cthulu",null,"2012-05-12", "18h-20h", "bar tandem",null,null,null)
         );
     }
 
@@ -163,6 +135,12 @@ public class PartieDaoTests {
         assertThat(rs.getInt("idInscrit")).isEqualTo(1);
         assertThat(rs.getInt("idInscrit_1")).isEqualTo(1);
         assertThat(rs.next()).isFalse();
+    }
+
+    @Test
+    public void shouldGetImage(){
+        String image = partieDao.getImage(1);
+        assertThat(image).isEqualTo("Cthulu");
     }
 
     @Test

@@ -2,7 +2,7 @@ package fr.ck.servlet.templates;
 
 import fr.ck.Service.Service;
 import fr.ck.entite.Inscrit;
-import fr.ck.entite.Partie;
+import fr.ck.entite.Partenaire;
 import fr.ck.servlet.GenericServlet;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -12,45 +12,43 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet("/detailPartie")
-public class DetailPartieServlet extends GenericServlet {
+@WebServlet("/partenaires")
+public class PartenairesServlet extends GenericServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        Integer idPartie = Integer.parseInt(req.getParameter("idPartie"));
-        Partie partie = Service.getInstance().getPartie(idPartie);
-
-        if(Service.getInstance().getInscritValideur(idPartie)==null){
-            resp.sendRedirect("accueil");
-            return;
-        }
-
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
+
         String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
         String statutUtil = (String) req.getSession().getAttribute("statut");
-
-        List<Inscrit> participants = Service.getInstance().listeParticipants(idPartie);
-        Boolean joueur = false;
-        for(int i=0;i<participants.size();i++){
-            if(participants.get(i).getMail().equals(identifiantUtilisateur)){
-                joueur=true;
-            }
-        }
-        context.setVariable("joueur",joueur);
-
         if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur)) {
             context.setVariable("inscrit", new Inscrit("Visiteur"));
         }else{
             context.setVariable("inscrit", new Inscrit(identifiantUtilisateur,statutUtil));
         }
-        context.setVariable("partie", partie);
-        context.setVariable("participants",participants);
-        context.setVariable("nombreParticipants",participants.size());
+        context.setVariable("partenaires", Service.getInstance().listPartenaires());
+        templateEngine.process("partenaires", context, resp.getWriter());
 
-        templateEngine.process("detailPartie", context, resp.getWriter());
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String nomPartenaire = req.getParameter("nomPartenaire");
+        String descriptionPartenaire = req.getParameter("descriptionPartenaire");
+        String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
+
+        System.out.println(nomPartenaire+descriptionPartenaire);
+
+        Partenaire partenaire = new Partenaire(nomPartenaire,descriptionPartenaire,new Inscrit(Service.getInstance().getIdParMail(identifiantUtilisateur)));
+
+        if (nomPartenaire.length() <= 25 && descriptionPartenaire.length() <= 400) {
+            Service.getInstance().ajouterPartenaire(partenaire);
+        }
+        resp.sendRedirect("partenaires");
+        return;
+    }
+
 }

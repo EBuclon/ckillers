@@ -14,6 +14,14 @@ function confirmSuppression(idCreneau) {
     }
 }
 
+function confirmSuppr(idNouvelle) {
+    //console.log(idNouvelle);
+    if (confirm("Voulez-vous vraiment supprimer cette nouvelle ?")) {
+        // Clic sur OK
+        document.location.href="/supprimerNouvelle?idNouvelle="+idNouvelle;
+    }
+}
+
 function validerPartie(idPartie) {
     document.location.href="/validerPartie?idPartie="+idPartie;
 

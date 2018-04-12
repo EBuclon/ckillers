@@ -1,14 +1,38 @@
 package fr.ck.entite;
 
 public class Nouvelle {
+    private Integer idNouvelle;
     private String titre;
     private String texte;
-    private Integer idInscrit;
+    private Inscrit inscrit;
 
-    public Nouvelle(String titre, String texte, Integer idInscrit) {
+    public Nouvelle(Integer idNouvelle, String titre, String texte, Inscrit inscrit) {
+        this.idNouvelle = idNouvelle;
         this.titre = titre;
         this.texte = texte;
-        this.idInscrit = idInscrit;
+        this.inscrit = inscrit;
+    }
+
+    public Nouvelle(String titre, String texte, Inscrit inscrit) {
+        this.titre = titre;
+        this.texte = texte;
+        this.inscrit = inscrit;
+    }
+
+    public Integer getIdNouvelle() {
+        return idNouvelle;
+    }
+
+    public void setIdNouvelle(Integer idNouvelle) {
+        this.idNouvelle = idNouvelle;
+    }
+
+    public Inscrit getInscrit() {
+        return inscrit;
+    }
+
+    public void setInscrit(Inscrit inscrit) {
+        this.inscrit = inscrit;
     }
 
     public String getTitre() {
@@ -27,11 +51,4 @@ public class Nouvelle {
         this.texte = texte;
     }
 
-    public Integer getIdInscrit() {
-        return idInscrit;
-    }
-
-    public void setIdInscrit(Integer idInscrit) {
-        this.idInscrit = idInscrit;
-    }
 }

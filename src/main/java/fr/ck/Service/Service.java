@@ -20,6 +20,7 @@ public class Service {
     private InscritDao inscritDao = new InscritDao();
     private ParticipationDao participationDao = new ParticipationDao();
     private NouvelleDao nouvelleDao = new NouvelleDao();
+    private PartenaireDao partenaireDao = new PartenaireDao();
     private EvenementDao evenementDao = new EvenementDao();
     private AllerDao allerDao = new AllerDao();
 
@@ -34,6 +35,7 @@ public class Service {
 
     private Service() {
     }
+
 
     public void ajouterCreneau(Creneau creneau) {
         if (creneau == null) {
@@ -58,24 +60,25 @@ public class Service {
         creneauDao.supprimerCreneau(idCreneau);
     }
 
+
     public void ajouterPartie(Partie partie, Part image) {
         if (partie == null) {
             throw new IllegalArgumentException("Partie inexistante");
         }
 
-        String nomImage = chargerImage(image);
+        String nomImage = chargerImage(image, partie.getNomScenario());
         partieDao.ajouterPartie(partie, nomImage);
     }
 
     public void validerPartie(Partie partie, Part image, Integer idInscrit) {
-        String nomImage = chargerImage(image);
+        String nomImage = chargerImage(image, partie.getNomScenario());
         partieDao.validerPartie(partie, nomImage, idInscrit);
     }
 
-    private String chargerImage(Part image) {
+    private String chargerImage(Part image, String nom) {
         String nomFichier = null;
         if (!image.getSubmittedFileName().equals("")) {
-            nomFichier = UUID.randomUUID().toString().substring(0, 8) + "-" + image.getSubmittedFileName();
+            nomFichier = UUID.randomUUID().toString().substring(0, 8) + "-" + nom;//image.getSubmittedFileName()
             Path cheminImage = Paths.get(IMAGE_DIRECTORY_PATH, nomFichier);
             try {
                 Files.copy(image.getInputStream(), cheminImage);
@@ -113,12 +116,17 @@ public class Service {
         partieDao.supprimerPartie(idPartie, idCreneau);
     }
 
-    public List<Partie> listePartiesParJour(String date){
+    public List<Partie> listePartiesParJour(String date) {
         String dateT;
         String[] parts = date.split("/");
-        dateT = parts[0]+"-"+parts[1]+"-"+parts[2];
+        dateT = parts[0] + "-" + parts[1] + "-" + parts[2];
         return partieDao.listePartiesParJour(dateT);
     }
+
+    public List<Integer> listeDateAvecPartie(String mois, String annee) {
+        return creneauDao.listeDateAvecPartie(mois, annee);
+    }
+
 
     public Inscrit getConnexion(String mail) {
         return inscritDao.getConnexion(mail);
@@ -158,6 +166,39 @@ public class Service {
         nouvelleDao.ajouterNouvelle(nouvelle);
     }
 
+    public List<Nouvelle> listNouvelle() {
+        return nouvelleDao.listNouvelle();
+    }
+
+    public void supprimerNouvelle(Integer idNouvelle) {
+        nouvelleDao.supprimerNouvelle(idNouvelle);
+    }
+
+
+    public void ajouterPartenaire(Partenaire nouvelle) {
+        partenaireDao.ajouterPartenaire(nouvelle);
+    }
+
+    public List<Partenaire> listPartenaires() {
+        return partenaireDao.listPartenaires();
+    }
+
+    public void supprimerPartenaire(Integer idPartenaire) {
+        partenaireDao.supprimerPartenaire(idPartenaire);
+    }
+
+    public Path getImagePartenaire(Integer idEvenement) {
+        String image = partenaireDao.getImagePartenaire(idEvenement);
+        Path chemin;
+        if (image.equals("")) {
+            chemin = Paths.get(IMAGE_DIRECTORY_PATH + "/banner.jpg");
+        } else {
+            chemin = Paths.get(IMAGE_DIRECTORY_PATH + "/" + image);
+        }
+        return chemin;
+    }
+
+
     public void ajouterEvent(Evenement evenement) {
         evenementDao.ajouterEvent(evenement);
     }
@@ -182,13 +223,14 @@ public class Service {
             throw new IllegalArgumentException("Partie inexistante");
         }
 
-        String nomImage = chargerImage(image);
+        String nomImage = chargerImage(image,image.getSubmittedFileName());
         evenementDao.ajouterImageE(idEvenement, nomImage);
     }
 
     public void supprimerEvenement(Integer idEvenement, Integer idCreneau) {
         evenementDao.supprimerEvenement(idEvenement, idCreneau);
     }
+
 
     public void aller(Integer idEvenement, Integer idInscrit) {
         allerDao.aller(idEvenement, idInscrit);

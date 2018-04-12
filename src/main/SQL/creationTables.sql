@@ -1,8 +1,8 @@
 CREATE TABLE Creneau(
-        idCreneau   Int NOT NULL AUTO_INCREMENT,
+        idCreneau   Int NOT NULL auto_increment,
         dateCreneau Date ,
         heure       Varchar (25) ,
-        lieu        Varchar (25) ,
+        lieu        Varchar (100) ,
         idEvenement Int ,
         idPartie    Int ,
         idInscrit   Int ,
@@ -10,17 +10,16 @@ CREATE TABLE Creneau(
 )ENGINE=InnoDB;
 
 CREATE TABLE Evenement(
-        idEvenement Int NOT NULL AUTO_INCREMENT,
+        idEvenement Int NOT NULL auto_increment,
         titre       Varchar (25) ,
-        contenu     Varchar (25) ,
-        imageE      Varchar (25) ,
+        contenu     Varchar (2000) ,
+        imageE      Varchar (35) ,
         idCreneau   Int ,
-        idInscrit   Int ,
         PRIMARY KEY (idEvenement )
 )ENGINE=InnoDB;
 
 CREATE TABLE Partie(
-        idPartie      Int NOT NULL AUTO_INCREMENT,
+        idPartie      Int NOT NULL auto_increment,
         nomScenario   Varchar (25) ,
         nomJeu        Varchar (25) ,
         nombreMin     Int ,
@@ -30,10 +29,10 @@ CREATE TABLE Partie(
         genre         Varchar (25) ,
         typeJ         Varchar (25) ,
         ton           Varchar (25) ,
-        inspiration   Varchar (25) ,
-        niveauAttendu Varchar (25) ,
-        presentation  Varchar (25) ,
-        image         Varchar (25) ,
+        inspiration   Varchar (50) ,
+        niveauAttendu Varchar (30) ,
+        presentation  Varchar (400) ,
+        image         Varchar (35) ,
         idCreneau     Int ,
         idInscrit     Int ,
         idInscrit_1   Int ,
@@ -41,28 +40,30 @@ CREATE TABLE Partie(
 )ENGINE=InnoDB;
 
 CREATE TABLE Nouvelle(
-        idNouvelle    Int NOT NULL AUTO_INCREMENT ,
+        idNouvelle    Int NOT NULL auto_increment ,
         titreNouvelle Varchar (25) ,
-        texte         Varchar (25) ,
+        texte         Varchar (200) ,
+        imageN        Varchar (35) ,
         idInscrit     Int ,
         PRIMARY KEY (idNouvelle )
 )ENGINE=InnoDB;
 
 CREATE TABLE Partenaire(
-        idPartenaire          Int NOT NULL AUTO_INCREMENT ,
+        idPartenaire          Int NOT NULL auto_increment ,
         nomPartenaire         Varchar (25) ,
-        descriptionPartenaire Varchar (25) ,
+        descriptionPartenaire Varchar (400) ,
+        imageP                Varchar (35) ,
         idInscrit             Int ,
         PRIMARY KEY (idPartenaire )
 )ENGINE=InnoDB;
 
 CREATE TABLE Inscrit(
-        idInscrit       Int NOT NULL AUTO_INCREMENT ,
+        idInscrit       Int NOT NULL auto_increment ,
         nom             Varchar (25) ,
         prenom          Varchar (25) ,
-        mail            Varchar (25) ,
+        mail            Varchar (40) ,
         telephone       Varchar (25) ,
-        adresse         Varchar (25) ,
+        adresse         Varchar (100) ,
         statut          Varchar (25) ,
         dateAdhesion    Date ,
         dateInscription Date ,
@@ -87,7 +88,6 @@ ALTER TABLE Creneau ADD CONSTRAINT FK_Creneau_idEvenement FOREIGN KEY (idEveneme
 ALTER TABLE Creneau ADD CONSTRAINT FK_Creneau_idPartie FOREIGN KEY (idPartie) REFERENCES Partie(idPartie);
 ALTER TABLE Creneau ADD CONSTRAINT FK_Creneau_idInscrit FOREIGN KEY (idInscrit) REFERENCES Inscrit(idInscrit);
 ALTER TABLE Evenement ADD CONSTRAINT FK_Evenement_idCreneau FOREIGN KEY (idCreneau) REFERENCES Creneau(idCreneau);
-ALTER TABLE Evenement ADD CONSTRAINT FK_Evenement_idInscrit FOREIGN KEY (idInscrit) REFERENCES Inscrit(idInscrit);
 ALTER TABLE Partie ADD CONSTRAINT FK_Partie_idCreneau FOREIGN KEY (idCreneau) REFERENCES Creneau(idCreneau);
 ALTER TABLE Partie ADD CONSTRAINT FK_Partie_idInscrit FOREIGN KEY (idInscrit) REFERENCES Inscrit(idInscrit);
 ALTER TABLE Partie ADD CONSTRAINT FK_Partie_idInscrit_1 FOREIGN KEY (idInscrit_1) REFERENCES Inscrit(idInscrit);

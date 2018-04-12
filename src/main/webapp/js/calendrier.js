@@ -1,4 +1,18 @@
 var datePick = null;
+var liste =null;
+
+function dateAvecPartie( dY,  dM) {
+    var requeteDateAvecPartie = new XMLHttpRequest();
+    requeteDateAvecPartie.open("POST","dateAvecPartie",true);
+    requeteDateAvecPartie.responseType="json";
+    requeteDateAvecPartie.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    requeteDateAvecPartie.onload= function(){
+        liste = JSON.stringify(this.response);
+    };
+    requeteDateAvecPartie.send("Mois="+dM+"&annee="+dY);
+}
+
 
 function jsSimpleDatePickr(){
     var me = this;
@@ -204,7 +218,7 @@ function jsSimpleDatePickr(){
         var o = me.jsSDPObj[nb];
         if(!dateStr) dateStr = '';
         var m = o['dateMask'];
-        // extrait la date d'aprÃ¨s le mask
+        // extrait la date d'après le mask
         var pos, dY, dM, dD;
         pos = m.indexOf('JJ');
         if(pos != -1) dD = parseInt(dateStr.substr(pos, 2), 10);
@@ -224,7 +238,7 @@ function jsSimpleDatePickr(){
         o['dateDisp'] = new Date(dY, dM, dD);
     }
 //
-// affiche le calendrier
+// affiche le calendrier (appelé chaque mois)
 //
     me.CalContentInit = function(nb){
         var i, j;
@@ -232,40 +246,63 @@ function jsSimpleDatePickr(){
         var dayOrder = '1234560';
         var curDate = new Date(cal['dateDisp'].getFullYear(), cal['dateDisp'].getMonth(), 1);
         document.getElementById('calendar'+cal['id']).innerHTML = '';
-        for(j = 0; j < cal['displayNumber']; j++){
-            var num = today = 0;
-            var month = curDate.getMonth();
-            var year = curDate.getFullYear();
-            if(month == cal['dateSel'].getMonth() && year == cal['dateSel'].getFullYear()) today = cal['dateSel'].getDate();
-            var elT = me.DomElementInit('table', {'parent': document.getElementById('calendar'+cal['id']), 'class': cal['classTable']});
-            var elTr = me.DomElementInit('tr', {'parent': elT});
-            for(i = 0; i < 7; i++){
-                me.DomElementInit('th', {'parent': elTr, 'content': cal['dayLst'][dayOrder[i]]});
-            }
-            elTr = me.DomElementInit('tr', {'parent': elT});
-            var h, d = new Date(year, month, 1);
-            for(num = 0; num < dayOrder.indexOf(d.getDay()); num++){
-                me.DomElementInit('td', {'parent': elTr});
-            }
-            d.setMonth(month+1, 0);
-            for(i = 1; i <= d.getDate(); i++){
-                num++;
-                if(num > 7){
-                    num = 1;
-                    elTr = me.DomElementInit('tr', {'parent': elT});
+
+        var month = curDate.getMonth();
+        var year = curDate.getFullYear();
+        var dM = month+1;
+
+        var requeteDateAvecPartie = new XMLHttpRequest();
+        requeteDateAvecPartie.open("POST","dateAvecPartie",true);
+        requeteDateAvecPartie.responseType="json";
+        requeteDateAvecPartie.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        requeteDateAvecPartie.onload= function(){
+            for(j = 0; j < cal['displayNumber']; j++){
+                var num = today = 0;
+
+
+                if(month == cal['dateSel'].getMonth() && year == cal['dateSel'].getFullYear()) today = cal['dateSel'].getDate();
+                var elT = me.DomElementInit('table', {'parent': document.getElementById('calendar'+cal['id']), 'class': cal['classTable']});
+                var elTr = me.DomElementInit('tr', {'parent': elT});
+                for(i = 0; i < 7; i++){
+                    me.DomElementInit('th', {'parent': elTr, 'content': cal['dayLst'][dayOrder[i]]});
                 }
-                var cell = me.DomElementInit('td', {'parent': elTr, 'class': (i == today ? cal['classDaySelected']:cal['classDay']), 'content': i});
-                cell.onclick = (function(v, m, y){
-                    return function(){
-                        me.CalClick(nb, v+'/'+m+'/'+y);
+                elTr = me.DomElementInit('tr', {'parent': elT});
+                var h, d = new Date(year, month, 1);
+                for(num = 0; num < dayOrder.indexOf(d.getDay()); num++){
+                    me.DomElementInit('td', {'parent': elTr});
+                }
+                d.setMonth(month+1, 0);
+
+                for(i = 1; i <= d.getDate(); i++){
+                    num++;
+                    if(num > 7){
+                        num = 1;
+                        elTr = me.DomElementInit('tr', {'parent': elT});
                     }
-                })(i, month, year);
+
+                    var test = false;
+                    for(var l=0;l<this.response.length;l++){
+                        if(this.response[l]===i){
+                            test=true;
+                        }
+                    }
+
+                    var cell = me.DomElementInit('td', {'parent': elTr, 'class': (i == today ? cal['classDaySelected']: test ? cal['classDayWithPartie'] : cal['classDay']), 'content': i});
+                    cell.onclick = (function(v, m, y){
+                        return function(){
+                            me.CalClick(nb, v+'/'+m+'/'+y);
+                        }
+                    })(i, month, year);
+                }
+                for(i = num; i < 7; i++){
+                    me.DomElementInit('td', {'parent': elTr});
+                }
+                curDate.setMonth(curDate.getMonth()+1);
             }
-            for(i = num; i < 7; i++){
-                me.DomElementInit('td', {'parent': elTr});
-            }
-            curDate.setMonth(curDate.getMonth()+1);
-        }
+        };
+
+        requeteDateAvecPartie.send("Mois="+dM+"&annee="+year);
     }
 //
 // callback : gère une clic sur une date
@@ -331,32 +368,23 @@ function jsSimpleDatePickr(){
 
 function ajouterALaPage(partieObjet){
     var trPartie = document.createElement("tr");
-    //trPartie.id="part"+partieObjet.idPartie;
-
     var tdPartie = document.createElement("td");
     var lienPartie = document.createElement("a");
 
-    lienPartie.textContent = partieObjet.nomScenario;
+    tdPartie.textContent = partieObjet.nomScenario;
     lienPartie.setAttribute("href","detailPartie?idPartie="+partieObjet.idPartie);
 
     var tdJeu = document.createElement("td");
-    var lienPartie2 = document.createElement("a");
+    tdJeu.textContent = partieObjet.nomJeu;
 
-    lienPartie2.textContent = partieObjet.nomScenario;
-    lienPartie2.setAttribute("href","detailPartie?idPartie="+partieObjet.idPartie);
-    lienPartie2.textContent = partieObjet.nomJeu;
-
-    tdPartie.appendChild(lienPartie);
     trPartie.appendChild(tdPartie);
-    tdJeu.appendChild(lienPartie2);
     trPartie.appendChild(tdJeu);
-    document.getElementById("tableau").appendChild(trPartie);
-
-    //document.getElementById('part'+partie.idPartie).onclick=function () {document.location.href="/detailPartie?idPartie="+idPartie;}
+    lienPartie.appendChild(trPartie);
+    //trPartie.appendChild(tdJeu);
+    document.getElementById("tableau").appendChild(lienPartie);
 }
 
 function callback_date() {
-    console.log(datePick);
     var requetePartieParDate = new XMLHttpRequest();
     requetePartieParDate.open("POST","partieParDate",true);
     requetePartieParDate.responseType="json";
@@ -364,22 +392,23 @@ function callback_date() {
     document.getElementById("entete").textContent = "";
     document.getElementById("tableau").textContent = "";
 
-    var trEntete = document.createElement("tr");
-    trEntete.className="partieParJour";
-
-    var thScenario = document.createElement("th");
-    thScenario.textContent = "Nom du scenario";
-
-    var thJeu = document.createElement("th");
-    thJeu.textContent = "Nom du jeu";
-
-    trEntete.appendChild(thScenario);
-    trEntete.appendChild(thJeu);
-    document.getElementById("entete").appendChild(trEntete);
-
     requetePartieParDate.onload= function(){
+        if(this.response.length!==0){
+            var trEntete = document.createElement("tr");
+            trEntete.className="partieParJour";
+
+            var thScenario = document.createElement("th");
+            thScenario.textContent = "Nom du scenario";
+
+            var thJeu = document.createElement("th");
+            thJeu.textContent = "Nom du jeu";
+
+            trEntete.appendChild(thScenario);
+            trEntete.appendChild(thJeu);
+            document.getElementById("entete").appendChild(trEntete);
+        }
         for(var i=0;i<this.response.length;i++){
-            console.log("partie : "+this.response[i].nomScenario);
+            //console.log("partie : "+this.response[i].nomScenario);
             ajouterALaPage(this.response[i]);
         }
     };
@@ -400,12 +429,11 @@ window.onload = function () {
         'navType': '01',
         'classTable': 'jsCalendar',
         'classDay': 'day',
-        'classDayWithPartie': 'dayWPartie',
+        'classDayWithPartie': 'dayWithPartie',
         'classDaySelected': 'selectedDay',
         'monthLst': ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
         'dayLst': ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
         'hideOnClick': false,
         'showOnLaunch': true
     });
-
 };

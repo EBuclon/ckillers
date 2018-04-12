@@ -77,7 +77,7 @@ public class PartieDao {
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT P.idPartie, nomScenario, nomJeu, dateCreneau, heure, lieu " +
                      "FROM Partie P INNER JOIN Creneau C " +
-                     "WHERE P.idCreneau=C.idCreneau AND dateCreneau=?")) {
+                     "WHERE P.idCreneau=C.idCreneau AND idInscrit_1 IS NOT NULL AND dateCreneau=?")) {
             statement.setString(1, date);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {

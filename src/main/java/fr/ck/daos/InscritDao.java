@@ -128,5 +128,20 @@ public class InscritDao {
         }
     }
 
+    public List<String> listMailsInscrits(){
+        List<String> listeDInscrit = new ArrayList<>();
+
+        try(Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT mail FROM inscrit ORDER BY nom"))
+        {
+            while (resultSet.next()) {
+                listeDInscrit.add(resultSet.getString("mail"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

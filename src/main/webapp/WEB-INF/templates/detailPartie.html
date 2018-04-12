@@ -43,18 +43,18 @@
 				<p class="col-md-8">[[${partie.presentation}]]</p>
 			</div>
 			<div class="row" id="boutons">
-				<button th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="col-md-4">Supprimer</button>
-				<p th:unless="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="invisible"></p>
-				<button id="participer" th:unless="${joueur} OR ${inscrit.statut}=='Visiteur'">Participer</button>
-				<p id="participer" th:if="${joueur} OR ${inscrit.statut}=='Visiteur'"></p>
+				<button id="participer" th:unless="${joueur} OR ${inscrit.statut}=='Visiteur' OR ${nombreParticipants >= partie.nbMax}">Participer</button>
+				<p id="participer" th:if="${joueur} OR ${inscrit.statut}=='Visiteur' OR ${nombreParticipants >= partie.nbMax}"></p>
 				<button id="annulerParticiper" th:if="${joueur}">Ne plus participer</button>
 				<p id="annulerParticiper" th:unless="${joueur} AND ${inscrit.statut}!='Visiteur'"></p>
+				<button th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="col-md-4">Supprimer</button>
+				<p th:unless="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="invisible"></p>
 			</div>
 			<p class="row" th:if="${inscrit.statut}=='admin'">Mis en ligne par: [[${partie.inscrit.nom}]] [[${partie.creneau.inscrit.prenom}]]</p>
 			<p class="row" th:if="${inscrit.statut}=='admin'">Creneau mis a disposition par: [[${partie.creneau.inscrit.nom}]] [[${partie.creneau.inscrit.prenom}]]</p>
 		</div>
 	</div>
-	<div th:unless="${inscrit.statut}=='Visiteur'" class="container " id="ajout-joueur">
+	<div th:unless="${inscrit.statut}=='Visiteur'" class="container pre-scrollable" id="ajout-joueur">
 
 		<div class="row" id="participants">
 			<h5 class="col-md-10">Ils y participent également :</h5>
