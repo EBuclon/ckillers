@@ -3,7 +3,6 @@ package daosTests;
 import fr.ck.daos.AllerDao;
 import fr.ck.daos.DataSourceProvider;
 import fr.ck.entite.Inscrit;
-import fr.ck.entite.Nouvelle;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 

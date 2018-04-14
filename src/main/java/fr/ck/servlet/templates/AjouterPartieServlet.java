@@ -69,7 +69,6 @@ public class AjouterPartieServlet extends GenericServlet {
             Creneau creneau = new Creneau(idCreneau);
             Inscrit inscrit = Service.getInstance().getInscritParMail((String) req.getSession().getAttribute("utilisateur"));
 
-
             Partie partie = new Partie(0, nomScenario, nomJeu, nbMin, nbMax, desUtil, typeSoiree, genre,
                     type, ton, inspiration, niveauAttendu, presentation, creneau, inscrit);
 
@@ -77,7 +76,7 @@ public class AjouterPartieServlet extends GenericServlet {
                 Service.getInstance().ajouterPartie(partie,image);
                 resp.sendRedirect("accueil");
             }catch (IllegalArgumentException e){
-                resp.sendRedirect("accueil");
+                resp.sendRedirect("creneauPartie");
             }
         }
 

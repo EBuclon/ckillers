@@ -26,7 +26,7 @@ public class PartieDaoTests extends GenericDaoTest {
 
         assertThat(parties).hasSize(1);
         assertThat(parties).extracting("idPartie", "nomScenario", "nomJeu", "creneau.idCreneau", "creneau.date", "creneau.heure", "creneau.lieu", "inscrit.idInscrit", "inscrit.nom", "inscrit.prenom").containsOnly(
-                tuple(1,"La peur","Cthulu",1,"2012-05-12", "18h-20h", "bar tandem",1,"Dylan","Bob")
+                tuple(1,"La peur","Cthulu",1,"2018-05-12", "18h-20h", "bar tandem",1,"Dylan","Bob")
         );
     }
 
@@ -36,18 +36,18 @@ public class PartieDaoTests extends GenericDaoTest {
 
         assertThat(parties).hasSize(2);
         assertThat(parties).extracting("idPartie", "nomScenario", "nomJeu", "creneau.idCreneau", "creneau.date", "creneau.heure", "creneau.lieu", "inscrit.idInscrit", "inscrit.nom", "inscrit.prenom").containsOnly(
-                tuple(3, "Mon petit poney", "Mon petit poney", 2, "2015-08-12", "15h-20h", "maison des associations", 2, "Dujardin", "Jean-François"),
-                tuple(2, "Pirates", "Pathfinder", 3, "2011-09-12", "18h-22h", "chez Robert", 2, "Dujardin", "Jean-François")
+                tuple(3, "Mon petit poney", "Mon petit poney", 2, "2018-08-12", "15h-20h", "maison des associations", 2, "Dujardin", "Jean-François"),
+                tuple(2, "Pirates", "Pathfinder", 3, "2018-09-12", "18h-22h", "chez Robert", 2, "Dujardin", "Jean-François")
         );
     }
 
     @Test
     public void shouldListPartiesParJour() {
-        List<Partie> parties = partieDao.listePartiesParJour("2012-05-12");
+        List<Partie> parties = partieDao.listePartiesParJour("2018-05-12");
 
         assertThat(parties).hasSize(1);
         assertThat(parties).extracting("idPartie", "nomScenario", "nomJeu", "creneau.idCreneau", "creneau.date", "creneau.heure", "creneau.lieu", "inscrit.idInscrit", "inscrit.nom", "inscrit.prenom").containsOnly(
-                tuple(1,"La peur","Cthulu",null,"2012-05-12", "18h-20h", "bar tandem",null,null,null)
+                tuple(1,"La peur","Cthulu",null,"2018-05-12", "18h-20h", "bar tandem",null,null,null)
         );
     }
 
@@ -70,7 +70,7 @@ public class PartieDaoTests extends GenericDaoTest {
         assertThat(partie.getNiveauAttendu()).isEqualTo("Confirme, Expert");
         assertThat(partie.getPresentation()).isEqualTo("Des pirates égaré en mer");
         assertThat(partie.getCreneau().getIdCreneau()).isEqualTo(3);
-        assertThat(partie.getCreneau().getDate()).isEqualTo("2011-09-12");
+        assertThat(partie.getCreneau().getDate()).isEqualTo("2018-09-12");
         assertThat(partie.getCreneau().getHeure()).isEqualTo("18h-22h");
         assertThat(partie.getCreneau().getLieu()).isEqualTo("chez Robert");
         assertThat(partie.getCreneau().getInscrit().getIdInscrit()).isEqualTo(1);
@@ -140,7 +140,7 @@ public class PartieDaoTests extends GenericDaoTest {
     @Test
     public void shouldGetImage(){
         String image = partieDao.getImage(1);
-        assertThat(image).isEqualTo("Cthulu");
+        assertThat(image).isEqualTo("cthulu");
     }
 
     @Test

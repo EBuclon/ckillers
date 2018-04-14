@@ -28,7 +28,7 @@ public class ImagePartieServlet extends GenericServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         Integer idPartie = Integer.parseInt(req.getParameter("idPartie"));
         Path cheminImage = Service.getInstance().getImage(idPartie);

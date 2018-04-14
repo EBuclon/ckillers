@@ -33,7 +33,7 @@ public class EvenementDaoTests extends GenericDaoTest {
         assertThat(evenement.getTitre()).isEqualTo("Open JDR");
         assertThat(evenement.getContenu()).isEqualTo("Beaucoup de joueurs attendus!");
         assertThat(evenement.getCreneau().getIdCreneau()).isEqualTo(5);
-        assertThat(evenement.getCreneau().getDate()).isEqualTo("2016-10-25");
+        assertThat(evenement.getCreneau().getDate()).isEqualTo("2018-10-25");
         assertThat(evenement.getCreneau().getHeure()).isEqualTo("14h-22h");
         assertThat(evenement.getCreneau().getLieu()).isEqualTo("bar tandem");
         assertThat(evenement.getCreneau().getInscrit().getIdInscrit()).isEqualTo(1);

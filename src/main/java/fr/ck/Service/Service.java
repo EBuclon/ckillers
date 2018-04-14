@@ -66,19 +66,21 @@ public class Service {
             throw new IllegalArgumentException("Partie inexistante");
         }
 
-        String nomImage = chargerImage(image, partie.getNomScenario());
+        String nomImage = chargerImage(image);
         partieDao.ajouterPartie(partie, nomImage);
     }
 
     public void validerPartie(Partie partie, Part image, Integer idInscrit) {
-        String nomImage = chargerImage(image, partie.getNomScenario());
+        String nomImage = chargerImage(image);
         partieDao.validerPartie(partie, nomImage, idInscrit);
     }
 
-    private String chargerImage(Part image, String nom) {
+    private String chargerImage(Part image) {
         String nomFichier = null;
         if (!image.getSubmittedFileName().equals("")) {
-            nomFichier = UUID.randomUUID().toString().substring(0, 8) + "-" + nom;//image.getSubmittedFileName()
+            System.out.println(image.getName());
+            nomFichier = UUID.randomUUID().toString().substring(0, 8) + "-" + image.getSubmittedFileName();
+            System.out.println(nomFichier);
             Path cheminImage = Paths.get(IMAGE_DIRECTORY_PATH, nomFichier);
             try {
                 Files.copy(image.getInputStream(), cheminImage);
@@ -223,7 +225,7 @@ public class Service {
             throw new IllegalArgumentException("Partie inexistante");
         }
 
-        String nomImage = chargerImage(image,image.getSubmittedFileName());
+        String nomImage = chargerImage(image);
         evenementDao.ajouterImageE(idEvenement, nomImage);
     }
 

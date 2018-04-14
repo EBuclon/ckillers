@@ -431,7 +431,7 @@ window.onload = function () {
         'classDay': 'day',
         'classDayWithPartie': 'dayWithPartie',
         'classDaySelected': 'selectedDay',
-        'monthLst': ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        'monthLst': ['Janvier', 'F&eacutevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Ao&ucirct', 'Septembre', 'Octobre', 'Novembre', 'D&eacutecembre'],
         'dayLst': ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
         'hideOnClick': false,
         'showOnLaunch': true

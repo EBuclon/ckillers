@@ -34,8 +34,7 @@ public class InscritDao {
         String query = "SELECT * FROM inscrit WHERE mail=?";
 
         try(Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-        ) {
+            PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1,mail);
             try(ResultSet resultSet = statement.executeQuery()){
                 if(resultSet.next()){
@@ -127,21 +126,4 @@ public class InscritDao {
             throw new RuntimeException("Erreur lors de l'insertion de l'inscrit à la base", e);
         }
     }
-
-    public List<String> listMailsInscrits(){
-        List<String> listeDInscrit = new ArrayList<>();
-
-        try(Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT mail FROM inscrit ORDER BY nom"))
-        {
-            while (resultSet.next()) {
-                listeDInscrit.add(resultSet.getString("mail"));
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 }

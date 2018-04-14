@@ -29,7 +29,6 @@ public class ImagePartenaireServlet extends GenericServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         Integer idPartenaire = Integer.parseInt(req.getParameter("idPartenaire"));
         Path cheminImage = Service.getInstance().getImagePartenaire(idPartenaire);
 
@@ -39,7 +38,5 @@ public class ImagePartenaireServlet extends GenericServlet {
 
         resp.setContentType(contentType);
         Files.copy(cheminImage, resp.getOutputStream());
-
-
     }
 }
