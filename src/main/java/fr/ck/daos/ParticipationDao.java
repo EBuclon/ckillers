@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParticipationDao {
+
+    /**
+     * permet de participer à une partie
+     * @param idPartie
+     * @param idInscrit
+     */
     public void participer(Integer idPartie, Integer idInscrit){
         try(Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement("SELECT nombreMax,COUNT(participer.idInscrit) as compte FROM partie INNER JOIN participer WHERE participer.idPartie=? AND participer.idPartie=partie.idPartie;")){
@@ -46,6 +52,11 @@ public class ParticipationDao {
         }
     }
 
+    /**
+     * permet d'annuler sa participation
+     * @param idPartie
+     * @param idInscrit
+     */
     public void annulerParticiper(Integer idPartie, Integer idInscrit){
         try(Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement("DELETE FROM Participer WHERE idInscrit=? AND idPartie=?")){
@@ -58,6 +69,11 @@ public class ParticipationDao {
         }
     }
 
+    /**
+     * permet d'obtenir la liste des participants à une partie
+     * @param idPartie
+     * @return
+     */
     public List<Inscrit> listeParticipants(Integer idPartie) {
         List<Inscrit> listeInscrit = new ArrayList<>();
 

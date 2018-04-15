@@ -10,6 +10,10 @@ import java.util.List;
 
 public class PartieDao {
 
+    /**
+     * retourne la liste des partie validée par un modérateur
+     * @return
+     */
     public List<Partie> listPartieValide() {
         List<Partie> parties = new ArrayList<Partie>();
 
@@ -41,13 +45,17 @@ public class PartieDao {
         return parties;
     }
 
+    /**
+     * retourne la liste des partie en attente de validation par les modérateurs
+     * @return
+     */
     public List<Partie> listPartieEnAttente() {
         List<Partie> parties = new ArrayList<Partie>();
 
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT P.idPartie, nomScenario, nomJeu, C.idCreneau, dateCreneau, heure, lieu, I.idInscrit, nom, prenom\n" +
-                     "FROM Partie P INNER JOIN Creneau C INNER JOIN Inscrit I \n" +
+                     "FROM Partie P INNER JOIN Creneau C INNER JOIN Inscrit I " +
                      "WHERE P.idCreneau=C.idCreneau AND idInscrit_1 IS NULL AND P.idInscrit=I.idInscrit")) {
             while (resultSet.next()) {
                 parties.add(
@@ -103,6 +111,11 @@ public class PartieDao {
         return parties;
     }
 
+    /**
+     * retourne la liste des parties pour un jour précis
+     * @param date
+     * @return
+     */
     public List<Partie> listePartiesParJour(String date) {
         List<Partie> parties = new ArrayList<Partie>();
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
@@ -134,6 +147,11 @@ public class PartieDao {
         return parties;
     }
 
+    /**
+     * permet d'ajouter une partie à la base de donnée
+     * @param partie
+     * @param image
+     */
     public void ajouterPartie(Partie partie, String image){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("INSERT INTO Partie(nomScenario, nomJeu, nombreMin, nombreMax, desUtil, typeSoiree, genre, typeJ, ton, inspiration, niveauAttendu, presentation, image, idCreneau, idInscrit) VALUES (?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?,?, ?, ?, ?)",Statement.RETURN_GENERATED_KEYS)) {
@@ -176,6 +194,12 @@ public class PartieDao {
         }
     }
 
+    /**
+     * permet à un modérateur de valider une partie
+     * @param partie
+     * @param image
+     * @param idInscrit
+     */
     public void validerPartie(Partie partie, String image, Integer idInscrit){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("UPDATE Partie SET nomScenario=?, nomJeu=?, nombreMin=?, nombreMax=?, desUtil=?, typeSoiree=?, genre=?, typeJ=?, ton=?, inspiration=?, niveauAttendu=?, presentation=?, idInscrit_1=? WHERE idPartie=?")) {
@@ -206,6 +230,11 @@ public class PartieDao {
         }
     }
 
+    /**
+     * permet d'obtenir la partie
+     * @param idPartie
+     * @return
+     */
     public Partie getPartie(Integer idPartie){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT nomScenario, nomJeu, nombreMin, nombreMax, desUtil, typeSoiree, genre, typeJ, ton, inspiration, niveauAttendu, presentation, " +
@@ -249,6 +278,11 @@ public class PartieDao {
         return null;
     }
 
+    /**
+     * permet d'obtenir l'image de la partie
+     * @param idPartie
+     * @return
+     */
     public String getImage(Integer idPartie) {
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT image FROM partie WHERE idPartie=?")) {
@@ -264,6 +298,11 @@ public class PartieDao {
         return null;
     }
 
+    /**
+     * permet de supprimer la partie
+     * @param idPartie
+     * @param idCreneau
+     */
     public void supprimerPartie(Integer idPartie,Integer idCreneau){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement("update creneau set idPartie=null where idCreneau=?;")){
             statement.setInt(1,idCreneau);
