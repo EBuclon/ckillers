@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Céréale Killers</title>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+	<script type="text/javascript">
+        function changeStatut(id,statut) {
+            var requeteChangerStatut = new XMLHttpRequest();
+            requeteChangerStatut.open("POST","modifierStatut",true);
+            requeteChangerStatut.responseType="json";
+            requeteChangerStatut.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            requeteChangerStatut.send("id="+id+"&statut="+statut);
+        }
+	</script>
+</head>
+<body>
+<header th:replace="~{fragments::header}"></header>
+<div class="container" id="Parties">
+	<div class="row">
+		<h2>Parties disponibles</h2>
+	</div>
+	<div class="row">
+		<table>
+			<tr>
+				<th>id</th>
+				<th>Nom</th>
+				<th>Prénom</th>
+				<th>Mail</th>
+				<th>Téléphone</th>
+				<th>Adresse</th>
+				<th>Date inscription</th>
+				<th>Statut</th>
+				<th></th>
+			</tr>
+			<tr th:each="inscrt:${inscrits}">
+				<td>[[${inscrt.idInscrit}]]</td>
+				<td>[[${inscrt.nom}]]</td>
+				<td>[[${inscrt.prenom}]]</td>
+				<td>[[${inscrt.mail}]]</td>
+				<td>[[${inscrt.telephone}]]</td>
+				<td>[[${inscrt.adresse}]]</td>
+				<td>[[${inscrt.dateInscription}]]</td>
+					<td>
+						<select th:id="'statut'+${inscrt.idInscrit}" name="Statut">
+							<option selected>[[${inscrt.statut}]]</option>
+							<option th:unless="${inscrt.statut}=='inscrit'">inscrit</option>
+							<option th:unless="${inscrt.statut}=='adherent'">adherent</option>
+							<option th:unless="${inscrt.statut}=='moderateur'">moderateur</option>
+							<option th:unless="${inscrt.statut}=='admin'">admin</option>
+						</select>
+					</td>
+					<td>
+						<button th:id="'bouton'+${inscrt.idInscrit}">
+							<script th:inline="javascript">
+                                document.getElementById("bouton"+[[${inscrt.idInscrit}]]).onclick=function () {
+                                    changeStatut([[${inscrt.idInscrit}]],document.getElementById('statut'+[[${inscrt.idInscrit}]]).value)
+                                }
+							</script>
+							Changer Statut
+						</button>
+					</td>
+			</tr>
+		</table>
+	</div>
+</div>
+</body>
+</html>

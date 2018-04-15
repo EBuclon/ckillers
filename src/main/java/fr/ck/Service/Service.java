@@ -11,6 +11,10 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Classe d'instanciation des DAOs. Permet de maintenir l'instance.
+ * Chaque fonction renvoie à son homonyme du DAO associé.
+ */
 public class Service {
 
     private static final String IMAGE_DIRECTORY_PATH = "C:/Developpement Web/ck/src/main/webapp/image";
@@ -75,6 +79,11 @@ public class Service {
         partieDao.validerPartie(partie, nomImage, idInscrit);
     }
 
+    /**
+     * Fonction pour charger les images sur le serveur
+     * @param image
+     * @return
+     */
     private String chargerImage(Part image) {
         String nomFichier = null;
         System.out.println(image.getSubmittedFileName());
@@ -125,6 +134,11 @@ public class Service {
         partieDao.supprimerPartie(idPartie, idCreneau);
     }
 
+    /**
+     * Change le format de la date pour l'adapter à la base de données
+     * @param date
+     * @return
+     */
     public List<Partie> listePartiesParJour(String date) {
         String dateT;
         String[] parts = date.split("/");
@@ -139,6 +153,14 @@ public class Service {
 
     public Inscrit getConnexion(String mail) {
         return inscritDao.getConnexion(mail);
+    }
+
+    public List<Inscrit> listInscrit() {
+        return inscritDao.listInscrit();
+    }
+
+    public void modifierStatutInscrit(Integer id, String statut) {
+        inscritDao.modifierStatutInscrit(id, statut);
     }
 
     public void ajouterInscrit(Inscrit inscrit) {

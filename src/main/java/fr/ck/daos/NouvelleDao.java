@@ -9,10 +9,6 @@ import java.util.List;
 
 public class NouvelleDao {
 
-    /**
-     * permet d'ajouter une nouvelle
-     * @param nouvelle
-     */
     public void ajouterNouvelle(Nouvelle nouvelle){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("INSERT INTO Nouvelle(titreNouvelle, texte, idInscrit) VALUES ( ?, ?, ?)")) {
@@ -25,10 +21,6 @@ public class NouvelleDao {
         }
     }
 
-    /**
-     * permet de lister toutes les nouvelles
-     * @return
-     */
     public List<Nouvelle> listNouvelle() {
         List<Nouvelle> nouvelles = new ArrayList<Nouvelle>();
 
@@ -53,10 +45,6 @@ public class NouvelleDao {
         return nouvelles;
     }
 
-    /**
-     * permet de supprimer une nouvelle
-     * @param id
-     */
     public void supprimerNouvelle(Integer id){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("DELETE FROM Nouvelle WHERE idNouvelle=?")){

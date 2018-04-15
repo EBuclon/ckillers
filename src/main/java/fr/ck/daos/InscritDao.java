@@ -25,12 +25,24 @@ public class InscritDao {
                 listeDInscrit.add(new Inscrit(resultSet.getInt("idInscrit"),resultSet.getString("nom")
                         ,resultSet.getString("prenom"),resultSet.getString("mail"),resultSet.getString("telephone")
                         ,resultSet.getString("adresse"),resultSet.getString("statut"),resultSet.getString("dateAdhesion")
-                        ,resultSet.getString("dateInscription"),resultSet.getInt("nbrPartieJouees"),"XXX"));
+                        ,resultSet.getString("dateInscription"),resultSet.getInt("nbrPartieJouees"),"X"));
             }
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return null;
+        return listeDInscrit;
+    }
+
+    public void modifierStatutInscrit(Integer id, String statut) {
+        try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement("update Inscrit set statut=? where idInscrit=?;")) {
+            statement.setString(1, statut);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

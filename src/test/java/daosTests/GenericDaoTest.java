@@ -31,8 +31,8 @@ public class GenericDaoTest {
             stmt.executeUpdate("DELETE FROM partie");
             stmt.executeUpdate("DELETE FROM evenement");
 
-            stmt.executeUpdate("INSERT INTO inscrit(idInscrit,nom,prenom,mail,telephone,adresse,statut,dateAdhesion,dateInscription,nbrPartieJouees,motDePasse) VALUES (1,'Dylan','Bob','bob@dylan.us',null,'rue de toul','admin',null,'2018-02-22',0,'xxx')");
-            stmt.executeUpdate("INSERT INTO inscrit(idInscrit,nom,prenom,mail,telephone,adresse,statut,dateAdhesion,dateInscription,nbrPartieJouees,motDePasse) VALUES (2,'Dujardin','Jean-François','jf@hei.fr',null,'rue Colbert','adherent',null,'2018-02-22',0,'xxx')");
+            stmt.executeUpdate("INSERT INTO inscrit(idInscrit,nom,prenom,mail,telephone,adresse,statut,dateAdhesion,dateInscription,nbrPartieJouees,motDePasse) VALUES (1,'Dylan','Bob','bob@dylan.us','000000000','rue de toul','admin',null,'2018-02-22',0,'xxx')");
+            stmt.executeUpdate("INSERT INTO inscrit(idInscrit,nom,prenom,mail,telephone,adresse,statut,dateAdhesion,dateInscription,nbrPartieJouees,motDePasse) VALUES (2,'Dujardin','Jean-François','jf@hei.fr','000000000','rue Colbert','adherent',null,'2018-02-22',0,'xxx')");
 
             stmt.executeUpdate("INSERT INTO creneau(idCreneau,dateCreneau,heure,lieu,idPartie,idInscrit) VALUES (1,'2018-05-12','18h-20h','bar tandem',null,1)");
             stmt.executeUpdate("INSERT INTO creneau(idCreneau,dateCreneau,heure,lieu,idPartie,idInscrit) VALUES (2,'2018-08-12','15h-20h','maison des associations',null,1)");
