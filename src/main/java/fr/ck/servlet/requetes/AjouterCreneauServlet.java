@@ -14,6 +14,12 @@ import java.io.PrintWriter;
 
 @WebServlet("/ajouterCreneau")
 public class AjouterCreneauServlet extends GenericServlet {
+    /**
+     * Methode pour poster un nouveau creneau depuis le fichier ajouterNsCrEv.js
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String lieu = req.getParameter("Lieu");

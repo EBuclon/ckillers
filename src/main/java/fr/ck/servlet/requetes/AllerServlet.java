@@ -10,6 +10,12 @@ import java.io.IOException;
 
 @WebServlet("/aller")
 public class AllerServlet extends GenericServlet {
+    /**
+     * Methode pour indiquer sa participation à un evenement depuis detailEvenement
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Integer idEvenement = Integer.parseInt(req.getParameter("idEvenement"));

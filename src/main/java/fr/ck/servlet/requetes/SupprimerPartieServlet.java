@@ -14,8 +14,17 @@ import java.io.IOException;
 
     @WebServlet("/supprimerPartie")
     public class SupprimerPartieServlet extends GenericServlet {
+        /**
+         * Permet de supprimer une partie depuis son detail
+         * @param req
+         * @param resp
+         * @throws IOException
+         */
         @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+            if(!req.getSession().getAttribute("statut").equals("admin") && !req.getSession().getAttribute("statut").equals("moderateur")){
+                resp.sendRedirect("accueil");
+            }
             Integer idPartie = Integer.parseInt(req.getParameter("idPartie"));
             Integer idCreneau = Integer.parseInt(req.getParameter("idCreneau"));
             Service.getInstance().supprimerPartie(idPartie,idCreneau);

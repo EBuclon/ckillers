@@ -19,9 +19,14 @@ import java.io.IOException;
 @WebServlet("/validerPartie")
 @MultipartConfig
 public class ValiderPartieServlet extends GenericServlet {
-
+    /**
+     * Lance la page de validation des parties avec les paramètres necessaires
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         Integer idPartie = Integer.parseInt(req.getParameter("idPartie"));
@@ -44,6 +49,13 @@ public class ValiderPartieServlet extends GenericServlet {
         }
     }
 
+    /**
+     * Valide la partie
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nomScenario = req.getParameter("nomScenario");

@@ -140,7 +140,7 @@ public class PartieDaoTests extends GenericDaoTest {
     @Test
     public void shouldGetImage(){
         String image = partieDao.getImage(1);
-        assertThat(image).isEqualTo("cthulu");
+        assertThat(image).isEqualTo("cthulu.jpg");
     }
 
     @Test

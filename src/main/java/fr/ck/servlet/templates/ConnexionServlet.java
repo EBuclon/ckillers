@@ -14,9 +14,14 @@ import java.io.IOException;
 
 @WebServlet("/connexion")
 public class ConnexionServlet extends GenericServlet {
-
+    /**
+     * Lance la page de connexion et renvoie à la page profil si la personne est deja connectée
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
@@ -30,6 +35,13 @@ public class ConnexionServlet extends GenericServlet {
         }
     }
 
+    /**
+     * Créé la session avec les attribut nécessaires
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String mail = req.getParameter("mail");

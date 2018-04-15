@@ -16,9 +16,14 @@ import java.io.IOException;
 
 @WebServlet("/ajouterCrEvNews")
 public class AjouterCrEvNewsServlet extends GenericServlet {
-
+    /**
+     * Lance la page d'ajout des creneaux, nouvelles et evenements avec les paramètres necessaires
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
 

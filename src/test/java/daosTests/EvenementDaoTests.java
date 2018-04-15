@@ -66,7 +66,7 @@ public class EvenementDaoTests extends GenericDaoTest {
     @Test
     public void shouldGetImageE(){
         String image = evenementDao.getImageEvent(1);
-        assertThat(image).isEqualTo("imageOpenJdr");
+        assertThat(image).isEqualTo("imageOpenJdr.png");
     }
 
     @Test

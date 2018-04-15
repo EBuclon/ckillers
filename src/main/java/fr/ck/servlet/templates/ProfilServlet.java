@@ -18,11 +18,15 @@ import java.util.List;
 
 @WebServlet("/profil")
 public class ProfilServlet extends GenericServlet {
-
+    /**
+     * Lance la page de profil avec les informations necessaires
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
-
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
 
         String utilisateur = (String) req.getSession().getAttribute("utilisateur");
@@ -40,20 +44,15 @@ public class ProfilServlet extends GenericServlet {
             List<Partie> partiesF = new ArrayList<>();
             List<Partie> partiesP = new ArrayList<>();
             for(Integer i=0;i<parties.size();i++){
-                System.out.println(Integer.parseInt(parties.get(i).getCreneau().getDate().split("-")[0]));
-                System.out.println(Integer.parseInt(dateJour.split("-")[0]));
                 if(Integer.parseInt(parties.get(i).getCreneau().getDate().split("-")[0])<Integer.parseInt(dateJour.split("-")[0])){
                     partiesP.add(parties.get(i));
                 }else{
-                    System.out.println(Integer.parseInt(parties.get(i).getCreneau().getDate().split("-")[1]));
-                    System.out.println(Integer.parseInt(dateJour.split("-")[1]));
                     if(Integer.parseInt(parties.get(i).getCreneau().getDate().split("-")[0])==Integer.parseInt(dateJour.split("-")[0]) &&
                             Integer.parseInt(parties.get(i).getCreneau().getDate().split("-")[1])<Integer.parseInt(dateJour.split("-")[1])){
                         partiesP.add(parties.get(i));
                     }else{
-                        System.out.println(Integer.parseInt(parties.get(i).getCreneau().getDate().split("-")[2]));
-                        System.out.println(Integer.parseInt(dateJour.split("-")[2]));
-                        if(Integer.parseInt(parties.get(i).getCreneau().getDate().split("-")[1])==Integer.parseInt(dateJour.split("-")[1]) &&
+                        if(Integer.parseInt(parties.get(i).getCreneau().getDate().split("-")[0])==Integer.parseInt(dateJour.split("-")[0]) &&
+                                Integer.parseInt(parties.get(i).getCreneau().getDate().split("-")[1])==Integer.parseInt(dateJour.split("-")[1]) &&
                                 Integer.parseInt(parties.get(i).getCreneau().getDate().split("-")[2])<Integer.parseInt(dateJour.split("-")[2])){
                             partiesP.add(parties.get(i));
                         }else{

@@ -15,9 +15,16 @@ import java.util.List;
 
 @WebServlet("/dateAvecPartie")
 public class DateAvecPartieServlet extends GenericServlet {
+    /**
+     * Methode pour trouver les jours disposant d'une partie dans un mois
+     * Utilisée dans le calendrier.js
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+            throws IOException {
         List<Integer> jours = Service.getInstance().listeDateAvecPartie(req.getParameter("Mois"),req.getParameter("annee"));
         resp.setCharacterEncoding("UTF8");
         PrintWriter out = resp.getWriter();

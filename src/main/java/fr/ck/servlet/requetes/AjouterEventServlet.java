@@ -12,6 +12,12 @@ import java.io.IOException;
 
 @WebServlet("/ajouterEvent")
 public class AjouterEventServlet extends GenericServlet {
+    /**
+     * Methode pour poster un nouvel évènement depuis le fichier ajouterNsCrEv.js
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String lieu = req.getParameter("Lieu");

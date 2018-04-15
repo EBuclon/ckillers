@@ -15,9 +15,15 @@ import java.util.List;
 
 @WebServlet("/partieParDate")
 public class PartieParDateServlet extends GenericServlet {
+    /**
+     * Renvoie les données sur les parties du jour selectionné dans le calendrier
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+            throws IOException {
         List<Partie> parties = Service.getInstance().listePartiesParJour(req.getParameter("Date"));
         resp.setCharacterEncoding("UTF8");
         PrintWriter out = resp.getWriter();

@@ -19,9 +19,14 @@ import java.util.List;
 @WebServlet("/detailEvenement")
 @MultipartConfig
 public class DetailEvenementServlet extends GenericServlet {
-
+    /**
+     * Lance la page de detail d'un evenement avec les paramètres necessaires
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         Integer idEvenement = Integer.parseInt(req.getParameter("idEvenement"));
@@ -51,6 +56,13 @@ public class DetailEvenementServlet extends GenericServlet {
         templateEngine.process("detailEvenement", context, resp.getWriter());
     }
 
+    /**
+     * Permet aux modérateurs de changer l'image de l'évènement
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer idEvenement = Integer.parseInt(req.getParameter("idEvenement"));

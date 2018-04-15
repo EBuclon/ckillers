@@ -15,9 +15,14 @@ import java.util.regex.Pattern;
 
 @WebServlet("/creerCompte")
 public class CreerCompteServlet extends GenericServlet {
-
+    /**
+     * Lance la page de creation de compte et renvoie sur profil si une session est en cours
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
@@ -31,6 +36,12 @@ public class CreerCompteServlet extends GenericServlet {
         templateEngine.process("creerCompte", context, resp.getWriter());
     }
 
+    /**
+     * Verifie les données entrées dans le formulaire et renvoie a la page de connexion une fois le compte créé
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String nom = req.getParameter("nom");

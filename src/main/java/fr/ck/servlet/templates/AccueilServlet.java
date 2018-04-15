@@ -14,9 +14,14 @@ import java.io.IOException;
 
 @WebServlet("/accueil")
 public class AccueilServlet extends GenericServlet {
-
+    /**
+     * Lance la page d'accueil avec les paramètres necessaires
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());

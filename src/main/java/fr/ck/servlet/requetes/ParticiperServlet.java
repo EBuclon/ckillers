@@ -10,6 +10,12 @@ import java.io.IOException;
 
 @WebServlet("/participer")
 public class ParticiperServlet extends GenericServlet {
+    /**
+     * Methode pour indiquer sa participation à une partie depuis detailPartie
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Integer idPartie = Integer.parseInt(req.getParameter("idPartie"));

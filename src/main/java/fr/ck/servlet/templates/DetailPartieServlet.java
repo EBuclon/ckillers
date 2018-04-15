@@ -16,9 +16,14 @@ import java.util.List;
 
 @WebServlet("/detailPartie")
 public class DetailPartieServlet extends GenericServlet {
-
+    /**
+     * Lance la page de detail d'une partie avec les paramètres necessaires
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         Integer idPartie = Integer.parseInt(req.getParameter("idPartie"));

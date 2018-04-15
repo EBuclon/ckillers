@@ -77,10 +77,11 @@ public class Service {
 
     private String chargerImage(Part image) {
         String nomFichier = null;
+        System.out.println(image.getSubmittedFileName());
         if (!image.getSubmittedFileName().equals("")) {
             String nomImage = image.getSubmittedFileName();
-            if(image.getSubmittedFileName().length()>25){
-                nomImage = nomImage.substring(0,25);
+            if(image.getSubmittedFileName().length()>20){
+                nomImage = nomImage.substring(0,20);
             }
             nomFichier = UUID.randomUUID().toString().substring(0, 8) + "-" + nomImage;
             Path cheminImage = Paths.get(IMAGE_DIRECTORY_PATH, nomFichier);

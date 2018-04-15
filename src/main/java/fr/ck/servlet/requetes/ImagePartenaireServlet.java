@@ -18,6 +18,9 @@ public class ImagePartenaireServlet extends GenericServlet {
 
     private Map<String, String> mimeTypes;
 
+    /**
+     * Dédoublement de code à mettre dans une classe générale image
+     */
     @Override
     public void init() throws ServletException {
         mimeTypes = new HashMap<>();
@@ -27,8 +30,14 @@ public class ImagePartenaireServlet extends GenericServlet {
         mimeTypes.put("gif", "image/gif");
     }
 
+    /**
+     * Methode pour voir l'image d'un partenaire de l'association
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Integer idPartenaire = Integer.parseInt(req.getParameter("idPartenaire"));
         Path cheminImage = Service.getInstance().getImagePartenaire(idPartenaire);
 

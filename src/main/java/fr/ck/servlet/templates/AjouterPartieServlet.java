@@ -19,9 +19,14 @@ import java.io.IOException;
 @WebServlet("/ajouterPartie")
 @MultipartConfig
 public class AjouterPartieServlet extends GenericServlet {
-
+    /**
+     * Lance la page d'ajout de partie avec les paramètres necessaires
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         Integer idCreneau = Integer.parseInt(req.getParameter("idCreneau"));
@@ -45,6 +50,13 @@ public class AjouterPartieServlet extends GenericServlet {
         templateEngine.process("ajouterPartie", context, resp.getWriter());
     }
 
+    /**
+     * Lance la fonction d'ajout de partie avec les données rentrées dans le formulaire
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nomScenario = req.getParameter("nomScenario");

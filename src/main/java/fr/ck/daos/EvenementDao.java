@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class EvenementDao {
     /**
-     *
+     * Creer un nouvel evenement avec son creneau horraire
      * @param evenement
      */
     public void ajouterEvent(Evenement evenement){
@@ -47,7 +47,7 @@ public class EvenementDao {
     }
 
     /**
-     *
+     * Obtenir les informations relatives à un evenement
      * @param idEvenement
      * @return
      */
@@ -81,7 +81,7 @@ public class EvenementDao {
     }
 
     /**
-     *
+     * Obtenir l'image d'un evenement
      * @param idEvenement
      * @return
      */
@@ -101,7 +101,7 @@ public class EvenementDao {
     }
 
     /**
-     *
+     *  Changer l'image d'un evenement
      * @param idEvenement
      * @param image
      */
@@ -119,7 +119,7 @@ public class EvenementDao {
     }
 
     /**
-     *
+     *Permet de supprimer un evenement en supprimant les inscriptions de la table aller
      * @param idEvenement
      * @param idCreneau
      */

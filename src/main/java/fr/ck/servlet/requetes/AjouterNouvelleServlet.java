@@ -11,6 +11,12 @@ import java.io.IOException;
 
 @WebServlet("/ajouterNouvelle")
 public class AjouterNouvelleServlet extends GenericServlet {
+    /**
+     * Methode pour poster une nouvelle nouvelle depuis le fichier ajouterNsCrEv.js
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String titre = req.getParameter("Titre");

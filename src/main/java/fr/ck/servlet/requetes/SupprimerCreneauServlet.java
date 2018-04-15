@@ -14,8 +14,17 @@ import java.io.IOException;
 
 @WebServlet("/supprimerCreneau")
 public class SupprimerCreneauServlet extends GenericServlet{
+    /**
+     * Supprimer un creneau horraire depuis la page lien.js
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        if(!req.getSession().getAttribute("statut").equals("admin") && !req.getSession().getAttribute("statut").equals("moderateur")){
+            resp.sendRedirect("accueil");
+        }
         Integer idCreneau = Integer.parseInt(req.getParameter("idCreneau"));
         Service.getInstance().supprimerCreneau(idCreneau);
         resp.sendRedirect("/creneauPartie");

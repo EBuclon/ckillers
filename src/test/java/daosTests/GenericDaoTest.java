@@ -6,6 +6,9 @@ import org.junit.Before;
 import java.sql.Connection;
 import java.sql.Statement;
 
+/**
+ * Classe générique des tests, initialise la base de données pour les tests
+ */
 public class GenericDaoTest {
 
     @Before
@@ -37,13 +40,13 @@ public class GenericDaoTest {
             stmt.executeUpdate("INSERT INTO creneau(idCreneau,dateCreneau,heure,lieu,idPartie,idInscrit) VALUES (4,'2018-09-12','18h-22h','MDA',null,1)");
             stmt.executeUpdate("INSERT INTO creneau(idCreneau,dateCreneau,heure,lieu,idPartie,idInscrit) VALUES (5,'2018-10-25','14h-22h','bar tandem',null,1)");
 
-            stmt.executeUpdate("INSERT INTO partie(idPartie, nomScenario, nomJeu, nombreMin, nombreMax, desUtil, typeSoiree, genre, typeJ, ton, inspiration, niveauAttendu, presentation, image, idCreneau, idInscrit,idInscrit_1) values (1,'La peur','Cthulu',2,5,'de6, de8','One shot','Horreur','','Horreur','Lovecraft','Expert','Une petite partie autour du mythe de Cthulu...','cthulu',1,1,1)");
+            stmt.executeUpdate("INSERT INTO partie(idPartie, nomScenario, nomJeu, nombreMin, nombreMax, desUtil, typeSoiree, genre, typeJ, ton, inspiration, niveauAttendu, presentation, image, idCreneau, idInscrit,idInscrit_1) values (1,'La peur','Cthulu',2,5,'de6, de8','One shot','Horreur','','Horreur','Lovecraft','Expert','Une petite partie autour du mythe de Cthulu...','cthulu.jpg',1,1,1)");
             stmt.executeUpdate("INSERT INTO partie(idPartie, nomScenario, nomJeu, nombreMin, nombreMax, desUtil, typeSoiree, genre, typeJ, ton, inspiration, niveauAttendu, presentation, image, idCreneau, idInscrit,idInscrit_1) values (2,'Pirates','Pathfinder',3,5,'de6, 12, 20','Campagne fermée','Aventure','...','Leger','Medieval-Fantastique','Confirme, Expert','Des pirates égaré en mer','',3,2,null)");
             stmt.executeUpdate("INSERT INTO partie(idPartie, nomScenario, nomJeu, nombreMin, nombreMax, desUtil, typeSoiree, genre, typeJ, ton, inspiration, niveauAttendu, presentation, image, idCreneau, idInscrit,idInscrit_1) values (3,'Mon petit poney','Mon petit poney',4,8,'de6, 12, 20','One shot','Humour','...','Leger','Fantastique','Debutant, Confirme, Expert','Pour rigoler entre amis','',2,2,null)");
 
             stmt.executeUpdate("INSERT INTO participer(idPartie, idInscrit) values (1,1)");
 
-            stmt.executeUpdate("INSERT INTO evenement(idEvenement, titre, contenu, imageE, idCreneau) values (1,'Open JDR','Beaucoup de joueurs attendus!','imageOpenJdr', 5)");
+            stmt.executeUpdate("INSERT INTO evenement(idEvenement, titre, contenu, imageE, idCreneau) values (1,'Open JDR','Beaucoup de joueurs attendus!','imageOpenJdr.png', 5)");
 
             stmt.executeUpdate("INSERT INTO aller(idEvenement, idInscrit) values (1,1)");
 

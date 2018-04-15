@@ -18,6 +18,9 @@ public class ImagePartieServlet extends GenericServlet {
 
     private Map<String, String> mimeTypes;
 
+    /**
+     * Dédoublement de code à mettre dans une classe générale image
+     */
     @Override
     public void init() throws ServletException {
         mimeTypes = new HashMap<>();
@@ -27,6 +30,12 @@ public class ImagePartieServlet extends GenericServlet {
         mimeTypes.put("gif", "image/gif");
     }
 
+    /**
+     * Methode pour voir l'image d'une partie
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
