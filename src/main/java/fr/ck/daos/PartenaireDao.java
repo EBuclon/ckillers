@@ -9,6 +9,10 @@ import java.util.List;
 
 public class PartenaireDao {
 
+    /**
+     * permet d'ajouter des partenaires à la base de donnée
+     * @param partenaire
+     */
     public void ajouterPartenaire(Partenaire partenaire){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("INSERT INTO Partenaire(nomPartenaire, descriptionPartenaire, idInscrit) VALUES ( ?, ?, ?)")) {
@@ -21,6 +25,10 @@ public class PartenaireDao {
         }
     }
 
+    /**
+     * permet de lister tous les partenaires
+     * @return
+     */
     public List<Partenaire> listPartenaires() {
         List<Partenaire> partenaires = new ArrayList<Partenaire>();
 
@@ -45,6 +53,10 @@ public class PartenaireDao {
         return partenaires;
     }
 
+    /**
+     * permet de supprimmer un partenaire
+     * @param id
+     */
     public void supprimerPartenaire(Integer id){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("DELETE FROM Partenaire WHERE idPartenaire=?")){
@@ -56,6 +68,11 @@ public class PartenaireDao {
         }
     }
 
+    /**
+     * permet d'obtenir l'image d'un partenaire
+     * @param idPartenaire
+     * @return
+     */
     public String getImagePartenaire(Integer idPartenaire) {
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT imageP FROM partenaire WHERE idPartenaire=?")) {
