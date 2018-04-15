@@ -19,7 +19,7 @@ public class ParticipationDao {
                     nbMax = resultSet.getInt("nombreMax");
                     nbActuel = resultSet.getInt("compte");
                 }
-                if(nbActuel<nbMax){
+                if(nbActuel<nbMax+1){
                     try(PreparedStatement statement2 = connection.prepareStatement("SELECT statut,nbrPartieJouees FROM inscrit WHERE idInscrit=?")) {
                         statement2.setInt(1, idInscrit);
 

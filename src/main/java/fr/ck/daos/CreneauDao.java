@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreneauDao {
+    /**
+     * Liste les créneaux disponible aux inscrits pour créer des parties
+     * @return
+     */
     public List<Creneau> listCreneauxLibres() {
         List<Creneau> creneaux = new ArrayList<Creneau>();
 
@@ -31,6 +35,12 @@ public class CreneauDao {
         return creneaux;
     }
 
+    /**
+     * Liste les jours d'un mois avec des parties pour le calendrier
+     * @param mois
+     * @param annee
+     * @return
+     */
     public List<Integer> listeDateAvecPartie(String mois, String annee) {
         List<Integer> jours = new ArrayList<Integer>();
 
@@ -51,8 +61,9 @@ public class CreneauDao {
         return jours;
     }
 
-    /*
-    Liste les parties et évènements dans l'ordre chronologique pour la page d'accueil (les evenements sont traités comme des parties)
+    /**
+     * Liste les parties et évènements dans l'ordre chronologique pour la page d'accueil (les evenements sont traités comme des parties)
+     * @return
      */
     public List<Partie> listPartiesEvenements() {
         List<Partie> parties = new ArrayList<Partie>();
@@ -93,6 +104,11 @@ public class CreneauDao {
         return parties;
     }
 
+    /**
+     * Obtenir les informations liées à un créneau
+     * @param idCreneau
+     * @return
+     */
     public Creneau getCreneau(Integer idCreneau){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT C.idCreneau,dateCreneau,heure,lieu,I.idInscrit,nom,prenom FROM creneau as C INNER JOIN inscrit as I WHERE I.idInscrit=C.idInscrit AND idCreneau=?")) {
@@ -117,6 +133,10 @@ public class CreneauDao {
         return null;
     }
 
+    /**
+     * Pour ajouter un créneau horraire
+     * @param creneau
+     */
     public void ajouterCreneau(Creneau creneau){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("INSERT INTO Creneau(dateCreneau, heure, lieu, idInscrit) VALUES ( ?, ?, ?, ?)")) {
@@ -130,6 +150,10 @@ public class CreneauDao {
         }
     }
 
+    /**
+     * Pour supprimer un créneau
+     * @param id
+     */
     public void supprimerCreneau(Integer id){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("DELETE FROM Creneau WHERE idCreneau=?")){

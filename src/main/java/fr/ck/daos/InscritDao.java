@@ -9,7 +9,10 @@ import java.util.List;
 
 
 public class InscritDao {
-
+    /**
+     * Liste des inscrits pour la liste des administrateurs
+     * @return
+     */
     public List<Inscrit> listInscrit() {
         String query = "SELECT * FROM inscrit ORDER BY nom;";
         List<Inscrit> listeDInscrit = new ArrayList<>();
@@ -30,6 +33,12 @@ public class InscritDao {
         return null;
     }
 
+    /**
+     * Permet d'obtenir les informations sur un inscrit à partir de son mail
+     * L'adresse mail est unique dans la base de données
+     * @param mail
+     * @return
+     */
     public Inscrit getInscritParMail(String mail){
         String query = "SELECT * FROM inscrit WHERE mail=?";
 
@@ -51,6 +60,12 @@ public class InscritDao {
         return null;
     }
 
+    /**
+     * Permet d'obtenir l'id d'un inscrit à partir de son mail
+     * L'adresse mail est unique dans la base de données
+     * @param mail
+     * @return
+     */
     public Integer getIdParMail(String mail){
         String query = "SELECT idInscrit FROM inscrit WHERE mail=?";
 
@@ -70,6 +85,11 @@ public class InscritDao {
         return null;
     }
 
+    /**
+     * Permet d'obtenir les informations de l'inscrit ayant validé la partie dont l'entrée est en paramètre
+     * @param idPartie
+     * @return
+     */
     public Inscrit getInscritValideur(Integer idPartie){
         String query = "SELECT inscrit.idInscrit,nom,prenom FROM inscrit INNER JOIN partie WHERE idInscrit_1=inscrit.idInscrit AND idPartie=?";
 
@@ -91,6 +111,11 @@ public class InscritDao {
         return null;
     }
 
+    /**
+     * Obtenir les informations nécessaires pour la connexion d'un inscrit
+     * @param mail
+     * @return Inscrit(mail,motdepasse,statut)
+     */
     public Inscrit getConnexion(String mail){
         try(Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement("SELECT motDePasse,statut FROM inscrit WHERE mail=?")
@@ -98,7 +123,8 @@ public class InscritDao {
             statement.setString(1,mail);
             try(ResultSet resultSet = statement.executeQuery()){
                 if(resultSet.next()){
-                    return new Inscrit(resultSet.getString("motDePasse"),
+                    return new Inscrit(mail,
+                            resultSet.getString("motDePasse"),
                             resultSet.getString("statut"));
                 }
             }
@@ -109,6 +135,10 @@ public class InscritDao {
         return new Inscrit("","");
     }
 
+    /**
+     * Permet d'ajouter un nouvel inscrit à la base de données
+     * @param inscrit
+     */
     public void ajouterInscrit(Inscrit inscrit){
         try(Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement("INSERT INTO inscrit(nom,prenom,mail,adresse,statut,dateInscription,nbrPartieJouees,motDePasse) VALUES (?,?,?,?,?,?,?,?)")){

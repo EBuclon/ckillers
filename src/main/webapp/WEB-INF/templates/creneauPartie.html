@@ -9,33 +9,30 @@
 <body>
 <header th:replace="~{fragments::header}"></header>
 <div class="container" id="Parties">
-	<!--div class="row justify-content-between"><h2>Parties disponibles</h2>
-		<form class="searchbar">
-			<input type="text" placeholder="Rechercher..." name="search"/>
-			<button type="submit">Recherche</button>
-		</form></div-->
 	<div class="row">
-		<table>
-			<tr>
-				<th>Nom du Jeu</th>
-				<th>Titre</th>
-				<th>Nom du créateur</th>
-				<th>Date</th>
-				<th>Horraire</th>
-				<th>Lieu</th>
-				<th></th>
-			</tr>
-			<tr th:each="partie:${parties}" th:id="'partie'+${partie.idPartie}"><script th:inline="javascript">
-                document.getElementById("partie"+[[${partie.idPartie}]]).onclick=function () {lienPartie([[${partie.idPartie}]])}</script>
-				<td>[[${partie.nomScenario}]]</td>
-				<td>[[${partie.nomJeu}]]</td>
-				<td>[[${partie.inscrit.nom}]] [[${partie.inscrit.prenom}]]</td>
-				<td>[[${partie.creneau.date}]]</td>
-				<td>[[${partie.creneau.heure}]]</td>
-				<td>[[${partie.creneau.lieu}]]</td>
-			</tr>
-		</table>
+		<h2>Parties disponibles</h2>
 	</div>
+	<table>
+		<tr>
+			<th>Titre</th>
+			<th>Nom du Jeu</th>
+			<th>Date</th>
+			<th>Horraire</th>
+			<th>Lieu</th>
+		</tr>
+		<a th:each="partieF:${partiesFuture}" th:href="'detailPartie?idPartie+'${partieF.idPartie}">
+			<tr>
+				<!--script th:inline="javascript">
+                document.getElementById("partie"+[[${partie.idPartie}]]).onclick=function () {lienPartie([[${partie.idPartie}]])}
+                </script-->
+				<td>[[${partieF.nomScenario}]]</td>
+				<td>[[${partieF.nomJeu}]]</td>
+				<td>[[${partieF.creneau.date}]]</td>
+				<td>[[${partieF.creneau.heure}]]</td>
+				<td>[[${partieF.creneau.lieu}]]</td>
+			</tr>
+		</a>
+	</table>
 </div>
 <div class="container" id="Creneaux">
 	<div class="row">

@@ -72,6 +72,37 @@ public class PartieDao {
         return parties;
     }
 
+    /**
+     * Affiche la liste des parties validées en fonction de l'inscription d'un joueur
+     * @return
+     */
+    public List<Partie> listPartieParJoueur(Integer id) {
+        List<Partie> parties = new ArrayList<Partie>();
+        try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT P.idPartie, nomScenario, nomJeu, dateCreneau, heure, lieu " +
+                     "FROM Partie P INNER JOIN Creneau C INNER JOIN Participer Pa " +
+                     "WHERE P.idCreneau=C.idCreneau AND Pa.idPartie=P.idPartie AND P.idInscrit_1 IS NOT NULL AND Pa.idInscrit=?")) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    parties.add(
+                            new Partie(
+                                    resultSet.getInt("idPartie"),
+                                    resultSet.getString("nomScenario"),
+                                    resultSet.getString("nomJeu"),
+                                    new Creneau(resultSet.getString("dateCreneau"),
+                                            resultSet.getString("heure"),
+                                            resultSet.getString("lieu")
+                                    )
+                            ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return parties;
+    }
+
     public List<Partie> listePartiesParJour(String date) {
         List<Partie> parties = new ArrayList<Partie>();
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
@@ -134,6 +165,11 @@ public class PartieDao {
                     statement2.setInt(1, idPartie);
                     statement2.setInt(2, partie.getCreneau().getIdCreneau());
                     statement2.executeUpdate();
+                    try(PreparedStatement statement3 = connection.prepareStatement("INSERT INTO participer(idPartie,idInscrit) VALUES (?,?)")){
+                        statement3.setInt(1, idPartie);
+                        statement3.setInt(2, partie.getInscrit().getIdInscrit());
+                        statement3.executeUpdate();
+                    }
                 }
         }catch (SQLException e) {
             throw new RuntimeException("Erreur lors de l'insertion de la partie dans la base", e);

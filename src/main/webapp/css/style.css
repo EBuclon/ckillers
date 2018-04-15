@@ -146,11 +146,9 @@ body{
 	background-color: #e66f10;
 	border-color: black;
 	border-style: solid;
-	/*border-width: 1px;*/
 	width: 200px;
 	margin-right: 30px;
 	margin-bottom: 20px;
-	/*height: fit-content;*/
 }
 
 .bloc-indiv figure{
@@ -340,11 +338,9 @@ table td:hover{
 	background-color: #e66f10;
 	border-color: black;
 	border-style: solid;
-	/*border-width: 1px;*/
 	width: 500px;
 	margin-right: 30px;
 	margin-bottom: 20px;
-	/*height: fit-content;*/
 }
 
 
@@ -352,4 +348,8 @@ table td:hover{
 	width: 20px;
 	margin-left: 0px;
 	margin-right: 5px;
+}
+
+.margehaut{
+	margin-top: 20px;
 }

@@ -30,22 +30,23 @@ public class DetailPartieServlet extends GenericServlet {
         }
 
         TemplateEngine templateEngine = createTemplateEngine(req.getServletContext());
-        String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
+        String mailUtilisateur = (String) req.getSession().getAttribute("utilisateur");
         String statutUtil = (String) req.getSession().getAttribute("statut");
 
         List<Inscrit> participants = Service.getInstance().listeParticipants(idPartie);
         Boolean joueur = false;
         for(int i=0;i<participants.size();i++){
-            if(participants.get(i).getMail().equals(identifiantUtilisateur)){
+            if(participants.get(i).getMail().equals(mailUtilisateur)){
                 joueur=true;
             }
         }
         context.setVariable("joueur",joueur);
 
-        if(identifiantUtilisateur == null || "".equals(identifiantUtilisateur)) {
+        if(mailUtilisateur == null || "".equals(mailUtilisateur)) {
             context.setVariable("inscrit", new Inscrit("Visiteur"));
         }else{
-            context.setVariable("inscrit", new Inscrit(identifiantUtilisateur,statutUtil));
+            context.setVariable("inscrit", new Inscrit(mailUtilisateur,statutUtil));
+            context.setVariable("idInscrit", Service.getInstance().getIdParMail(mailUtilisateur));
         }
         context.setVariable("partie", partie);
         context.setVariable("participants",participants);

@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AllerDao {
+    /**
+     * Fonction de participation à un évènement
+     * @param idEvenement
+     * @param idInscrit
+     */
     public void aller(Integer idEvenement, Integer idInscrit){
         try(Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement("INSERT INTO Aller(idEvenement,idInscrit) VALUES (?,?)")){
@@ -22,6 +27,11 @@ public class AllerDao {
         }
     }
 
+    /**
+     * Fonction d'annulation de la participation à un évènement
+     * @param idEvenement
+     * @param idInscrit
+     */
     public void annulerAller(Integer idEvenement, Integer idInscrit){
         try(Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement("DELETE FROM Aller WHERE idInscrit=? AND idEvenement=?")){
@@ -34,6 +44,11 @@ public class AllerDao {
         }
     }
 
+    /**
+     * Liste les participants à un évènement
+     * @param idEvenement
+     * @return
+     */
     public List<Inscrit> listeAllants(Integer idEvenement) {
         List<Inscrit> listeInscrit = new ArrayList<>();
 

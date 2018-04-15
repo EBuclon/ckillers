@@ -78,9 +78,11 @@ public class Service {
     private String chargerImage(Part image) {
         String nomFichier = null;
         if (!image.getSubmittedFileName().equals("")) {
-            System.out.println(image.getName());
-            nomFichier = UUID.randomUUID().toString().substring(0, 8) + "-" + image.getSubmittedFileName();
-            System.out.println(nomFichier);
+            String nomImage = image.getSubmittedFileName();
+            if(image.getSubmittedFileName().length()>25){
+                nomImage = nomImage.substring(0,25);
+            }
+            nomFichier = UUID.randomUUID().toString().substring(0, 8) + "-" + nomImage;
             Path cheminImage = Paths.get(IMAGE_DIRECTORY_PATH, nomFichier);
             try {
                 Files.copy(image.getInputStream(), cheminImage);
@@ -97,6 +99,10 @@ public class Service {
 
     public List<Partie> listPartieEnAttente() {
         return partieDao.listPartieEnAttente();
+    }
+
+    public List<Partie> listePartieParJoueur(Integer id) {
+        return partieDao.listPartieParJoueur(id);
     }
 
     public Partie getPartie(Integer idPartie) {

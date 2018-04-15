@@ -45,8 +45,8 @@
 			<div class="row" id="boutons">
 				<button id="participer" th:unless="${joueur} OR ${inscrit.statut}=='Visiteur' OR ${nombreParticipants >= partie.nbMax}">Participer</button>
 				<p id="participer" th:if="${joueur} OR ${inscrit.statut}=='Visiteur' OR ${nombreParticipants >= partie.nbMax}"></p>
-				<button id="annulerParticiper" th:if="${joueur}">Ne plus participer</button>
-				<p id="annulerParticiper" th:unless="${joueur} AND ${inscrit.statut}!='Visiteur'"></p>
+				<button id="annulerParticiper" th:if="${joueur} AND ${idInscrit!=partie.inscrit.idInscrit}">Ne plus participer</button>
+				<p id="annulerParticiper" th:unless="${joueur} AND ${inscrit.statut}!='Visiteur' AND ${idInscrit!=partie.inscrit.idInscrit}"></p>
 				<button th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="col-md-4">Supprimer</button>
 				<p th:unless="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'" id="suppression" class="invisible"></p>
 			</div>
@@ -55,14 +55,15 @@
 		</div>
 	</div>
 	<div th:unless="${inscrit.statut}=='Visiteur'" class="container pre-scrollable" id="ajout-joueur">
-
 		<div class="row" id="participants">
 			<h5 class="col-md-10">Ils y participent également :</h5>
-			<p th:each="participant:${participants}" class="col-md-10" th:id="'participant'+${participant.idInscrit}">[[${participant.prenom}]] [[${participant.nom}]]</p>
+			<div th:each="participant:${participants}" class="col-md-10" th:id="'participant'+${participant.idInscrit}">
+				<p th:if="${participant.idInscrit==partie.inscrit.idInscrit}">Maître de Jeu :  [[${participant.prenom}]] [[${participant.nom}]]</p>
+				<p th:unless="${participant.idInscrit==partie.inscrit.idInscrit}">[[${participant.prenom}]] [[${participant.nom}]]</p>
+			</div>
 		</div>
-
 	</div>
+	<p class="invisible" id="idPartie">[[${partie.idPartie}]]</p>
+	<p class="invisible" id="idCreneau">[[${partie.creneau.idCreneau}]]</p>
 </body>
-<p class="invisible" id="idPartie">[[${partie.idPartie}]]</p>
-<p class="invisible" id="idCreneau">[[${partie.creneau.idCreneau}]]</p>
 </html>

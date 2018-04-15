@@ -24,6 +24,9 @@ public class DataSourceProvider {
 		initDataSource();
 	}
 
+	/**
+	 * Initialiser la connexion à la base de données
+	 */
 	private void initDataSource() {
 		Properties jdbcProperties = new Properties();
 		InputStream configFileStream = getClass().getClassLoader().getResourceAsStream("jdbc.properties");

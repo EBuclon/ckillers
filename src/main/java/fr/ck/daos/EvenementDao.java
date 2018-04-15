@@ -7,6 +7,10 @@ import fr.ck.entite.Inscrit;
 import java.sql.*;
 
 public class EvenementDao {
+    /**
+     *
+     * @param evenement
+     */
     public void ajouterEvent(Evenement evenement){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("INSERT INTO Evenement(titre, contenu) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
@@ -42,6 +46,11 @@ public class EvenementDao {
         }
     }
 
+    /**
+     *
+     * @param idEvenement
+     * @return
+     */
     public Evenement getEvenement(Integer idEvenement){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT titre, contenu, C.idCreneau, dateCreneau, heure, lieu, I.idInscrit, nom, prenom  " +
@@ -71,6 +80,11 @@ public class EvenementDao {
         return null;
     }
 
+    /**
+     *
+     * @param idEvenement
+     * @return
+     */
     public String getImageEvent(Integer idEvenement) {
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT imageE FROM evenement WHERE idEvenement=?")) {
@@ -86,6 +100,11 @@ public class EvenementDao {
         return null;
     }
 
+    /**
+     *
+     * @param idEvenement
+     * @param image
+     */
     public void ajouterImageE(Integer idEvenement, String image){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement("UPDATE Evenement SET imageE=? WHERE idEvenement=?")) {
@@ -99,6 +118,11 @@ public class EvenementDao {
         }
     }
 
+    /**
+     *
+     * @param idEvenement
+     * @param idCreneau
+     */
     public void supprimerEvenement(Integer idEvenement,Integer idCreneau){
         try (Connection connection = DataSourceProvider.getInstance().getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement("update creneau set idEvenement=null where idCreneau=?;")){
             statement.setInt(1,idCreneau);

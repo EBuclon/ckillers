@@ -14,13 +14,8 @@ public class Inscrit {
     private Integer nbrPartieJouees;
     private String motDePasse;
 
-    public Inscrit(Integer idInscrit, String nom,
-                   String prenom, String mail,
-                   String telephone, String adresse,
-                   String statut, String dateAdhesion,
-                   String dateInscription,
-                   Integer nbrPartieJouees,
-                   String motDePasse) {
+    public Inscrit(Integer idInscrit, String nom, String prenom, String mail, String telephone, String adresse,
+                   String statut, String dateAdhesion, String dateInscription, Integer nbrPartieJouees, String motDePasse) {
         this.idInscrit = idInscrit;
         this.nom = nom;
         this.prenom = prenom;
@@ -55,10 +50,16 @@ public class Inscrit {
         this.statut=statut;
     };
 
-    public Inscrit(String motDePasse, String statut){
+   public Inscrit(String mail, String statut){
+        this.mail=mail;
+        this.statut=statut;
+    }
+
+   public Inscrit(String mail, String motDePasse, String statut){
+        this.mail=mail;
         this.motDePasse=motDePasse;
         this.statut=statut;
-    };
+    }
 
     public Inscrit(Integer idInscrit){
         this.idInscrit=idInscrit;
