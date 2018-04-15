@@ -92,9 +92,9 @@
 					<th>Horraire</th>
 					<th>Lieu</th>
 				</tr>
-				<tr th:each="partie:${parties}" th:id="'partie'+${partie.idPartie}">
+				<tr th:each="partieF:${partiesFuture}" th:id="'partie'+${partieF.idPartie}">
 					<script th:inline="javascript">
-                    	document.getElementById("partie"+[[${partie.idPartie}]]).onclick=function () {lienPartie([[${partie.idPartie}]])}
+                    	document.getElementById("partie"+[[${partieF.idPartie}]]).onclick=function () {lienPartie([[${partieF.idPartie}]])}
 					</script>
 					<td>[[${partieF.nomScenario}]]</td>
 					<td>[[${partieF.nomJeu}]]</td>
