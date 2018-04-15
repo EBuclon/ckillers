@@ -17,10 +17,9 @@
 		<div class="col-sm bouton-menu" th:unless="${inscrit.statut}=='Visiteur'">Menu
 			<ul class="niveau2">
 				<a href="/profil"><li>Profil</li></a>
-				<!--<a href="lien"><li>Historique</li></a>-->
 				<a href="/ajouterCrEvNews" th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'"><li>Ajouter créneau, évènement ou nouvelle</li></a>
 				<a href="/partieAttente" th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'"><li>Parties en attente</li></a>
-				<a href="/accueil" th:if="${inscrit.statut}=='admin'"><li>Liste inscrits</li></a>
+				<a href="/listeInscrits" th:if="${inscrit.statut}=='admin'"><li>Liste inscrits</li></a>
 				<a href="/deconnexion"><li>Deconnexion</li></a>
 			</ul>
 		</div>

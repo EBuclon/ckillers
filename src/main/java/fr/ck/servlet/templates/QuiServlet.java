@@ -1,8 +1,6 @@
 package fr.ck.servlet.templates;
 
-import fr.ck.Service.Service;
 import fr.ck.entite.Inscrit;
-import fr.ck.entite.Partenaire;
 import fr.ck.servlet.GenericServlet;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
