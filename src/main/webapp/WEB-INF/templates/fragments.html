@@ -10,16 +10,17 @@
 <header th:fragment="header">
 	<nav class="row" id="menu-haut">
 		<a href="/accueil" class="col-sm bouton-menu">Accueil</a>
-		<a href="/accueil" class="col-sm bouton-menu">Qui sommes-nous ?</a>
+		<a href="/quisommesnous" class="col-sm bouton-menu">Qui sommes-nous ?</a>
 		<a href="/partenaires" class="col-sm bouton-menu">Nos Partenaires</a>
 		<a href="/creneauPartie" class="col-sm bouton-menu">Créneaux et Parties</a>
 		<a href="/connexion" class="col-sm bouton-menu" th:if="${inscrit.statut}=='Visiteur'">Connexion</a>
 		<div class="col-sm bouton-menu" th:unless="${inscrit.statut}=='Visiteur'">Menu
 			<ul class="niveau2">
 				<a href="/profil"><li>Profil</li></a>
+				<!--<a href="lien"><li>Historique</li></a>-->
 				<a href="/ajouterCrEvNews" th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'"><li>Ajouter créneau, évènement ou nouvelle</li></a>
 				<a href="/partieAttente" th:if="${inscrit.statut}=='admin' OR ${inscrit.statut}=='moderateur'"><li>Parties en attente</li></a>
-				<a href="/listeInscrits" th:if="${inscrit.statut}=='admin'"><li>Liste inscrits</li></a>
+				<a href="/accueil" th:if="${inscrit.statut}=='admin'"><li>Liste inscrits</li></a>
 				<a href="/deconnexion"><li>Deconnexion</li></a>
 			</ul>
 		</div>
