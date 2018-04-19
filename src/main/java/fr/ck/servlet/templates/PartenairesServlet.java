@@ -51,14 +51,12 @@ public class PartenairesServlet extends GenericServlet {
         String descriptionPartenaire = req.getParameter("descriptionPartenaire");
         String identifiantUtilisateur = (String) req.getSession().getAttribute("utilisateur");
 
-        System.out.println(nomPartenaire+descriptionPartenaire);
-
         Partenaire partenaire = new Partenaire(nomPartenaire,descriptionPartenaire,new Inscrit(Service.getInstance().getIdParMail(identifiantUtilisateur)));
 
         if (nomPartenaire.length() <= 25 && descriptionPartenaire.length() <= 400) {
             Service.getInstance().ajouterPartenaire(partenaire);
+            resp.sendRedirect("partenaires");
         }
-        resp.sendRedirect("partenaires");
         return;
     }
 
