@@ -17,7 +17,7 @@ import java.util.UUID;
  */
 public class Service {
 
-    private static final String IMAGE_DIRECTORY_PATH = "C:/Developpement Web/ck/src/main/webapp/image";
+    private static final String IMAGE_DIRECTORY_PATH = "/image";
 
     private PartieDao partieDao = new PartieDao();
     private CreneauDao creneauDao = new CreneauDao();
