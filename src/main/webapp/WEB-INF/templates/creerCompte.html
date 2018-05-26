@@ -10,14 +10,13 @@
 	<header th:replace="~{fragments::header}"></header>
 	<div class="container" id="creerCompte">
 		<div class="row">
-			<h2>Inscription</h2>
-			<p>Merci de tout compléter</p>
+			<h2>Créer un nouveau compte</h2>
 		</div>
 			<form class="form-default" method="post">
 				<div class="row">
 					<div class="col-5"><label for="nom" class="col-sm-3">Nom :</label>
 					<input type="text" id="nom" name="nom" onblur="verifNom(this)" required/></div>
-					<div class="col-5"><label for="adresse" class="col-sm-4">Adresse postale :</label>
+					<div class="col-5"><label for="adresse" class="col-sm-4">Adresse :</label>
 					<input type="text" id="adresse" name="adresse"  onblur="verifAdresse(this)" required/></div>
 				</div>
 				<div class="row">
@@ -36,7 +35,6 @@
 					<div class="col-5 offset-sm-3"><label for="mdp">Mot de Passe :</label>
 					<input type="password" id="mdp" name="mdp" onblur="verifNom(this)" required/></div>
 				</div>
-				<p>Attention! Mots de passe non cryptés et donc en clair pour nous, ne mettez pas un de vos mots de passe usuels!<!p>
 				<div class="row">
 					<div class="col-5 offset-sm-3"><label for="mdpbis">Mot de Passe :</label>
 					<input type="password" id="mdpbis" name="mdpbis" onblur="verifNom(this)" required/></div>

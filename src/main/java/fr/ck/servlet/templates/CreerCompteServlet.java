@@ -6,11 +6,19 @@ import fr.ck.servlet.GenericServlet;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
+import javax.crypto.*;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 @WebServlet("/creerCompte")
@@ -62,12 +70,36 @@ public class CreerCompteServlet extends GenericServlet {
             resp.sendRedirect("creerCompte");
         }else{
             String format = "yyyy-MM-dd";
-            java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
-            java.util.Date date = new java.util.Date();
+            SimpleDateFormat formater = new SimpleDateFormat( format );
+            Date date = new Date();
 
-            Inscrit inscrit = new Inscrit(1,nom,prenom,mail,"null",adresse,"inscrit","null",formater.format(date),0,motDePasse);
-            Service.getInstance().ajouterInscrit(inscrit);
-            resp.sendRedirect("/connexion");
+            String generatedPassword = null;
+            try {
+                // Create MessageDigest instance for MD5
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                //Add password bytes to digest
+                md.update(motDePasse.getBytes());
+                //Get the hash's bytes
+                byte[] bytes = md.digest();
+                //This bytes[] has bytes in decimal format;
+                //Convert it to hexadecimal format
+                StringBuilder sb = new StringBuilder();
+                for(int i=0; i< bytes.length ;i++)
+                {
+                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                }
+                //Get complete hashed password in hex format
+                generatedPassword = sb.toString();
+                System.out.println(generatedPassword);
+                Inscrit inscrit = new Inscrit(1,nom,prenom,mail,"null",adresse,"inscrit","null",
+                        formater.format(date),0,generatedPassword);
+                Service.getInstance().ajouterInscrit(inscrit);
+                resp.sendRedirect("/connexion");
+            }
+            catch (NoSuchAlgorithmException e)
+            {
+                e.printStackTrace();
+            }
         }
         return;
     }

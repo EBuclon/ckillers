@@ -3,11 +3,15 @@ package fr.ck.Service;
 import fr.ck.daos.*;
 import fr.ck.entite.*;
 
+import javax.crypto.*;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.InvalidKeyException;
+import java.security.Key;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +21,7 @@ import java.util.UUID;
  */
 public class Service {
 
-    private static final String IMAGE_DIRECTORY_PATH = "/image";
+    private static final String IMAGE_DIRECTORY_PATH = "C:/Developpement Web/ck/src/main/webapp/image";
 
     private PartieDao partieDao = new PartieDao();
     private CreneauDao creneauDao = new CreneauDao();

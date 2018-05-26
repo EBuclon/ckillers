@@ -9,7 +9,7 @@ function ajouterCreneau() {
     var heure = document.querySelector("#heureC").value;
 
     requeteAjouterCreneau.onload = function () {
-        document.getElementById("messageC").textContent = "Créneau ajouté";
+        document.getElementById("messageC").textContent = "Cr&eacuteneau ajout&eacute";
         document.getElementById("messageN").textContent = "";
         document.getElementById("messageE").textContent = "";
         document.getElementById("ajouterCreneau").reset();
@@ -32,7 +32,7 @@ function ajouterEvent() {
     var heure = document.querySelector("#heureE").value;
 
     requeteAjouterEvent.onload = function () {
-        document.getElementById("messageE").textContent = "Evènement ajouté";
+        document.getElementById("messageE").textContent = "Ev&egravenement ajout&eacute";
         document.getElementById("messageN").textContent = "";
         document.getElementById("messageC").textContent = "";
         document.getElementById("ajouterEvent").reset();
@@ -52,7 +52,7 @@ function ajouterNouvelle() {
     var texte = document.querySelector("#texte").value;
 
     requeteAjouterNouvelle.onload = function () {
-        document.getElementById("messageN").textContent = "Nouvelle ajoutée";
+        document.getElementById("messageN").textContent = "Nouvelle ajout&eacutee";
         document.getElementById("messageC").textContent = "";
         document.getElementById("messageE").textContent = "";
         document.getElementById("ajouterNouvelle").reset();

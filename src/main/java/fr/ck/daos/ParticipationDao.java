@@ -29,6 +29,11 @@ public class ParticipationDao {
                     try(PreparedStatement statement2 = connection.prepareStatement("SELECT statut,nbrPartieJouees FROM inscrit WHERE idInscrit=?")) {
                         statement2.setInt(1, idInscrit);
 
+
+                        //COmpter nombre parties par count (particiption)
+
+
+
                         Integer nbrPartieJouees = 3;
                         String statut = "inscrit";
                         try (ResultSet resultSet2 = statement2.executeQuery()) {
