@@ -28,12 +28,6 @@ public class ParticipationDao {
                 if(nbActuel<nbMax+1){
                     try(PreparedStatement statement2 = connection.prepareStatement("SELECT statut,nbrPartieJouees FROM inscrit WHERE idInscrit=?")) {
                         statement2.setInt(1, idInscrit);
-
-
-                        //COmpter nombre parties par count (particiption)
-
-
-
                         Integer nbrPartieJouees = 3;
                         String statut = "inscrit";
                         try (ResultSet resultSet2 = statement2.executeQuery()) {
